@@ -10,5 +10,5 @@
 
 @interface MainTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *thumnailImageView;
-
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @end
