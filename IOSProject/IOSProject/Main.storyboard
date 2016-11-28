@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -55,6 +56,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="902-dU-ExH"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="찾기">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -66,14 +68,14 @@
                                             <constraint firstAttribute="width" constant="127" id="Mmj-as-R33"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="PW" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVP-5R-qRO" customClass="CustomTextField">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PW" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVP-5R-qRO" customClass="CustomTextField">
+                                        <rect key="frame" x="0.0" y="147" width="200" height="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lf-bl-9Yf" customClass="CustomTextField">
-                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lf-bl-9Yf" customClass="CustomTextField">
+                                        <rect key="frame" x="0.0" y="120" width="200" height="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -97,11 +99,49 @@
                                     <constraint firstAttribute="trailing" secondItem="0lf-bl-9Yf" secondAttribute="trailing" id="vpA-Rg-1Oa"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gui-7I-2pn">
+                                <rect key="frame" x="87" y="460" width="200" height="132"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcP-1V-Qxt">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="로그인">
+                                            <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="fcP-1V-Qxt" firstAttribute="top" secondItem="gui-7I-2pn" secondAttribute="top" id="3Pg-08-ycH"/>
+                                    <constraint firstAttribute="trailing" secondItem="fcP-1V-Qxt" secondAttribute="trailing" id="A7L-Fp-Att"/>
+                                    <constraint firstItem="fcP-1V-Qxt" firstAttribute="leading" secondItem="gui-7I-2pn" secondAttribute="leading" id="JW7-P6-RPQ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-7g-7cg">
+                                <rect key="frame" x="87" y="503" width="200" height="30"/>
+                                <state key="normal" title="페이스북 로그인">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sqp-TQ-N9a">
+                                <rect key="frame" x="0.0" y="629" width="375" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.41939794282490483" green="0.27403956343368563" blue="0.69557061927572716" alpha="0.65041738013698636" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="가입하기">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.31332162022590637" green="0.20333367586135864" blue="0.51477271318435669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="gui-7I-2pn" firstAttribute="height" secondItem="K7B-Dd-gGw" secondAttribute="height" multiplier="0.6" id="4J3-On-B7A"/>
                             <constraint firstItem="K7B-Dd-gGw" firstAttribute="centerX" secondItem="TEL-RX-Nah" secondAttribute="centerX" id="5X5-Id-eUr"/>
                             <constraint firstItem="K7B-Dd-gGw" firstAttribute="centerY" secondItem="TEL-RX-Nah" secondAttribute="centerY" id="6mL-Zy-PHj"/>
+                            <constraint firstItem="gui-7I-2pn" firstAttribute="top" secondItem="K7B-Dd-gGw" secondAttribute="bottom" constant="17" id="9BJ-f6-SEp"/>
+                            <constraint firstItem="nCf-7g-7cg" firstAttribute="leading" secondItem="fcP-1V-Qxt" secondAttribute="leading" id="MCf-aM-kuv"/>
+                            <constraint firstItem="gui-7I-2pn" firstAttribute="width" secondItem="K7B-Dd-gGw" secondAttribute="width" id="fcK-XN-zyf"/>
+                            <constraint firstItem="nCf-7g-7cg" firstAttribute="top" secondItem="fcP-1V-Qxt" secondAttribute="bottom" constant="13" id="jjG-1F-8Jr"/>
+                            <constraint firstItem="gui-7I-2pn" firstAttribute="leading" secondItem="K7B-Dd-gGw" secondAttribute="trailing" constant="-200" id="qqN-WL-AoR"/>
+                            <constraint firstItem="nCf-7g-7cg" firstAttribute="trailing" secondItem="fcP-1V-Qxt" secondAttribute="trailing" id="tNZ-Ei-ysF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Fph-UE-Bh8"/>
