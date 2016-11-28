@@ -17,6 +17,10 @@
 		7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */; };
 		7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */; };
 		7B4FB8B31DEC2AE900DDAA93 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */; };
+		7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B61DEC2C9600DDAA93 /* MainTableViewCell.m */; };
+		7B4FB8BA1DEC3BA200DDAA93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B91DEC3BA200DDAA93 /* MainViewController.m */; };
+		7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */; };
+		7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
 		7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362641DEC2B060048A634 /* ModifyViewController.m */; };
@@ -44,6 +48,14 @@
 		7B4FB8AF1DEC283600DDAA93 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		7B4FB8B11DEC2AE900DDAA93 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		7B4FB8B51DEC2C9600DDAA93 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
+		7B4FB8B61DEC2C9600DDAA93 /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
+		7B4FB8B81DEC3BA200DDAA93 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		7B4FB8B91DEC3BA200DDAA93 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		7B4FB8BC1DEC3D8F00DDAA93 /* NetworkingCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingCenter.h; sourceTree = "<group>"; };
+		7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingCenter.m; sourceTree = "<group>"; };
+		7B4FB8C11DEC3DB500DDAA93 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
+		7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		7CE362601DEC1FC80048A634 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
@@ -88,8 +100,10 @@
 			children = (
 				7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */,
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
-				7B4FB8B11DEC2AE900DDAA93 /* DetailViewController.h */,
-				7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */,
+				7B4FB8C01DEC3DA100DDAA93 /* DataCenter */,
+				7B4FB8BF1DEC3D9400DDAA93 /* Networking */,
+				7B4FB8BB1DEC3BAB00DDAA93 /* Main */,
+				7B4FB8B41DEC2C6600DDAA93 /* DetailPage */,
 				7B4FB8B01DEC2A5400DDAA93 /* Utility */,
 				7B4FB8AE1DEC1FC100DDAA93 /* Search */,
 				7B4FB8A71DEC066000DDAA93 /* Login */,
@@ -140,6 +154,44 @@
 				7B4FB8AF1DEC283600DDAA93 /* PrefixHeader.pch */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		7B4FB8B41DEC2C6600DDAA93 /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FB8B11DEC2AE900DDAA93 /* DetailViewController.h */,
+				7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */,
+			);
+			name = DetailPage;
+			sourceTree = "<group>";
+		};
+		7B4FB8BB1DEC3BAB00DDAA93 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FB8B81DEC3BA200DDAA93 /* MainViewController.h */,
+				7B4FB8B91DEC3BA200DDAA93 /* MainViewController.m */,
+				7B4FB8B51DEC2C9600DDAA93 /* MainTableViewCell.h */,
+				7B4FB8B61DEC2C9600DDAA93 /* MainTableViewCell.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		7B4FB8BF1DEC3D9400DDAA93 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FB8BC1DEC3D8F00DDAA93 /* NetworkingCenter.h */,
+				7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		7B4FB8C01DEC3DA100DDAA93 /* DataCenter */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FB8C11DEC3DB500DDAA93 /* DataCenter.h */,
+				7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */,
+			);
+			name = DataCenter;
 			sourceTree = "<group>";
 		};
 		7CE362471DEC09790048A634 /* SignUp */ = {
@@ -309,15 +361,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B4FB8BA1DEC3BA200DDAA93 /* MainViewController.m in Sources */,
 				7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */,
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
+				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
 				7B4FB8B31DEC2AE900DDAA93 /* DetailViewController.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
+				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
+				7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
