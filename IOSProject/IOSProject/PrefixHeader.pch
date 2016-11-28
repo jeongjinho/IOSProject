@@ -1,0 +1,27 @@
+//
+//  PrefixHeader.pch
+//  IOSProject
+//
+//  Created by 진호놀이터 on 2016. 11. 28..
+//  Copyright © 2016년 진호놀이터. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import <UIKit/UIKit.h>
+#import "NetWorkingClass.h"
+#import "BaseDataModel.h"
+#import "UtilityClass.h"
+
+#define RedkeyColor  80.0f/255.0f
+#define GreenKeyColor 52.0f/255.0f
+#define BlueKeyColor 131.0f/255.0f
+#define lightPurpleColor  [UIColor colorWithRed:160.f/255.0f green:141.0f/255.0f blue:195.0f/255.0f alpha:1]
+
+
+static NSString *const GroupListResponseNotification = @"GroupListResponseNotification";
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
