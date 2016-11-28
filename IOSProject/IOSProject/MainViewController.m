@@ -7,8 +7,9 @@
 //
 
 #import "MainViewController.h"
-
+#import "MainTableViewCell.h"
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *mainTable;
 
 @end
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _mainTable.delegate = self;
+    _mainTable.dataSource = self;
     
 }
 
@@ -38,11 +41,23 @@
     return 20;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
+    
+    v.backgroundView.backgroundColor = [UIColor colorWithRed:241.0f/255.0f green:245.0f/255.0f blue:248.0f/255.0f alpha:1];
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50.0f;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    cell.imageView.image = [UIImage imageNamed:@"logo"];
+    cell.thumnailImageView.image = [UIImage imageNamed:@"Moonbow"];
     
     return cell;
 }
