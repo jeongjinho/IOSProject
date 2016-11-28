@@ -19,6 +19,7 @@
 		7B4FB8B31DEC2AE900DDAA93 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
+		7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362641DEC2B060048A634 /* ModifyViewController.m */; };
 		A5C88307C416EC2D9464E98C /* libPods-IOSProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DB03CFBD436D86A65B36F2 /* libPods-IOSProject.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,8 @@
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		7CE362601DEC1FC80048A634 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
 		7CE362611DEC1FC80048A634 /* ReadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadViewController.m; sourceTree = "<group>"; };
+		7CE362631DEC2B060048A634 /* ModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyViewController.h; sourceTree = "<group>"; };
+		7CE362641DEC2B060048A634 /* ModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyViewController.m; sourceTree = "<group>"; };
 		B0DB03CFBD436D86A65B36F2 /* libPods-IOSProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IOSProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -97,6 +100,7 @@
 				7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */,
 				7B4FB8971DEBFD3100DDAA93 /* LaunchScreen.storyboard */,
 				7B4FB89A1DEBFD3100DDAA93 /* Info.plist */,
+				7CE362661DEC2B0F0048A634 /* Modfiy Page */,
 				7B4FB8891DEBFD3100DDAA93 /* Supporting Files */,
 			);
 			path = IOSProject;
@@ -154,6 +158,15 @@
 				7CE362611DEC1FC80048A634 /* ReadViewController.m */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		7CE362661DEC2B0F0048A634 /* Modfiy Page */ = {
+			isa = PBXGroup;
+			children = (
+				7CE362631DEC2B060048A634 /* ModifyViewController.h */,
+				7CE362641DEC2B060048A634 /* ModifyViewController.m */,
+			);
+			name = "Modfiy Page";
 			sourceTree = "<group>";
 		};
 		C84EC8B1FA3CE4055B8FAFD9 /* Frameworks */ = {
@@ -296,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */,
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
