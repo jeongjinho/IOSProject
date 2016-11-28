@@ -15,6 +15,8 @@
 		7B4FB8A31DEBFE6700DDAA93 /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A21DEBFE6700DDAA93 /* Second.storyboard */; };
 		7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A51DEBFF0100DDAA93 /* LoginViewController.m */; };
 		7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */; };
+		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
+		7CE3624A1DEC0A1E0048A634 /* BottomLineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362491DEC0A1E0048A634 /* BottomLineLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,10 @@
 		7B4FB8A51DEBFF0100DDAA93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7B4FB8A81DEC068A00DDAA93 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
 		7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		7CE362481DEC0A1E0048A634 /* BottomLineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomLineLayout.h; sourceTree = "<group>"; };
+		7CE362491DEC0A1E0048A634 /* BottomLineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomLineLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,7 @@
 				7B4FB8A71DEC066000DDAA93 /* Login */,
 				7B4FB8A01DEBFE3F00DDAA93 /* Main.storyboard */,
 				7B4FB8A21DEBFE6700DDAA93 /* Second.storyboard */,
+				7CE362471DEC09790048A634 /* SignUp */,
 				7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */,
 				7B4FB8971DEBFD3100DDAA93 /* LaunchScreen.storyboard */,
 				7B4FB89A1DEBFD3100DDAA93 /* Info.plist */,
@@ -93,6 +100,17 @@
 				7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		7CE362471DEC09790048A634 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				7CE362441DEC09630048A634 /* SignUpViewController.h */,
+				7CE362451DEC09630048A634 /* SignUpViewController.m */,
+				7CE362481DEC0A1E0048A634 /* BottomLineLayout.h */,
+				7CE362491DEC0A1E0048A634 /* BottomLineLayout.m */,
+			);
+			name = SignUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,7 +185,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CE3624A1DEC0A1E0048A634 /* BottomLineLayout.m in Sources */,
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
+				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
