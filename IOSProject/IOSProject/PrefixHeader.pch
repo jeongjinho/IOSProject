@@ -9,9 +9,9 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 #import <UIKit/UIKit.h>
-#import "NetWorkingClass.h"
-#import "BaseDataModel.h"
-#import "UtilityClass.h"
+#import "NetworkingCenter.h"
+#import "DataCenter.h"
+
 
 #define RedkeyColor  80.0f/255.0f
 #define GreenKeyColor 52.0f/255.0f

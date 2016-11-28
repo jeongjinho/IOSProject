@@ -8,7 +8,7 @@
 
 #import "MainTableViewCell.h"
 @interface MainTableViewCell()
-@property (weak, nonatomic) IBOutlet UIView *bottomView;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

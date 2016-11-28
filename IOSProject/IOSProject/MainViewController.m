@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+      self.navigationController.navigationBar.hidden = YES;
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     
@@ -51,6 +52,22 @@
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50.0f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
+        selectiedCell.bottomView.backgroundColor = lightPurpleColor;
+    });
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //UIViewController *vc = [UtilityClass viewControllerInStoryBoard:@"Main" VCIdentifier:@"next"];
+    
+    
+   // [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
