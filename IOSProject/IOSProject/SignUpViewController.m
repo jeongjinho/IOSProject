@@ -7,17 +7,17 @@
 //
 
 #import "SignUpViewController.h"
-#import "BottomLineLayout.h"
+#import "CustomTextField.h"
 
 @interface SignUpViewController ()<UITextFieldDelegate>
 
 
-@property (weak, nonatomic) IBOutlet BottomLineLayout *emailText;
-@property (weak, nonatomic) IBOutlet BottomLineLayout *pwText;
-@property (weak, nonatomic) IBOutlet BottomLineLayout *confirmText;
-@property (weak, nonatomic) IBOutlet BottomLineLayout *phoneText;
-@property (weak, nonatomic) IBOutlet BottomLineLayout *nameText;
-@property (strong, nonatomic) IBOutlet BottomLineLayout *CertificationText;
+@property (weak, nonatomic) IBOutlet CustomTextField *emailText;
+@property (weak, nonatomic) IBOutlet CustomTextField *pwText;
+@property (weak, nonatomic) IBOutlet CustomTextField *confirmText;
+@property (weak, nonatomic) IBOutlet CustomTextField *phoneText;
+@property (weak, nonatomic) IBOutlet CustomTextField *nameText;
+@property (strong, nonatomic) IBOutlet CustomTextField *CertificationText;
 
 @property (weak, nonatomic) IBOutlet UIButton *signupBtn;
 @property (strong, nonatomic) IBOutlet UIButton *phoneCertification;
@@ -40,6 +40,7 @@
     self.confirmText.delegate = self;
     self.nameText.delegate = self;
     self.phoneText.delegate = self;
+    self.CertificationText.delegate = self;
     
 }
 
