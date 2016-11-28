@@ -16,6 +16,7 @@
 		7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A51DEBFF0100DDAA93 /* LoginViewController.m */; };
 		7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */; };
 		7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */; };
+		7B4FB8B31DEC2AE900DDAA93 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
 		A5C88307C416EC2D9464E98C /* libPods-IOSProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DB03CFBD436D86A65B36F2 /* libPods-IOSProject.a */; };
@@ -40,6 +41,8 @@
 		7B4FB8AB1DEC1F8C00DDAA93 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		7B4FB8AF1DEC283600DDAA93 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		7B4FB8B11DEC2AE900DDAA93 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		7CE362601DEC1FC80048A634 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 			children = (
 				7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */,
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
+				7B4FB8B11DEC2AE900DDAA93 /* DetailViewController.h */,
+				7B4FB8B21DEC2AE900DDAA93 /* DetailViewController.m */,
 				7B4FB8B01DEC2A5400DDAA93 /* Utility */,
 				7B4FB8AE1DEC1FC100DDAA93 /* Search */,
 				7B4FB8A71DEC066000DDAA93 /* Login */,
@@ -294,6 +299,7 @@
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
+				7B4FB8B31DEC2AE900DDAA93 /* DetailViewController.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
