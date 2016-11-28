@@ -129,6 +129,9 @@
                                 <state key="normal" title="가입하기">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="2wr-nr-V64" kind="show" id="apW-p4-Za9"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.31332162022590637" green="0.20333367586135864" blue="0.51477271318435669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -149,6 +152,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9R-gO-T2o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="309.60000000000002" y="95.802098950524751"/>
+        </scene>
+        <!--Second-->
+        <scene sceneID="01m-H7-KVG">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="SignUp" storyboardName="Second" id="2wr-nr-V64" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Vi-Kn-wgV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="677" y="486"/>
         </scene>
     </scenes>
     <resources>
