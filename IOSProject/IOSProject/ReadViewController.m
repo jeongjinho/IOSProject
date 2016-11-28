@@ -18,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    self.tabBarController.tabBar.hidden = YES;
     //라벨 텍스트 줄
     [self.TextLabel setText:@"Battle Cruiser Operational Who wanna piece a meat boy?"];
     [self.TextLabel setNumberOfLines:0];
