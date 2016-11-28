@@ -15,6 +15,7 @@
 		7B4FB8A31DEBFE6700DDAA93 /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A21DEBFE6700DDAA93 /* Second.storyboard */; };
 		7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A51DEBFF0100DDAA93 /* LoginViewController.m */; };
 		7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */; };
+		7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 		7B4FB8A51DEBFF0100DDAA93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7B4FB8A81DEC068A00DDAA93 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
 		7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		7B4FB8AB1DEC1F8C00DDAA93 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +71,7 @@
 			children = (
 				7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */,
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
+				7B4FB8AE1DEC1FC100DDAA93 /* Search */,
 				7B4FB8A71DEC066000DDAA93 /* Login */,
 				7B4FB8A01DEBFE3F00DDAA93 /* Main.storyboard */,
 				7B4FB8A21DEBFE6700DDAA93 /* Second.storyboard */,
@@ -97,6 +101,15 @@
 				7B4FB8A91DEC068A00DDAA93 /* CustomTextField.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		7B4FB8AE1DEC1FC100DDAA93 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7B4FB8AB1DEC1F8C00DDAA93 /* SearchViewController.h */,
+				7B4FB8AC1DEC1F8C00DDAA93 /* SearchViewController.m */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 		7CE362471DEC09790048A634 /* SignUp */ = {
@@ -184,6 +197,7 @@
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
+				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

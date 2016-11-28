@@ -7,8 +7,10 @@
 //
 
 #import "LoginViewController.h"
-
-@interface LoginViewController ()
+#import "CustomTextField.h"
+@interface LoginViewController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet CustomTextField *emailTextField;
+@property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
 
 @end
 
@@ -18,9 +20,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
+    
+    self.emailTextField.delegate = self;
+    self.passwordTextField.delegate = self;
+    //유저텍스트필드 히든
+    self.passwordTextField.secureTextEntry = YES;
 
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    //아이디를 쓰고 리턴을 눌렀을때idTextField tag = 0 , passwordTextField tag = 1
+    switch (textField.tag) {
+        case 0:
+            [self.passwordTextField becomeFirstResponder];
+            break;
+            
+        case 1:
+            [self.passwordTextField resignFirstResponder];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
