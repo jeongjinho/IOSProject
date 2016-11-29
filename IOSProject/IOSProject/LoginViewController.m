@@ -25,8 +25,8 @@ static NSString *const passwordText = @"passwordTextField.text";
     [super viewDidLoad];
     KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc]initWithIdentifier:@"keyChain" accessGroup:nil];
     //[keyChain setObject:iden forKey:kSecAttrAccount];
-    NSString *userId = [keyChain objectForKey:(NSString *)kSecAttrAccount];
-    NSLog(@"key chain :%@",[keyChain objectForKey:(NSString *)kSecAttrAccount]);
+    NSString *userId = [keyChain objectForKey:(__bridge NSString *)kSecAttrAccount];
+    NSLog(@"key chain :%@",[keyChain objectForKey:(__bridge NSString *)kSecAttrAccount]);
     NSLog(@"유저 id : %@",userId);
     
     // Do any additional setup after loading the view.
