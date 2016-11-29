@@ -57,6 +57,9 @@
     if (self.pwText.text != self.confirmText.text) {
         NSString *text = [NSString stringWithFormat:@"비밀번호가 틀립니다."];
         [self.confirmLb setText:text];
+    }else
+    {
+        
     }
 }
 
