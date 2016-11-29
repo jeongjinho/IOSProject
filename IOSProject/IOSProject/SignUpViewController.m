@@ -12,7 +12,7 @@
 @interface SignUpViewController ()<UITextFieldDelegate>
 
 
-@property (weak, nonatomic) IBOutlet CustomTextField *emailText;
+@property (weak, nonatomic) IBOutlet CustomTextField *idText;
 @property (weak, nonatomic) IBOutlet CustomTextField *pwText;
 @property (weak, nonatomic) IBOutlet CustomTextField *confirmText;
 @property (weak, nonatomic) IBOutlet CustomTextField *phoneText;
@@ -35,13 +35,14 @@
     [super viewDidLoad];
     
     //id TextField ,passwordTextField 키보드 델리게이트
-    self.emailText.delegate = self;
+    self.idText.delegate = self;
     self.pwText.delegate = self;
     self.confirmText.delegate = self;
     self.nameText.delegate = self;
     self.phoneText.delegate = self;
     self.CertificationText.delegate = self;
-    
+    self.idText.attributedPlaceholder =[[NSAttributedString alloc]
+                                        initWithString:@"아이디를 입력해주세요"];
 }
 
 #pragma mark - textFeild Opction
@@ -55,9 +56,34 @@
 - (IBAction)setSignupBtn:(id)sender
 {
     if (self.pwText.text != self.confirmText.text) {
-        NSString *text = [NSString stringWithFormat:@"비밀번호가 틀립니다."];
-        [self.confirmLb setText:text];
+        NSString *text = [NSString stringWithFormat:@"비밀번호를 다시 입력해 주세요"];
+        self.pwText.text = nil;
+        self.confirmText.text = nil;
+        UIColor *color = [UIColor redColor];
+        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
+         initWithString:text
+         attributes:@{NSForegroundColorAttributeName:color}];
+        
     }
+    if (self.idText.text.length <= 5 && self.idText.text.stringByRemovingPercentEncoding && " " )
+    {
+        self.idText.text = nil;
+        UIColor *color = [UIColor redColor];
+        self.idText.attributedPlaceholder =[[NSAttributedString alloc]
+         initWithString:@"5글자이상 , 특수문자는 쓰지 마세요."
+         attributes:@{NSForegroundColorAttributeName:color}];
+        
+    }
+    if (self.pwText.text.length <=8 && self.confirmText.text.length <=8)
+    {
+        NSString *Warring = [NSString stringWithFormat:@"8글자 이상 작성해 주세요."];
+        self.pwText.text = nil;
+        UIColor *color = [UIColor redColor];
+        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
+                                            initWithString:Warring
+                                            attributes:@{NSForegroundColorAttributeName:color}];
+    }
+    
 }
 
 
