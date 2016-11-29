@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
-    
+        
     self.emailTextField.delegate = self;
     self.passwordTextField.delegate = self;
     //유저텍스트필드 히든
