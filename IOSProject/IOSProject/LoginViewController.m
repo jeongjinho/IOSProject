@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "CustomTextField.h"
+#import "KeychainItemWrapper.h"
 static NSString *const emailText =  @"emailTextField.text";
 static NSString *const passwordText = @"passwordTextField.text";
 
@@ -22,6 +23,12 @@ static NSString *const passwordText = @"passwordTextField.text";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc]initWithIdentifier:@"keyChain" accessGroup:nil];
+    //[keyChain setObject:iden forKey:kSecAttrAccount];
+    NSString *userId = [keyChain objectForKey:(NSString *)kSecAttrAccount];
+    NSLog(@"key chain :%@",[keyChain objectForKey:(NSString *)kSecAttrAccount]);
+    NSLog(@"유저 id : %@",userId);
+    
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
     self.emailTextField.delegate = self;
@@ -60,8 +67,7 @@ static NSString *const passwordText = @"passwordTextField.text";
     }
     
     if ([keyPath isEqualToString:passwordText]) {
-        NSLog(@"The password is changed.");
-        NSLog(@"text : %ld , password :%ld",self.emailTextField.text.length,self.passwordTextField.text.length);
+      
         
         if(self.emailTextField.text.length  >=5 && self.passwordTextField.text.length >= 8){
             self.loginButton.layer.opacity = 1.0f;
