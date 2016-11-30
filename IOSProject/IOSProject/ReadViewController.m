@@ -9,11 +9,12 @@
 #import "ReadViewController.h"
 #import "CustomTextField.h"
 
-@interface ReadViewController () <UITextFieldDelegate>
+@interface ReadViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITextView *TextView;
 @property (strong, nonatomic) IBOutlet UIView *commentView;
 @property (strong, nonatomic) IBOutlet UIButton *commentBtn;
+@property (strong, nonatomic) IBOutlet UITableView *TextTableView;
 @property (weak, nonatomic) IBOutlet CustomTextField *commentTextField;
 
 @end
@@ -40,12 +41,23 @@
     CALayer *border = [CALayer layer];
     CGFloat borderWidth = 2;
     border.borderColor = [UIColor grayColor].CGColor;
-    border.frame = CGRectMake(0, self.commentView.frame.size.height - borderWidth, self.commentView.frame.size.width, self.commentView.frame.size.height);
+    border.frame = CGRectMake(borderWidth, borderWidth, self.commentView.frame.size.width+30, self.commentView.frame.size.height);
     border.borderWidth = borderWidth;
     [self.commentView.layer addSublayer:border];
     self.commentView.layer.masksToBounds = YES;
     
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
