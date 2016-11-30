@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface DataCenter : NSObject
-
+@property NSMutableArray *GroupDataList;
++ (instancetype)sharedData;
 @end
