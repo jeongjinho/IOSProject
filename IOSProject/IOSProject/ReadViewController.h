@@ -11,5 +11,5 @@
 @interface ReadViewController : UIViewController
 
 
-- (void) settextViewBorder :(UITextView *)textView;
+
 @end
