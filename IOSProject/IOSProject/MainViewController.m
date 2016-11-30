@@ -8,7 +8,7 @@
 
 #import "MainViewController.h"
 #import "MainTableViewCell.h"
-@interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 
 @end
@@ -21,9 +21,40 @@
       self.navigationController.navigationBar.hidden = YES;
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
+    self.tabBarController.delegate = self;
     
 }
+-(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    NSLog(@"view tag : %ld",viewController.tabBarController.selectedIndex);
+   
+   //                        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    
+//    UIViewController *view1 = [storyBoard instantiateViewControllerWithIdentifier:@"leap"];
+//    [self presentViewController:view1 animated:YES completion:nil];
+  //  [self.tabBarController setModalPresentationCapturesStatusBarAppearance:YES];
+    
+    
+    
+   
 
+}
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    
+    NSInteger index = viewController.tabBarItem.tag;
+   NSLog(@"selected tag :%ld",index);
+   if(index ==1 ){
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *modalViewController = [storyBoard instantiateViewControllerWithIdentifier:@"leap"];
+        
+        [self.tabBarController presentViewController:modalViewController animated:YES completion:nil];
+        return false;
+
+    }
+    
+    return true;
+   
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
