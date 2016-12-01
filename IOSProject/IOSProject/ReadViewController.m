@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationController.navigationBar.hidden =YES;
     self.TextView = [[UITextView alloc] init];
         self.TextView.text = @"툭하면 거친 말들로 내 맘에 상처를 내놓고 미안하단 말 한마디 없이 또 나 혼자 위로하고 오늘 하루도 혹시 날 떠날까 늘 불안해 해 I just want you to stay 점점 무뎌져 가는 너의 그 무표정 속에 천천히 내려놓자며 거울에 속삭이곤 해 날 당연하게 생각하는 너지만 그게 너다워 그래도 stay stay stay with me 널 닮은 듯한 슬픈 멜로디 이렇게 날 울리는데 eh eh네 향기는 달콤한 felony 너무 밉지만 사랑해 어두운 밤이 날 가두기 전에 내 곁을 떠나지마 아직 날 사랑하니 내 맘과 같다면 오늘은 떠나지마 굳이 너여야만 하는 이유는 묻지마 그저 내 곁에 stay with me (It goes a little something like)지금 당장 많은 걸 바라는 게 아냐 그저 내 곁에 stay with me ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
 

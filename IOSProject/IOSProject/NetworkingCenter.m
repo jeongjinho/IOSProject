@@ -16,6 +16,8 @@ static NSString  *const nameString = @"name";
 static NSString  *const passwordString = @"password";
 static NSString  *const phoneNumberString = @"phone_number";
 static NSString  *const imageString = @"image";
+
+
 @implementation NetworkingCenter
 
 + (instancetype)sharedNetwork{
@@ -104,14 +106,62 @@ static NSString  *const imageString = @"image";
     [uploadTask resume];
 }
 
-+ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image{
-    
-//    NSData *emailAddressData = [emailAddress dataUsingEncoding:NSUTF8StringEncoding];
-//    NSData *passwordData =[password dataUsingEncoding:NSUTF8StringEncoding];
+//+ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image{
 //    
-//    NSData *phoneNumnerData = [phoneNumber dataUsingEncoding:NSUTF8StringEncoding];
-//    NSData *nameData =[name dataUsingEncoding:NSUTF8StringEncoding];
-//    NSData *imageData =nil;
+//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+//    NSLog(@"email : %@ ",emailAddress);
+//    NSLog(@"phoneNumber : %@",password);
+//    [bodyParams setObject:emailAddress
+//                   forKey:emailString];
+//    
+//    [bodyParams setObject:phoneNumber
+//                   forKey:phoneNumberString];
+//
+//    [bodyParams setObject:password
+//                   forKey:passwordString];
+//    
+//    [bodyParams setObject:name
+//                   forKey:nameString];
+//    
+//    NSLog(@"bodyParams  :%@", bodyParams);
+//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//       
+//
+//    } error:nil];
+//    
+//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+//    
+//    NSURLSessionUploadTask *uploadTask;
+//    uploadTask = [manager
+//                  uploadTaskWithStreamedRequest:request
+//                  progress:^(NSProgress * _Nonnull uploadProgress) {
+//                      // This is not called back on the main queue.
+//                      // You are responsible for dispatching to the main queue for UI updates
+//                      dispatch_async(dispatch_get_main_queue(), ^{
+//                          //Update the progress view
+//                         
+//                      });
+//                  }
+//                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+//                      if (error) {
+//                          NSLog(@"Error: %@", error);
+//                          NSLog(@"실패`````");
+//                      } else {
+//                          NSLog(@"%@ %@", response, responseObject);
+//                          NSLog(@"networking success!");
+//                          
+//                          dispatch_async(dispatch_get_main_queue(), ^{
+//                              
+//                              
+//                          });
+//                      }
+//                  }];
+//    
+//    [uploadTask resume];
+//    
+//}
++ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image requestHandler:(requestHandler)handlers {
+    
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     NSLog(@"email : %@ ",emailAddress);
     NSLog(@"phoneNumber : %@",password);
@@ -120,7 +170,7 @@ static NSString  *const imageString = @"image";
     
     [bodyParams setObject:phoneNumber
                    forKey:phoneNumberString];
-
+    
     [bodyParams setObject:password
                    forKey:passwordString];
     
@@ -129,14 +179,8 @@ static NSString  *const imageString = @"image";
     
     NSLog(@"bodyParams  :%@", bodyParams);
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        // NSData *imageData =nil;
-        //append string
-//      [formData appendPartWithFormData:emailAddressData name:emailString];
-//        [formData appendPartWithFormData:passwordData name:passwordString];
-//        [formData appendPartWithFormData:phoneNumnerData name:phoneNumberString];
-//        [formData appendPartWithFormData:nameData name:nameString];
-       // [formData appendPartWithFormData:imageData  name:imageString];
-
+        
+        
     } error:nil];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -149,7 +193,7 @@ static NSString  *const imageString = @"image";
                       // You are responsible for dispatching to the main queue for UI updates
                       dispatch_async(dispatch_get_main_queue(), ^{
                           //Update the progress view
-                         
+                          
                       });
                   }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
@@ -162,7 +206,7 @@ static NSString  *const imageString = @"image";
                           
                           dispatch_async(dispatch_get_main_queue(), ^{
                               
-                              
+                              handlers(@"success");
                           });
                       }
                   }];
@@ -170,4 +214,5 @@ static NSString  *const imageString = @"image";
     [uploadTask resume];
     
 }
+
 @end

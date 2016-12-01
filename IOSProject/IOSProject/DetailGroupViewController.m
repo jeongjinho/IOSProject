@@ -67,6 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma -mark backbutton action
+- (IBAction)touchInSideBackButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 /*
 #pragma mark - Navigation
 

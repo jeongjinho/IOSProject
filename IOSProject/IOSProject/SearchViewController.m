@@ -33,5 +33,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)touchInSideBackButton:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

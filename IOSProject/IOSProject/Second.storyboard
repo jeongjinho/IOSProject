@@ -11,6 +11,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--DetailVC-->
+        <scene sceneID="LLJ-PR-7fm">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u7e-2E-TEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Login" storyboardName="Main" referencedIdentifier="DetailVC" id="1Cb-ee-XDB" sceneMemberID="viewController"/>
+            </objects>
+            <point key="canvasLocation" x="2322" y="-266"/>
+        </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="OLC-93-Seu">
             <objects>
@@ -102,9 +110,12 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Lg-9v-J6H">
                                 <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <color key="backgroundColor" red="0.38555628061294556" green="0.24898025393486023" blue="0.63249117136001587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="메인 페이지로 돌아가기">
+                                <state key="normal" title="로그인 페이지로 가기">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchInSideMainButton:" destination="prj-Se-zMc" eventType="touchUpInside" id="6M5-lK-XMn"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B41-jp-Aif">
                                 <rect key="frame" x="159" y="570" width="56" height="30"/>
@@ -161,7 +172,7 @@
         <!--Read View Controller-->
         <scene sceneID="Cpt-rL-UdX">
             <objects>
-                <viewController storyboardIdentifier="Reading" id="Byg-Vm-xx3" customClass="ReadViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReadingVC" id="Byg-Vm-xx3" customClass="ReadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sSt-ky-xaQ"/>
                         <viewControllerLayoutGuide type="bottom" id="Uew-Le-f3H"/>
@@ -172,6 +183,28 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIy-dX-TJa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qTP-Xe-gJ2">
+                                        <rect key="frame" x="288" y="13" width="52" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="상세보기">
+                                            <color key="titleColor" red="1" green="0.98909724199947402" blue="0.9946610294175896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="1Cb-ee-XDB" kind="show" id="6YX-JF-Qc7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vav-uC-ph6">
+                                        <rect key="frame" x="19" y="8" width="52" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="수정하기">
+                                            <color key="titleColor" red="1" green="0.98909724199947402" blue="0.9946610294175896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="jXV-Xd-1Mk" kind="showDetail" id="N5J-Nb-4iF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-2Z-YIi">
@@ -283,6 +316,7 @@
                             <constraint firstItem="P6A-gG-LWZ" firstAttribute="leading" secondItem="dDT-Ms-zOf" secondAttribute="trailing" constant="19" id="znO-sr-QAr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="lry-NZ-bnu"/>
                     <connections>
                         <outlet property="TextTableView" destination="yhE-Le-ntS" id="3Vc-YY-Qym"/>
                         <outlet property="commentBtn" destination="P6A-gG-LWZ" id="hL2-Jo-qEH"/>
@@ -293,7 +327,61 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xsj-iq-pDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="869.60000000000002" y="178.56071964017991"/>
+            <point key="canvasLocation" x="1322" y="196"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bp3-Jz-qjr">
+            <objects>
+                <viewController id="jXV-Xd-1Mk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fCp-P3-AJK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Idl-ca-eIp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ogs-kD-pog">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="수정하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiH-uS-Z26">
+                                <rect key="frame" x="135" y="255" width="59" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dvv-S9-Leg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321" y="958"/>
+        </scene>
+        <!--설정-->
+        <scene sceneID="efw-6e-W7e">
+            <objects>
+                <viewController storyboardIdentifier="settingVC" title="설정" id="CoM-sr-yN7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aJ3-Pw-onk"/>
+                        <viewControllerLayoutGuide type="bottom" id="xHe-LK-hIk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QvJ-4U-VnO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fE-1y-hmE">
+                                <rect key="frame" x="129" y="284" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sCO-ae-P8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="300" y="997.15142428785612"/>
         </scene>
     </scenes>
     <resources>
