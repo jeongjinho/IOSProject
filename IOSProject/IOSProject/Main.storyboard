@@ -123,7 +123,7 @@
                                     <constraint firstItem="fcP-1V-Qxt" firstAttribute="leading" secondItem="gui-7I-2pn" secondAttribute="leading" id="JW7-P6-RPQ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-7g-7cg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-7g-7cg" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="87" y="503" width="200" height="30"/>
                                 <state key="normal" title="페이스북 로그인">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -239,9 +239,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIL-Xf-cwN">
-                                        <rect key="frame" x="21" y="8" width="46" height="30"/>
+                                        <rect key="frame" x="19" y="22" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="뒤로">
+                                            <color key="titleColor" red="0.98844350673416626" green="1" blue="0.9934400156563199" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="touchInSideBackTapVC:" destination="QMT-QC-IXT" eventType="touchUpInside" id="FBM-o8-Tsd"/>
                                         </connections>
@@ -252,14 +254,56 @@
                                     <constraint firstAttribute="height" constant="60" id="jPE-hc-5q0"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Nhk-GL-mlC">
+                                <rect key="frame" x="0.0" y="400" width="375" height="267"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rVG-1I-VJ3">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="5bB-oI-9if">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.96460374681022931" green="0.47399140893589753" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UGa-ea-xvX">
+                                <rect key="frame" x="0.0" y="60" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0S5-Fv-Pe0">
+                                <rect key="frame" x="0.0" y="369" width="375" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.49579156115417256" blue="0.33029752278676172" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="xU2-kh-BHP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WQG-Kk-FFh" firstAttribute="top" secondItem="Nhk-GL-mlC" secondAttribute="bottom" id="3TI-zX-Q58"/>
+                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="height" secondItem="sOr-mW-jbO" secondAttribute="height" multiplier="0.4" id="CXw-K0-puN"/>
                             <constraint firstAttribute="trailing" secondItem="49n-6e-ouY" secondAttribute="trailing" id="Fjd-5F-h97"/>
+                            <constraint firstAttribute="trailing" secondItem="Nhk-GL-mlC" secondAttribute="trailing" id="KTB-U4-u1B"/>
+                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="Wwv-DS-01x"/>
+                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="top" secondItem="0S5-Fv-Pe0" secondAttribute="bottom" constant="1" id="c88-M9-wEz"/>
+                            <constraint firstAttribute="trailing" secondItem="0S5-Fv-Pe0" secondAttribute="trailing" id="e3p-Ks-PCZ"/>
                             <constraint firstItem="49n-6e-ouY" firstAttribute="top" secondItem="sOr-mW-jbO" secondAttribute="top" id="g2S-rl-hMA"/>
                             <constraint firstItem="49n-6e-ouY" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="g6H-jG-rmD"/>
+                            <constraint firstItem="0S5-Fv-Pe0" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="pIQ-yY-wBd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomCollectionView" destination="Nhk-GL-mlC" id="cuw-5b-fMK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFB-fE-hR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -24,6 +24,7 @@
 		7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */; };
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
+		7BEF3EAC1DEFFBB700569AC2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
@@ -66,6 +67,7 @@
 		7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewBorder.m; sourceTree = "<group>"; };
 		7BCA8BEA1DEDAD440049F62A /* DetailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCollectionViewCell.h; sourceTree = "<group>"; };
 		7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCollectionViewCell.m; sourceTree = "<group>"; };
+		7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		7BF0CA841DEF256A000227D4 /* WriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteViewController.h; sourceTree = "<group>"; };
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEF3EAC1DEFFBB700569AC2 /* Photos.framework in Frameworks */,
 				A5C88307C416EC2D9464E98C /* libPods-IOSProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,8 +117,7 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7BCA8BE11DED6F180049F62A /* KeychainItemWrapper.h */,
 				7BCA8BE21DED6F180049F62A /* KeychainItemWrapper.m */,
-				7BF0CA841DEF256A000227D4 /* WriteViewController.h */,
-				7BF0CA851DEF256A000227D4 /* WriteViewController.m */,
+				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
 				7B4FB8C01DEC3DA100DDAA93 /* DataCenter */,
 				7B4FB8BF1DEC3D9400DDAA93 /* Networking */,
 				7B4FB8BB1DEC3BAB00DDAA93 /* Main */,
@@ -214,6 +216,15 @@
 			name = DataCenter;
 			sourceTree = "<group>";
 		};
+		7BEF3EAA1DEFF1E000569AC2 /* WritePage */ = {
+			isa = PBXGroup;
+			children = (
+				7BF0CA841DEF256A000227D4 /* WriteViewController.h */,
+				7BF0CA851DEF256A000227D4 /* WriteViewController.m */,
+			);
+			name = WritePage;
+			sourceTree = "<group>";
+		};
 		7CE362471DEC09790048A634 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +255,7 @@
 		C84EC8B1FA3CE4055B8FAFD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */,
 				B0DB03CFBD436D86A65B36F2 /* libPods-IOSProject.a */,
 			);
 			name = Frameworks;
