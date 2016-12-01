@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "CustomTextField.h"
 #import "KeychainItemWrapper.h"
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 static NSString *const emailText =  @"emailTextField.text";
 static NSString *const passwordText = @"passwordTextField.text";
 
@@ -23,11 +24,17 @@ static NSString *const passwordText = @"passwordTextField.text";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc]initWithIdentifier:@"keyChain" accessGroup:nil];
-    //[keyChain setObject:iden forKey:kSecAttrAccount];
-    NSString *userId = [keyChain objectForKey:(__bridge NSString *)kSecAttrAccount];
-    NSLog(@"key chain :%@",[keyChain objectForKey:(__bridge NSString *)kSecAttrAccount]);
-    NSLog(@"유저 id : %@",userId);
+//    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+//    // Optional: Place the button in the center of your view.
+//    loginButton.center = self.view.center;
+//    [self.view addSubview:loginButton];
+    
+    
+//    KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc]initWithIdentifier:@"keyChain" accessGroup:nil];
+//    [keyChain setObject:iden forKey:kSecAttrAccount];
+//    NSString *userId = [keyChain objectForKey:(__bridge NSString *)kSecAttrAccount];
+//    NSLog(@"key chain :%@",[keyChain objectForKey:(__bridge NSString *)kSecAttrAccount]);
+//    NSLog(@"유저 id : %@",userId);
     
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;

@@ -25,15 +25,13 @@ static NSString *const groupURLString  = @"http://dummy-dev.ap-northeast-2.elast
     
 }
 
-
 + (void)requestGroupPageDataList{
-    
     NSURLSessionConfiguration *configuration  = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *networkingManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     NSURL *URL = [NSURL URLWithString:groupURLString];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setHTTPMethod:@"GET"];
+    [request setHTTPMethod:@"POST"];
     [request setURL:URL];
     NSURLSessionDataTask *dataTask = [networkingManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
@@ -54,7 +52,8 @@ static NSString *const groupURLString  = @"http://dummy-dev.ap-northeast-2.elast
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
-                                                                        object:nil];
+                        object:nil];
+               
                 });
                 
             }
@@ -62,5 +61,6 @@ static NSString *const groupURLString  = @"http://dummy-dev.ap-northeast-2.elast
     }];
     [dataTask resume];
 }
+
 
 @end

@@ -10,4 +10,8 @@ target 'IOSProject' do
 pod 'AFNetworking', '~> 3.1'
 
 pod 'SDWebImage', '~> 3.8'
+
+pod 'FBSDKCoreKit', '~> 4.17'
+pod 'FBSDKLoginKit', '~> 4.17'
+pod 'FBSDKShareKit', '~> 4.17'
 end
