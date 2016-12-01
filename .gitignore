@@ -6,6 +6,7 @@ reated by https://www.gitignore.io/api/xcode,objective-c,macos
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 .DS_Store
 *.xcuserstate
+*.xcuserstate
 ## Build generated
 build/
 DerivedData/
