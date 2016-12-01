@@ -17,7 +17,7 @@
 #define GreenKeyColor 52.0f/255.0f
 #define BlueKeyColor 131.0f/255.0f
 #define lightPurpleColor  [UIColor colorWithRed:160.f/255.0f green:141.0f/255.0f blue:195.0f/255.0f alpha:1]
-
+#define mainPurpleColor  [UIColor colorWithRed:80.f/255.0f green:52.0f/255.0f blue:131.0f/255.0f alpha:1]
 
 static NSString *const GroupListResponseNotification = @"GroupListResponseNotification";
 

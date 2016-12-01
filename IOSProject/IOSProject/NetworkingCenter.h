@@ -10,4 +10,5 @@
 
 @interface NetworkingCenter : NSObject
 
++ (void)requestGroupPageDataList;
 @end

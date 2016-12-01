@@ -10,4 +10,17 @@
 
 @implementation DataCenter
 
+
++ (instancetype)sharedData{
+    
+    static DataCenter *datObject = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken,^{
+        datObject  =[[self alloc]init];
+        
+    });
+    return datObject;
+    
+}
 @end
