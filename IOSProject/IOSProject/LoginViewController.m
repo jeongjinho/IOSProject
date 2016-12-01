@@ -10,10 +10,12 @@
 #import "CustomTextField.h"
 #import "KeychainItemWrapper.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit.h>
+#import <FBSDKSar>
 static NSString *const emailText =  @"emailTextField.text";
 static NSString *const passwordText = @"passwordTextField.text";
 
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,FBSDKLoginButtonDelegate>
 @property (weak, nonatomic) IBOutlet CustomTextField *emailTextField;
 @property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -24,17 +26,7 @@ static NSString *const passwordText = @"passwordTextField.text";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-//    // Optional: Place the button in the center of your view.
-//    loginButton.center = self.view.center;
-//    [self.view addSubview:loginButton];
-    
-    
-//    KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc]initWithIdentifier:@"keyChain" accessGroup:nil];
-//    [keyChain setObject:iden forKey:kSecAttrAccount];
-//    NSString *userId = [keyChain objectForKey:(__bridge NSString *)kSecAttrAccount];
-//    NSLog(@"key chain :%@",[keyChain objectForKey:(__bridge NSString *)kSecAttrAccount]);
-//    NSLog(@"유저 id : %@",userId);
+
     
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
@@ -50,12 +42,38 @@ static NSString *const passwordText = @"passwordTextField.text";
     //observing에 따른 로그인 화면변화
     self.loginButton.userInteractionEnabled =NO;
     self.loginButton.layer.opacity = 0.1f;
-
-    
+    //탭
     self.windowTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignKeyboard:)];
     
     [self.view addGestureRecognizer:self.windowTap];
+    
 }
+#pragma -mark touchInside Login Button
+//- (IBAction)touchInSideLoginButton:(id)sender {
+//    
+//    if ([FBSDKAccessToken currentAccessToken]) {
+//       
+//    } else {
+//        // 한번이라도 로그인 하지 않은 사용자의 경우
+//        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+//        [login logInWithReadPermissions: @[@"email"] fromViewController:self
+//                                handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+//                                    if (error) {
+//                                        NSLog(@"Process error");
+//                                    } else if (result.isCancelled) {
+//                                        NSLog(@"Cancelled");
+//                                    } else {
+//                                        NSLog(@"Logged in ");
+//                                        // 로그인 후 액션 지정하기
+//                                        NSString *accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+//                                        
+//                                        NSLog(@"Login token : %@",accessToken);
+//                                    }
+//                                }];
+//    }
+//    
+//}
+
 
 -(void)resignKeyboard:(UITapGestureRecognizer*)tap{
 
