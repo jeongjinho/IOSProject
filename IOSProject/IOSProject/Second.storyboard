@@ -233,10 +233,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IndexCell" id="NZb-PZ-n7l">
-                                        <rect key="frame" x="0.0" y="56" width="350" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="350" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NZb-PZ-n7l" id="9Mb-0P-tji">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -287,6 +287,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xsj-iq-pDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="869.60000000000002" y="178.56071964017991"/>
+        </scene>
+        <!--Setting Controller-->
+        <scene sceneID="Yib-dQ-CpX">
+            <objects>
+                <viewController id="Ox0-84-M1v" customClass="SettingController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4o-ve-hcZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wc0-sA-xGU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ned-JQ-lKP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fR-UM-5I7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1645" y="183"/>
         </scene>
     </scenes>
     <resources>

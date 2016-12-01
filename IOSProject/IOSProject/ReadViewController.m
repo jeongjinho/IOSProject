@@ -19,7 +19,7 @@
 @property NSInteger count;
 @property (strong, nonatomic) IBOutlet UIScrollView *imageScrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *imagePageCtl;
-
+@property UIButton *pageBtn;
 
 @end
 
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     self.TextView = [[UITextView alloc] init];
-        self.TextView.text = @"툭하면 거친 말들로 내 맘에 상처를 내놓고 미안하단 말 한마디 없이 또 나 혼자 위로하고 오늘 하루도 혹시 날 떠날까 늘 불안해 해 I just want you to stay 점점 무뎌져 가는 너의 그 무표정 속에 천천히 내려놓자며 거울에 속삭이곤 해 날 당연하게 생각하는 너지만 그게 너다워 그래도 stay stay stay with me 널 닮은 듯한 슬픈 멜로디 이렇게 날 울리는데 eh eh네 향기는 달콤한 felony 너무 밉지만 사랑해 어두운 밤이 날 가두기 전에 내 곁을 떠나지마 아직 날 사랑하니 내 맘과 같다면 오늘은 떠나지마 굳이 너여야만 하는 이유는 묻지마 그저 내 곁에 stay with me (It goes a little something like)지금 당장 많은 걸 바라는 게 아냐 그저 내 곁에 stay with me ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ";
+        self.TextView.text = @"툭하면 거친 말들로 내 맘에 상처를 내놓고 미안하단 말 한마디 없이 또 나 혼자 위로하고 오늘 하루도 혹시 날 떠날까 늘 불안해 해 I just want you to stay 점점 무뎌져 가는 너의 그 무표정 속에 천천히 내려놓자며 거울에 속삭이곤 해 날 당연하게 생각하는 너지만 그게 너다워 그래도 stay stay stay with me 널 닮은 듯한 슬픈 멜로디 이렇게 날 울리는데 eh eh네 향기는 달콤한 felony 너무 밉지만 사랑해 어두운 밤이 날 가두기 전에 내 곁을 떠나지마 아직 날 사랑하니 내 맘과 같다면 오늘은 떠나지마 굳이 너여야만 하는 이유는 묻지마 그저 내 곁에 stay with me (It goes a little something like)지금 당장 많은 걸 바라는 게 아냐 그저 내 곁에 stay with me";
 
     //self.commentTextField.delegate = self;
     
@@ -117,28 +117,51 @@
     NSString *str = self.TextView.text;
     NSLog(@"str length : %ld",str.length);
     NSLog(@"str : %@",str);
-    return str.length;
+    return str.length-170;
 }
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    self.TextTableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-    UITextView* headerView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 22)];
+  //  self.TextTableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 22)];
     
-    headerView.backgroundColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
-    headerView.layer.borderColor = [UIColor colorWithWhite:0.7 alpha:0.7].CGColor;
-    headerView.layer.borderWidth = 1.0;
+    textView.backgroundColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
+    textView.layer.borderColor = [UIColor colorWithWhite:0.7 alpha:0.7].CGColor;
+    textView.layer.borderWidth = 1.0;
 
-    headerView.backgroundColor = [UIColor clearColor];
-    headerView.textColor = [UIColor blackColor];
-    headerView.textAlignment = NSTextAlignmentLeft;
-    headerView.text =  self.TextView.text;
+    textView.backgroundColor = [UIColor clearColor];
+    textView.textColor = [UIColor blackColor];
+    textView.textAlignment = NSTextAlignmentLeft;
+    textView.text =  self.TextView.text;
     
-    [headerView setFont:[UIFont boldSystemFontOfSize:15]];
+    [textView setFont:[UIFont boldSystemFontOfSize:15]];
     
- 
-    return headerView;
+    
+    
+    self.pageBtn =[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    self.pageBtn.frame=CGRectMake(250, 200, 100, 50);
+    
+    [textView addSubview:self.pageBtn];
+    [self.pageBtn addTarget:self action:@selector(buttenPage:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return textView;
+    
+}
+
+- (IBAction)buttenPage:(id)sender
+{
+    
+    
+    
+    if (self.TextView.frame.size.height == self.TextView.frame.size.height) {
+        
+        
+        
+        
+    }
+    
     
 }
 
@@ -153,7 +176,8 @@
     return cell;
 }
 
-//cell 재사용시 애니메이션 ...
+
+////cell 재사용시 애니메이션 ...
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    //1. Setup the CATransform3D structure
@@ -178,7 +202,7 @@
 //    [UIView commitAnimations];
 //    
 //}
-
+//
 
 
 

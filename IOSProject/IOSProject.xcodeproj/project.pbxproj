@@ -25,6 +25,7 @@
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
+		7C5757971DEFFDB1007C557F /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C5757961DEFFDB1007C557F /* SettingController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
 		7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362641DEC2B060048A634 /* ModifyViewController.m */; };
@@ -68,6 +69,8 @@
 		7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCollectionViewCell.m; sourceTree = "<group>"; };
 		7BF0CA841DEF256A000227D4 /* WriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteViewController.h; sourceTree = "<group>"; };
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
+		7C5757951DEFFDB1007C557F /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
+		7C5757961DEFFDB1007C557F /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		7CE362601DEC1FC80048A634 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
@@ -125,7 +128,8 @@
 				7B4FB8A71DEC066000DDAA93 /* Login */,
 				7B4FB8A01DEBFE3F00DDAA93 /* Main.storyboard */,
 				7B4FB8A21DEBFE6700DDAA93 /* Second.storyboard */,
-				7CE3625F1DEC1F850048A634 /* New Group */,
+				7C5757981DEFFDB5007C557F /* Setting */,
+				7CE3625F1DEC1F850048A634 /* Main Read */,
 				7CE362471DEC09790048A634 /* SignUp */,
 				7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */,
 				7B4FB8971DEBFD3100DDAA93 /* LaunchScreen.storyboard */,
@@ -214,6 +218,15 @@
 			name = DataCenter;
 			sourceTree = "<group>";
 		};
+		7C5757981DEFFDB5007C557F /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				7C5757951DEFFDB1007C557F /* SettingController.h */,
+				7C5757961DEFFDB1007C557F /* SettingController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
 		7CE362471DEC09790048A634 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,13 +236,13 @@
 			name = SignUp;
 			sourceTree = "<group>";
 		};
-		7CE3625F1DEC1F850048A634 /* New Group */ = {
+		7CE3625F1DEC1F850048A634 /* Main Read */ = {
 			isa = PBXGroup;
 			children = (
 				7CE362601DEC1FC80048A634 /* ReadViewController.h */,
 				7CE362611DEC1FC80048A634 /* ReadViewController.m */,
 			);
-			name = "New Group";
+			name = "Main Read";
 			sourceTree = "<group>";
 		};
 		7CE362661DEC2B0F0048A634 /* Modfiy Page */ = {
@@ -391,6 +404,7 @@
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */,
+				7C5757971DEFFDB1007C557F /* SettingController.m in Sources */,
 				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
