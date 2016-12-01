@@ -21,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UIPageControl *imagePageCtl;
 @property UIButton *pageBtn;
 
+@property UITextView *textViewTest;
+
 @end
 
 @implementation ReadViewController
@@ -37,6 +39,8 @@
     self.tabBarController.tabBar.hidden = YES;
     self.TextTableView.delegate = self;
     self.TextTableView.dataSource = self;
+    
+    
     
     
   
@@ -71,7 +75,7 @@
     [self.TextView sizeToFit];
     
     CALayer *border = [CALayer layer];
-    CGFloat borderWidth = 2;
+    CGFloat borderWidth = 0.5;
     border.borderColor = [UIColor grayColor].CGColor;
     border.frame = CGRectMake(borderWidth, borderWidth, self.commentView.frame.size.width+30, self.commentView.frame.size.height);
     border.borderWidth = borderWidth;
@@ -114,10 +118,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSString *str = self.TextView.text;
-    NSLog(@"str length : %ld",str.length);
-    NSLog(@"str : %@",str);
-    return str.length-170;
+    
+    CGRect textViewFrame = self.textViewTest.frame;
+    textViewFrame.size.height = self.textViewTest.contentSize.height;
+    
+//    NSString *str = self.TextView.text;
+//    NSLog(@"str length : %ld",str.length);
+//    NSLog(@"str : %@",str);
+    return textViewFrame.size.height + 50;
 }
 
 
@@ -125,28 +133,29 @@
 {
     
   //  self.TextTableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 22)];
+    self.textViewTest = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 22)];
     
-    textView.backgroundColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
-    textView.layer.borderColor = [UIColor colorWithWhite:0.7 alpha:0.7].CGColor;
-    textView.layer.borderWidth = 1.0;
+    self.textViewTest.backgroundColor = [UIColor colorWithWhite:0.7f alpha:1.0f];
+    self.textViewTest.layer.borderColor = [UIColor colorWithWhite:0.7 alpha:0.7].CGColor;
+    self.textViewTest.layer.borderWidth = 1.0;
 
-    textView.backgroundColor = [UIColor clearColor];
-    textView.textColor = [UIColor blackColor];
-    textView.textAlignment = NSTextAlignmentLeft;
-    textView.text =  self.TextView.text;
+    self.textViewTest.backgroundColor = [UIColor clearColor];
+    self.textViewTest.textColor = [UIColor blackColor];
+    self.textViewTest.textAlignment = NSTextAlignmentLeft;
+    self.textViewTest.text =  self.TextView.text;
     
-    [textView setFont:[UIFont boldSystemFontOfSize:15]];
+ 
     
-    
+    [self.textViewTest setFont:[UIFont boldSystemFontOfSize:15]];
     
     self.pageBtn =[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    self.pageBtn.frame=CGRectMake(250, 200, 100, 50);
+    self.pageBtn.frame=CGRectMake(200, 250, 100, 50);
     
-    [textView addSubview:self.pageBtn];
+    [self.textViewTest addSubview:self.pageBtn];
     [self.pageBtn addTarget:self action:@selector(buttenPage:) forControlEvents:UIControlEventTouchUpInside];
     
-    return textView;
+    return self.textViewTest
+    ;
     
 }
 
@@ -170,7 +179,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IndexCell" forIndexPath:indexPath];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"IndexCell"];
-
+        
     }
     
     return cell;
