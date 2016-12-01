@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet CustomTextField *phoneText;
 @property (weak, nonatomic) IBOutlet CustomTextField *nameText;
 @property (strong, nonatomic) IBOutlet CustomTextField *CertificationText;
+@property (weak, nonatomic) IBOutlet CustomTextField *emailText;
 
 @property (weak, nonatomic) IBOutlet UIButton *signupBtn;
 @property (strong, nonatomic) IBOutlet UIButton *phoneCertification;
@@ -41,6 +42,7 @@
     self.nameText.delegate = self;
     self.phoneText.delegate = self;
     self.CertificationText.delegate = self;
+    self.emailText.delegate = self;
     self.idText.attributedPlaceholder =[[NSAttributedString alloc]
                                         initWithString:@"아이디를 입력해주세요"];
 }
@@ -55,35 +57,37 @@
 //비밀번호 틀릴시 뷰 에 띄우기
 - (IBAction)setSignupBtn:(id)sender
 {
-    if (self.pwText.text != self.confirmText.text) {
-        NSString *text = [NSString stringWithFormat:@"비밀번호를 다시 입력해 주세요"];
-        self.pwText.text = nil;
-        self.confirmText.text = nil;
-        UIColor *color = [UIColor redColor];
-        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
-         initWithString:text
-         attributes:@{NSForegroundColorAttributeName:color}];
-        
-    }
-    if (self.idText.text.length <= 5 && self.idText.text.stringByRemovingPercentEncoding && " " )
-    {
-        self.idText.text = nil;
-        UIColor *color = [UIColor redColor];
-        self.idText.attributedPlaceholder =[[NSAttributedString alloc]
-         initWithString:@"5글자이상 , 특수문자는 쓰지 마세요."
-         attributes:@{NSForegroundColorAttributeName:color}];
-        
-    }
-    if (self.pwText.text.length <=8 && self.confirmText.text.length <=8)
-    {
-        NSString *Warring = [NSString stringWithFormat:@"8글자 이상 작성해 주세요."];
-        self.pwText.text = nil;
-        UIColor *color = [UIColor redColor];
-        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
-                                            initWithString:Warring
-                                            attributes:@{NSForegroundColorAttributeName:color}];
-    }
-    
+//    if (![self.pwText.text isEqualToString:self.confirmText.text]) {
+//        NSString *text = [NSString stringWithFormat:@"비밀번호를 다시 입력해 주세요"];
+//        self.pwText.text = nil;
+//        self.confirmText.text = nil;
+//        UIColor *color = [UIColor redColor];
+//        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
+//         initWithString:text
+//         attributes:@{NSForegroundColorAttributeName:color}];
+//        
+//    }
+//    if (self.idText.text.length <= 5 && self.idText.text.stringByRemovingPercentEncoding && " " )
+//    {
+//        self.idText.text = nil;
+//        UIColor *color = [UIColor redColor];
+//        self.idText.attributedPlaceholder =[[NSAttributedString alloc]
+//         initWithString:@"5글자이상 , 특수문자는 쓰지 마세요."
+//         attributes:@{NSForegroundColorAttributeName:color}];
+//        
+//    }
+//    if (self.pwText.text.length <=8 && self.confirmText.text.length <=8)
+//    {
+//        NSString *Warring = [NSString stringWithFormat:@"8글자 이상 작성해 주세요."];
+//        self.pwText.text = nil;
+//        UIColor *color = [UIColor redColor];
+//        self.pwText.attributedPlaceholder =[[NSAttributedString alloc]
+//                                            initWithString:Warring
+//                                            attributes:@{NSForegroundColorAttributeName:color}];
+//    }
+   NSLog(@"id :%@ pw :%@",self.idText.text,self.pwText.text);
+//    
+    [NetworkingCenter singUpWithPhoneNumber:self.idText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:nil];
 }
 
 

@@ -11,7 +11,7 @@
 #import "KeychainItemWrapper.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit.h>
-#import <FBSDKSar>
+
 static NSString *const emailText =  @"emailTextField.text";
 static NSString *const passwordText = @"passwordTextField.text";
 

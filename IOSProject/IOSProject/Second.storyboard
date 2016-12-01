@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="prj-Se-zMc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="prj-Se-zMc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -113,6 +113,13 @@
                                     <action selector="setSignupBtn:" destination="prj-Se-zMc" eventType="touchUpInside" id="4Xx-eK-bUQ"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-UR-ZBF" customClass="CustomTextField">
+                                <rect key="frame" x="71" y="538" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -138,13 +145,13 @@
                     <connections>
                         <outlet property="CertificationText" destination="gVw-B9-8eA" id="zLE-sJ-nzo"/>
                         <outlet property="confirmText" destination="UUY-xw-O1J" id="lFR-QO-pZ9"/>
+                        <outlet property="emailText" destination="7Pb-UR-ZBF" id="H6G-VE-2H0"/>
                         <outlet property="idText" destination="pA7-yg-F8W" id="fK7-ME-nkn"/>
                         <outlet property="nameText" destination="xSX-rA-Vv2" id="mTg-3n-pPz"/>
                         <outlet property="phoneCertification" destination="Nkn-Z9-DsI" id="0AN-1D-OAM"/>
                         <outlet property="phoneConfirm" destination="8Xf-is-OJW" id="vX3-hf-58y"/>
                         <outlet property="phoneText" destination="lQ6-u6-Bu8" id="lhQ-nF-ogH"/>
                         <outlet property="pwText" destination="rsZ-XP-nRN" id="0Gb-em-fJd"/>
-                        <outlet property="signupBtn" destination="B41-jp-Aif" id="Tg5-pb-Dqh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2w-kh-kxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -233,10 +240,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IndexCell" id="NZb-PZ-n7l">
-                                        <rect key="frame" x="0.0" y="56" width="350" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="350" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NZb-PZ-n7l" id="9Mb-0P-tji">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

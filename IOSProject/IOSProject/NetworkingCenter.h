@@ -11,4 +11,5 @@
 @interface NetworkingCenter : NSObject
 
 + (void)requestGroupPageDataList;
++ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image;
 @end
