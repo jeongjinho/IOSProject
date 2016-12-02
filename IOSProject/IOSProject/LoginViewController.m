@@ -28,6 +28,10 @@ static NSString *const passwordText = @"passwordTextField.text";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+#ifdef DEBUG
+    _emailTextField.text = @"321";
+    _passwordTextField.text = @"123123123";
+#endif
     
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
@@ -49,7 +53,38 @@ static NSString *const passwordText = @"passwordTextField.text";
     [self.view addGestureRecognizer:self.windowTap];
     
 }
+
+
 #pragma -mark touchInside Login Button
+- (IBAction)touchInSideLoginButton:(id)sender {
+    
+    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"glue" accessGroup:nil];
+    NSString *keychainToken = [keychain objectForKey:(id)kSecAttrAccount];
+    
+    [NetworkingCenter loginWithEmail:self.emailTextField.text password:self.passwordTextField.text loginHandler:^(NSString *token) {
+        
+        UITabBarController *mainVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
+        if([keychainToken isEqualToString:token]){
+         
+            
+            [keychain setObject:token forKey:(id)kSecAttrAccount];
+            [self presentViewController:mainVC animated:YES completion:nil];
+            
+        } else {
+          
+            [keychain setObject:token forKey:(id)kSecAttrAccount];
+             [self presentViewController:mainVC animated:YES completion:nil];
+            }
+      
+    }];
+        
+        
+    
+    
+
+}
+
+
 //- (IBAction)touchInSideLoginButton:(id)sender {
 //    
 //    if ([FBSDKAccessToken currentAccessToken]) {

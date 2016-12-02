@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B257A061DF160680039624C /* KeychainItemWrapper.m */; };
 		7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88A1DEBFD3100DDAA93 /* main.m */; };
 		7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */; };
 		7B4FB8961DEBFD3100DDAA93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */; };
@@ -20,14 +21,10 @@
 		7B4FB8BA1DEC3BA200DDAA93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B91DEC3BA200DDAA93 /* MainViewController.m */; };
 		7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */; };
 		7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */; };
-		7BBD1D6D1DF01B4D00D49762 /* libFBSDKCoreKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBD1D6C1DF01B4D00D49762 /* libFBSDKCoreKit.a */; };
-		7BBD1D6F1DF01B5D00D49762 /* libFBSDKLoginKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBD1D6E1DF01B5D00D49762 /* libFBSDKLoginKit.a */; };
-		7BBD1D711DF01B6400D49762 /* libFBSDKShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BBD1D701DF01B6400D49762 /* libFBSDKShareKit.a */; };
-		7BCA8BE31DED6F180049F62A /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE21DED6F180049F62A /* KeychainItemWrapper.m */; };
+		7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */; };
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
-		7BEF3EAC1DEFFBB700569AC2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
@@ -38,6 +35,9 @@
 /* Begin PBXFileReference section */
 		1C39EB9C6ABD31511D5C670D /* Pods-IOSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		766630537B85BE0AE116F902 /* Pods-IOSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.release.xcconfig"; sourceTree = "<group>"; };
+		7B257A061DF160680039624C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		7B257A071DF160680039624C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		7B257A091DF1617C0039624C /* IOSProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSProject.entitlements; sourceTree = "<group>"; };
 		7B4FB8861DEBFD3100DDAA93 /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B4FB88A1DEBFD3100DDAA93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,11 +62,10 @@
 		7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingCenter.m; sourceTree = "<group>"; };
 		7B4FB8C11DEC3DB500DDAA93 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
+		7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7BBD1D6C1DF01B4D00D49762 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKCoreKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/libFBSDKCoreKit.a"; sourceTree = "<group>"; };
 		7BBD1D6E1DF01B5D00D49762 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKLoginKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/libFBSDKLoginKit.a"; sourceTree = "<group>"; };
 		7BBD1D701DF01B6400D49762 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKShareKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKShareKit/libFBSDKShareKit.a"; sourceTree = "<group>"; };
-		7BCA8BE11DED6F180049F62A /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
-		7BCA8BE21DED6F180049F62A /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		7BCA8BE41DED97530049F62A /* DetailGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailGroupViewController.h; sourceTree = "<group>"; };
 		7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailGroupViewController.m; sourceTree = "<group>"; };
 		7BCA8BE71DED9C330049F62A /* CustomViewBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewBorder.h; sourceTree = "<group>"; };
@@ -90,10 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BBD1D711DF01B6400D49762 /* libFBSDKShareKit.a in Frameworks */,
-				7BBD1D6F1DF01B5D00D49762 /* libFBSDKLoginKit.a in Frameworks */,
-				7BBD1D6D1DF01B4D00D49762 /* libFBSDKCoreKit.a in Frameworks */,
-				7BEF3EAC1DEFFBB700569AC2 /* Photos.framework in Frameworks */,
+				7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */,
 				A5C88307C416EC2D9464E98C /* libPods-IOSProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,10 +118,11 @@
 		7B4FB8881DEBFD3100DDAA93 /* IOSProject */ = {
 			isa = PBXGroup;
 			children = (
+				7B257A091DF1617C0039624C /* IOSProject.entitlements */,
 				7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */,
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
-				7BCA8BE11DED6F180049F62A /* KeychainItemWrapper.h */,
-				7BCA8BE21DED6F180049F62A /* KeychainItemWrapper.m */,
+				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
+				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
 				7B4FB8C01DEC3DA100DDAA93 /* DataCenter */,
 				7B4FB8BF1DEC3D9400DDAA93 /* Networking */,
@@ -264,6 +261,7 @@
 		C84EC8B1FA3CE4055B8FAFD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */,
 				7BBD1D701DF01B6400D49762 /* libFBSDKShareKit.a */,
 				7BBD1D6E1DF01B5D00D49762 /* libFBSDKLoginKit.a */,
 				7BBD1D6C1DF01B4D00D49762 /* libFBSDKCoreKit.a */,
@@ -316,7 +314,13 @@
 				TargetAttributes = {
 					7B4FB8851DEBFD3100DDAA93 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = NN7QXHC8A3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -411,7 +415,6 @@
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
-				7BCA8BE31DED6F180049F62A /* KeychainItemWrapper.m in Sources */,
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */,
@@ -420,6 +423,7 @@
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
 				7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */,
+				7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */,
 				7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */,
 				7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */,
 			);
@@ -534,7 +538,8 @@
 			baseConfigurationReference = 1C39EB9C6ABD31511D5C670D /* Pods-IOSProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = IOSProject/IOSProject.entitlements;
+				DEVELOPMENT_TEAM = NN7QXHC8A3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -553,7 +558,8 @@
 			baseConfigurationReference = 766630537B85BE0AE116F902 /* Pods-IOSProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = IOSProject/IOSProject.entitlements;
+				DEVELOPMENT_TEAM = NN7QXHC8A3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

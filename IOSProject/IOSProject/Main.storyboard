@@ -113,6 +113,7 @@
                                             <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
+                                            <action selector="touchInSideLoginButton:" destination="buh-Z8-OfN" eventType="touchUpInside" id="B5u-v3-DRv"/>
                                             <segue destination="Cxc-Rm-TK4" kind="presentation" id="pcL-wQ-zYB"/>
                                         </connections>
                                     </button>
@@ -322,7 +323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFB-fE-hR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="697"/>
+            <point key="canvasLocation" x="1919" y="740"/>
         </scene>
         <!--Detail Group View Controller-->
         <scene sceneID="l3Q-RQ-AhM">
@@ -473,7 +474,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MoE-9a-yu5" id="uKC-2W-wJE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-lo-Bf5">
@@ -620,7 +621,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Veb-Qy-Jg7">
             <objects>
-                <tabBarController modalPresentationStyle="overFullScreen" id="Cxc-Rm-TK4" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainVC" modalPresentationStyle="overFullScreen" id="Cxc-Rm-TK4" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="dds-Ea-L0n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -655,7 +656,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpy-aJ-WOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="619"/>
+            <point key="canvasLocation" x="1241" y="740"/>
         </scene>
         <!--settingVC-->
         <scene sceneID="hHN-oT-uX0">

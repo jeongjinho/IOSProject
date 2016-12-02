@@ -1,59 +1,10 @@
 //
 //  KeychainItemWrapper.m
-//  IOSProject
+//  Popcorn
 //
-//  Created by 진호놀이터 on 2016. 11. 29..
-//  Copyright © 2016년 진호놀이터. All rights reserved.
+//  Created by giftbot on 2016. 12. 1..
+//  Copyright © 2016년 giftbot. All rights reserved.
 //
-
-/*
- File: KeychainItemWrapper.m
- Abstract:
- Objective-C wrapper for accessing a single keychain item.
- 
- Version: 1.2 - ARCified
- 
- Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
- Inc. ("Apple") in consideration of your agreement to the following
- terms, and your use, installation, modification or redistribution of
- this Apple software constitutes acceptance of these terms.  If you do
- not agree with these terms, please do not use, install, modify or
- redistribute this Apple software.
- 
- In consideration of your agreement to abide by the following terms, and
- subject to these terms, Apple grants you a personal, non-exclusive
- license, under Apple's copyrights in this original Apple software (the
- "Apple Software"), to use, reproduce, modify and redistribute the Apple
- Software, with or without modifications, in source and/or binary forms;
- provided that if you redistribute the Apple Software in its entirety and
- without modifications, you must retain this notice and the following
- text and disclaimers in all such redistributions of the Apple Software.
- Neither the name, trademarks, service marks or logos of Apple Inc. may
- be used to endorse or promote products derived from the Apple Software
- without specific prior written permission from Apple.  Except as
- expressly stated in this notice, no other rights or licenses, express or
- implied, are granted by Apple herein, including but not limited to any
- patent rights that may be infringed by your derivative works or by other
- works in which the Apple Software may be incorporated.
- 
- The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
- MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
- THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
- FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
- OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
- 
- IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
- OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
- MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
- AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
- STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
- POSSIBILITY OF SUCH DAMAGE.
- 
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
- 
- */
 
 #define PASSWORD_USES_DATA
 
@@ -100,10 +51,8 @@
     NSMutableDictionary *genericPasswordQuery;	// A placeholder for the generic keychain item query used to locate the item.
 }
 
-- (id)initWithIdentifier: (NSString *)identifier accessGroup:(NSString *) accessGroup;
-{
-    if (self = [super init])
-    {
+- (id)initWithIdentifier: (NSString *)identifier accessGroup:(NSString *) accessGroup {
+    if (self = [super init]) {
         // Begin Keychain search setup. The genericPasswordQuery leverages the special user
         // defined attribute kSecAttrGeneric to distinguish itself between other generic Keychain
         // items which may be included by the same application.
@@ -117,14 +66,7 @@
         if (accessGroup != nil)
         {
 #if TARGET_IPHONE_SIMULATOR
-            // Ignore the access group if running on the iPhone simulator.
-            //
-            // Apps that are built for the simulator aren't signed, so there's no keychain access group
-            // for the simulator to check. This means that all apps can see all keychain items when run
-            // on the simulator.
-            //
-            // If a SecItem contains an access group attribute, SecItemAdd and SecItemUpdate on the
-            // simulator will return -25243 (errSecNoAccessForItem).
+            // Do Nothing
 #else
             [genericPasswordQuery setObject:accessGroup forKey:(__bridge id)kSecAttrAccessGroup];
 #endif
@@ -138,9 +80,8 @@
         
         CFMutableDictionaryRef outDictionary = NULL;
         
-//        if (!SecItemCopyMatching((__bridge CFDictionaryRef)tempQuery, (CFTypeRef *)&outDictionary) == noErr)
-            if (!(SecItemCopyMatching((__bridge CFDictionaryRef)tempQuery, (CFTypeRef *)&outDictionary) == noErr))
-        {
+        NSInteger matchingResult = !SecItemCopyMatching((__bridge CFDictionaryRef)tempQuery, (CFTypeRef *)&outDictionary);
+        if (matchingResult == noErr) {
             // Stick these default values into keychain item if nothing found.
             [self resetKeychainItem];
             
@@ -162,9 +103,7 @@
 #endif
             }
         }
-        else
-        {
-            // load the saved data from Keychain.
+        else {
             keychainItemData = [self secItemFormatToDictionary:(__bridge NSDictionary *)outDictionary];
         }
         if(outDictionary) CFRelease(outDictionary);
@@ -173,8 +112,7 @@
     return self;
 }
 
-- (void)setObject:(id)inObject forKey:(id)key
-{
+- (void)setObject:(id)inObject forKey:(id)key {
     if (inObject == nil) return;
     id currentObject = [keychainItemData objectForKey:key];
     if (![currentObject isEqual:inObject])
@@ -184,19 +122,15 @@
     }
 }
 
-- (id)objectForKey:(id)key
-{
+- (id)objectForKey:(id)key {
     return [keychainItemData objectForKey:key];
 }
 
-- (void)resetKeychainItem
-{
-    if (!keychainItemData)
-    {
+- (void)resetKeychainItem {
+    if (!keychainItemData) {
         keychainItemData = [[NSMutableDictionary alloc] init];
     }
-    else if (keychainItemData)
-    {
+    else if (keychainItemData) {
         NSMutableDictionary *tempDictionary = [self dictionaryToSecItemFormat:keychainItemData];
 #ifndef NS_BLOCK_ASSERTIONS
         OSStatus junk =
@@ -218,8 +152,7 @@
 #endif
 }
 
-- (NSMutableDictionary *)dictionaryToSecItemFormat:(NSDictionary *)dictionaryToConvert
-{
+- (NSMutableDictionary *)dictionaryToSecItemFormat:(NSDictionary *)dictionaryToConvert {
     // The assumption is that this method will be called with a properly populated dictionary
     // containing all the right key/value pairs for a SecItem.
     
@@ -248,8 +181,7 @@
     return returnDictionary;
 }
 
-- (NSMutableDictionary *)secItemFormatToDictionary:(NSDictionary *)dictionaryToConvert
-{
+- (NSMutableDictionary *)secItemFormatToDictionary:(NSDictionary *)dictionaryToConvert {
     // The assumption is that this method will be called with a properly populated dictionary
     // containing all the right key/value pairs for the UI element.
     
@@ -262,8 +194,7 @@
     
     // Acquire the password data from the attributes.
     CFDataRef passwordData = NULL;
-    if (SecItemCopyMatching((__bridge CFDictionaryRef)returnDictionary, (CFTypeRef *)&passwordData) == noErr)
-    {
+    if (SecItemCopyMatching((__bridge CFDictionaryRef)returnDictionary, (CFTypeRef *)&passwordData) == noErr) {
         // Remove the search, class, and identifier key/value, we don't need them anymore.
         [returnDictionary removeObjectForKey:(__bridge id)kSecReturnData];
         
@@ -277,8 +208,7 @@
 #endif
         [returnDictionary setObject:password forKey:(__bridge id)kSecValueData];
     }
-    else
-    {
+    else {
         // Don't do anything if nothing is found.
         NSAssert(NO, @"Serious error, no matching item found in the keychain.\n");
     }
@@ -293,8 +223,7 @@
     NSMutableDictionary *updateItem = nil;
     OSStatus result;
     
-    if (SecItemCopyMatching((__bridge CFDictionaryRef)genericPasswordQuery, (CFTypeRef *)&attributes) == noErr)
-    {
+    if (SecItemCopyMatching((__bridge CFDictionaryRef)genericPasswordQuery, (CFTypeRef *)&attributes) == noErr) {
         // First we need the attributes from the Keychain.
         updateItem = [NSMutableDictionary dictionaryWithDictionary:(__bridge NSDictionary *)attributes];
         // Second we need to add the appropriate search key/values.
@@ -327,8 +256,7 @@
         
         NSAssert( result == noErr, @"Couldn't update the Keychain Item." );
     }
-    else
-    {
+    else {
         // No previous item found; add the new one.
         result = SecItemAdd((__bridge CFDictionaryRef)[self dictionaryToSecItemFormat:keychainItemData], NULL);
         NSAssert( result == noErr, @"Couldn't add the Keychain Item." );

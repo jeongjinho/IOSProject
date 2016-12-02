@@ -7,7 +7,8 @@
 //
 
 #import "WriteViewController.h"
-
+#import <Photos/PHCollection.h>
+#import <Photos/PHAsset.h>
 @interface WriteViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *bottomCollectionView;
 
@@ -21,6 +22,26 @@
 //    self.tabBarController.tabBar.hidden = YES;
     self.bottomCollectionView.delegate = self;
     self.bottomCollectionView.dataSource = self;
+    
+    //라이브러리
+   
+
+    __block NSString *localIdentifier = nil;
+    // 카메라 롤 앨범을 읽어온다.
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                               subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                               options:nil];
+    
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+//    
+//    // 카메라 롤에 있는 사진을 가져온다.
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    [assets enumerateObjectsUsingBlock : ^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+        // PHAsset에서 localIdentifier 프로퍼티를 읽는다.
+        localIdentifier = asset.localIdentifier;
+        *stop = YES;
+    }];
+ 
 }
 #pragma -mark CollectionView delegate Method
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
