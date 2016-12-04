@@ -16,29 +16,36 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *bottomCollectionView;
 @property (weak, nonatomic) IBOutlet UIImageView *topIamgeView;
 @property (strong,nonatomic) NSMutableArray *loadImageData;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeButtonHeightConstraint;
-
+@property NSInteger cellCount;
 @end
 
 @implementation WriteViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.tabBarController.tabBar.hidden = YES;
-    
-    [self loadImageInDevicePhotoLibray];
+    self.loadImageData = [[NSMutableArray alloc]init];
+    self.cellCount = 0;
+    [self loadImageInDevicePhotoLibray:self.cellCount];
     NSLog(@"self number: %ld",self.loadImageData.count);
-
     self.bottomCollectionView.delegate = self;
     self.bottomCollectionView.dataSource = self;
     
    
+  
     
 }
 
-- (void)loadImageInDevicePhotoLibray{
- 
+- (void)loadImageInDevicePhotoLibray:(NSUInteger)range{
+    
+    self.cellCount +=40;
     PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                         subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
                                                                         options:nil];
@@ -50,23 +57,32 @@
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.networkAccessAllowed = YES;
     options.synchronous = YES;
-    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
-    __block NSMutableArray  *loadImages = [NSMutableArray array];
     
-    for (PHAsset *asset in assets) {
-        
-            [photoManager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+  
+    
+    for (NSInteger i = range;i<assets.count;i++) {
+        NSLog(@"i의 카운트 :%ld",i);
+            [photoManager requestImageForAsset:assets[i] targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                 
-               
-                [loadImages addObject:result];
-                 
+                [self.loadImageData addObject:result];
+                //[loadImages addObject:result];
+                
+                
             }];
         
-        NSLog(@"로드이미지 카운트 : %ld",loadImages.count);
+       // NSLog(@"로드이미지 카운트 : %ld",loadImages.count);
+        NSLog(@"cell count :%ld",self.cellCount);
+        
+        if(self.loadImageData.count ==self.cellCount){
+            
+            
+            return ;
+        }
     }
     
-    self.loadImageData = [NSMutableArray arrayWithArray:loadImages];
+  //  self.loadImageData = [NSMutableArray arrayWithArray:loadImages];
     
     }
 
@@ -76,7 +92,7 @@
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSLog(@"갯수 :%ld",self.loadImageData.count);
+    
     return self.loadImageData.count;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -85,7 +101,7 @@
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 1.0;
+    return 2.0;
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -104,18 +120,60 @@
 
     WriteCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
-    UIImage *loadImage = self.loadImageData[indexPath.row];
-    cell.collectionViewImage.image = loadImage;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIImage *loadImage = self.loadImageData[indexPath.row];
+        cell.collectionViewImage.image = loadImage;
     
-
+ });
     return cell;
 
 }
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
 
+}
+//-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+//    
+//    return YES;
+//}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    CGFloat contentHeight = scrollView.contentSize.height;
+    if (offsetY < contentHeight-30)
+    {
+       
+        
+        [self loadImageInDevicePhotoLibray:self.cellCount];
+        
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [UIView animateWithDuration:0 animations:^{
+                
+                
+                [self.bottomCollectionView performBatchUpdates:^{
+                    [self.bottomCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+                } completion:nil];
+            }];
+        });
+        
+    }
+
+}
+- (void)scrollViewWillScroll:(UIScrollView *)scrollView
+{
+    
+}
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //물어볼것
    // WriteCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    self.topIamgeView.image = self.loadImageData[indexPath.row];
+    
+        
+        self.topIamgeView.image = self.loadImageData[indexPath.row];
+   
+    
 
     
 }

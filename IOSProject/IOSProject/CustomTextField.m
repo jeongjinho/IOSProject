@@ -14,12 +14,16 @@
     // Drawing code
     CALayer *emailBorder = [CALayer layer];
     emailBorder.frame = CGRectMake(0.0f, self.frame.size.height - 1, self.frame.size.width, 1.0f);
-    emailBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    [self.layer addSublayer:emailBorder];
     
     [[UIColor blueColor] setFill];
     
+    
+        emailBorder.backgroundColor = [UIColor whiteColor].CGColor;
+        [self.layer addSublayer:emailBorder];
+   
+    
     [self setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
 }
 
 

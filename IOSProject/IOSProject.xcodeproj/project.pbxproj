@@ -21,6 +21,9 @@
 		7B4FB8BA1DEC3BA200DDAA93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8B91DEC3BA200DDAA93 /* MainViewController.m */; };
 		7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */; };
 		7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */; };
+		7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */; };
+		7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C81DF402C400A00EFF /* MainColorTextField.m */; };
+		7B5104CB1DF40CAD00A00EFF /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5104CA1DF40CAD00A00EFF /* Contacts.framework */; };
 		7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */; };
 		7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */; };
@@ -63,6 +66,11 @@
 		7B4FB8BD1DEC3D8F00DDAA93 /* NetworkingCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkingCenter.m; sourceTree = "<group>"; };
 		7B4FB8C11DEC3DB500DDAA93 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		7B4FB8C21DEC3DB500DDAA93 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
+		7B5104C31DF3FE7600A00EFF /* WritingConfirmPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingConfirmPageViewController.h; sourceTree = "<group>"; };
+		7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingConfirmPageViewController.m; sourceTree = "<group>"; };
+		7B5104C71DF402C400A00EFF /* MainColorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainColorTextField.h; sourceTree = "<group>"; };
+		7B5104C81DF402C400A00EFF /* MainColorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainColorTextField.m; sourceTree = "<group>"; };
+		7B5104CA1DF40CAD00A00EFF /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7BBB810E1DF2A4180039219A /* WriteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCollectionViewCell.h; sourceTree = "<group>"; };
 		7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCollectionViewCell.m; sourceTree = "<group>"; };
@@ -92,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5104CB1DF40CAD00A00EFF /* Contacts.framework in Frameworks */,
 				7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */,
 				A5C88307C416EC2D9464E98C /* libPods-IOSProject.a in Frameworks */,
 			);
@@ -126,6 +135,7 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
+				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
 				7B4FB8C01DEC3DA100DDAA93 /* DataCenter */,
 				7B4FB8BF1DEC3D9400DDAA93 /* Networking */,
@@ -225,6 +235,17 @@
 			name = DataCenter;
 			sourceTree = "<group>";
 		};
+		7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */ = {
+			isa = PBXGroup;
+			children = (
+				7B5104C31DF3FE7600A00EFF /* WritingConfirmPageViewController.h */,
+				7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */,
+				7B5104C71DF402C400A00EFF /* MainColorTextField.h */,
+				7B5104C81DF402C400A00EFF /* MainColorTextField.m */,
+			);
+			name = WritinConfirmPage;
+			sourceTree = "<group>";
+		};
 		7BEF3EAA1DEFF1E000569AC2 /* WritePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +287,7 @@
 		C84EC8B1FA3CE4055B8FAFD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B5104CA1DF40CAD00A00EFF /* Contacts.framework */,
 				7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */,
 				7BBD1D701DF01B6400D49762 /* libFBSDKShareKit.a */,
 				7BBD1D6E1DF01B5D00D49762 /* libFBSDKLoginKit.a */,
@@ -418,6 +440,7 @@
 				7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */,
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
+				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
@@ -431,6 +454,7 @@
 				7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */,
 				7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */,
 				7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */,
+				7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */,
 				7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
