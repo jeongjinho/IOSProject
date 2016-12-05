@@ -21,7 +21,7 @@ static NSString *const phoneNumber = @"phoneNumber";
 @property (weak, nonatomic) IBOutlet MainColorTextField *groupNameField;
 @property (weak, nonatomic) IBOutlet MainColorTextField *searchPhoneNumberField;
 @property (weak, nonatomic) IBOutlet UITableView *searchedTableView;
-@property (strong,nonatomic) UIImage *GroupMainImage;
+
 @property (strong,nonatomic) NSString *searchWord;
 @property (strong,nonatomic) NSMutableArray *searchedInfos;
 @property  (strong,nonatomic)NSMutableArray *sortingInfo;
@@ -34,13 +34,14 @@ static NSString *const phoneNumber = @"phoneNumber";
     [super viewDidLoad];
     self.searchWord = @"";
     self.searchedInfos = [[NSMutableArray alloc]init];
-    
+    self.selectiedImageView.image = self.groupMainImage;
     // Do any additional setup after loading the view.
     [self callPhoneNumberInfoAtDevice];
     self.groupNameField.delegate = self;
     self.searchPhoneNumberField.delegate =self;
     self.searchedTableView.delegate = self;
     self.searchedTableView.dataSource = self;
+    
 }
 #pragma -mark searchTableView delegate Method
 
@@ -59,6 +60,9 @@ static NSString *const phoneNumber = @"phoneNumber";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
     
+    
+   
+//    NSLog(@"%@", [[self.sortingInfo[indexPath.row] objectForKey:phoneNumber]firstObject].);
     cell.textLabel.text = [self.sortingInfo[indexPath.row] objectForKey:name];
     return cell;
 
@@ -80,14 +84,18 @@ static NSString *const phoneNumber = @"phoneNumber";
     
     return YES;
 }
-
+//들어온 최신글자가  주소록에 있는지 확인
 - (void)searchForInputedNameString:(NSString *)inputedString{
     
     self.sortingInfo = [[NSMutableArray alloc] init];
     for (NSDictionary *info in self.searchedInfos) {
         NSString *infoName = [info objectForKey:name];
+        
+        
         NSString *inputString = [UtilityClass GetUTF8String:inputedString];
+        NSLog(@"str :%@",inputString);
         NSString *str = [UtilityClass GetUTF8String:infoName];
+        
         NSLog(@"str :%@",str);
         NSRange range = [str rangeOfString:inputString];
         if(range.location !=NSNotFound){
@@ -122,10 +130,9 @@ static NSString *const phoneNumber = @"phoneNumber";
 //        fommater.style = CNContactFormatterStyleFullName;
         [phoneNumberStore enumerateContactsWithFetchRequest:fetchRequest error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
               
-           
+            
             NSString *names =[contact.familyName stringByAppendingString:contact.givenName];
-            NSLog(@"조합된이름 :%@",names);
-     
+            
             
         [self.searchedInfos  addObject:@{phoneNumber:contact.phoneNumbers, name:names}];
         

@@ -11,7 +11,7 @@
 #import <Photos/PHCollection.h>
 #import <Photos/PHImageManager.h>
 #import "WriteCollectionViewCell.h"
-
+#import "WritingConfirmPageViewController.h"
 @interface WriteViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *bottomCollectionView;
 @property (weak, nonatomic) IBOutlet UIImageView *topIamgeView;
@@ -42,7 +42,32 @@
   
     
 }
+- (UIImage *)selectedImageInDevicePhotoLibray:(NSInteger)row{
 
+    __block UIImage *searchedImage;
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                        options:nil];
+    
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+    //
+    //    // 카메라 롤에 있는 사진을 가져온다.
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.synchronous = YES;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    PHImageManager *photoManager = [PHImageManager defaultManager];
+
+    
+    [photoManager requestImageForAsset:assets[row] targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        
+        searchedImage = result;
+        
+    }];
+    return searchedImage;
+}
+//----------------------------------------------------------------------------
 - (void)loadImageInDevicePhotoLibray:(NSUInteger)range{
     
     self.cellCount +=40;
@@ -170,8 +195,8 @@
     //물어볼것
    // WriteCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     
-        
-        self.topIamgeView.image = self.loadImageData[indexPath.row];
+    
+    self.topIamgeView.image = [self selectedImageInDevicePhotoLibray:indexPath.row];
    
     
 
@@ -190,7 +215,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
+    if([segue.identifier isEqualToString:@"Next"]){
+    
+        WritingConfirmPageViewController *writeConfirmVC = segue.destinationViewController;
+        writeConfirmVC.groupMainImage = self.topIamgeView.image;
+    
+    }
+    
+
+}
 /*
 #pragma mark - Navigation
 

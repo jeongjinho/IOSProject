@@ -283,7 +283,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Tlv-sm-jJS" kind="show" id="XhO-bG-gM8"/>
+                                            <segue destination="Tlv-sm-jJS" kind="show" identifier="Next" id="XhO-bG-gM8"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -467,7 +467,7 @@
                                         <rect key="frame" x="0.0" y="28" width="370" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esk-g1-vzB" id="xuU-JL-NSm">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -666,7 +666,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MoE-9a-yu5" id="uKC-2W-wJE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-lo-Bf5">
