@@ -33,6 +33,7 @@
 		7C63A05B1DF10ABD005FD2E4 /* ViewUpBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05A1DF10ABD005FD2E4 /* ViewUpBorder.m */; };
 		7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05D1DF10DAE005FD2E4 /* CommentBorder.m */; };
 		7C63A0671DF294BF005FD2E4 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A0661DF294BF005FD2E4 /* Setting.m */; };
+		7C63A06D1DF53E80005FD2E4 /* NoticeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A06C1DF53E80005FD2E4 /* NoticeTableView.m */; };
 		7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362451DEC09630048A634 /* SignUpViewController.m */; };
 		7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362611DEC1FC80048A634 /* ReadViewController.m */; };
 		7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE362641DEC2B060048A634 /* ModifyViewController.m */; };
@@ -95,6 +96,8 @@
 		7C63A05D1DF10DAE005FD2E4 /* CommentBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentBorder.m; sourceTree = "<group>"; };
 		7C63A0651DF294BF005FD2E4 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		7C63A0661DF294BF005FD2E4 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		7C63A06B1DF53E80005FD2E4 /* NoticeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeTableView.h; sourceTree = "<group>"; };
+		7C63A06C1DF53E80005FD2E4 /* NoticeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeTableView.m; sourceTree = "<group>"; };
 		7CE362441DEC09630048A634 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		7CE362451DEC09630048A634 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		7CE362601DEC1FC80048A634 /* ReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadViewController.h; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 				7C63A05D1DF10DAE005FD2E4 /* CommentBorder.m */,
 				7C63A0651DF294BF005FD2E4 /* Setting.h */,
 				7C63A0661DF294BF005FD2E4 /* Setting.m */,
+				7C63A06B1DF53E80005FD2E4 /* NoticeTableView.h */,
+				7C63A06C1DF53E80005FD2E4 /* NoticeTableView.m */,
 			);
 			name = "New Group";
 			sourceTree = "<group>";
@@ -468,14 +473,12 @@
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
 				7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
+				7C63A06D1DF53E80005FD2E4 /* NoticeTableView.m in Sources */,
 				7B4FB8C31DEC3DB500DDAA93 /* DataCenter.m in Sources */,
 				7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */,
 				7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */,
-
 				7C63A0671DF294BF005FD2E4 /* Setting.m in Sources */,
-
 				7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */,
-
 				7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
