@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -407,18 +408,9 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Moonbow" translatesAutoresizingMaskIntoConstraints="NO" id="AXk-Rt-Vr5">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="282"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그룹명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-Rr-R4b">
-                                        <rect key="frame" x="10" y="302" width="365" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.25847315788269043" green="0.16285321116447449" blue="0.4285818338394165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pP9-oB-4mE" customClass="MainColorTextField">
-                                        <rect key="frame" x="10" y="329" width="365" height="17"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y4R-aN-hPl">
+                                        <rect key="frame" x="0.0" y="282" width="375" height="70.5"/>
+                                    </scrollView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34T-IS-y74">
                                         <rect key="frame" x="10" y="372" width="0.0" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -426,14 +418,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전화번호 검색" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7j-P6-yeH">
-                                        <rect key="frame" x="10" y="366" width="365" height="17"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="그룹원찾기" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CIo-6l-vQh" customClass="MainColorTextField">
+                                        <rect key="frame" x="20" y="403" width="335" height="35.5"/>
+                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.25847315788269043" green="0.16285321116447449" blue="0.4285818338394165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CIo-6l-vQh" customClass="MainColorTextField">
-                                        <rect key="frame" x="10" y="393" width="365" height="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="그룹명" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pP9-oB-4mE" customClass="MainColorTextField">
+                                        <rect key="frame" x="20" y="352.5" width="335" height="35.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -441,35 +433,61 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="trailing" secondItem="HXu-Rr-R4b" secondAttribute="trailing" id="3dH-6H-YAl"/>
-                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="leading" secondItem="U7j-P6-yeH" secondAttribute="leading" id="EL7-Rr-mwE"/>
+                                    <constraint firstAttribute="trailing" secondItem="pP9-oB-4mE" secondAttribute="trailing" constant="20" id="3Zd-Wr-Bxv"/>
+                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="leading" secondItem="pP9-oB-4mE" secondAttribute="leading" id="4Pb-Rs-HiD"/>
+                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="height" secondItem="Y4R-aN-hPl" secondAttribute="height" multiplier="0.5" id="806-Lf-EQ5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y4R-aN-hPl" secondAttribute="trailing" id="A0Y-iq-faZ"/>
                                     <constraint firstItem="AXk-Rt-Vr5" firstAttribute="leading" secondItem="IVI-DM-If0" secondAttribute="leading" id="G5q-iK-eCf"/>
-                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="top" secondItem="HXu-Rr-R4b" secondAttribute="bottom" constant="10" id="MzH-az-G5Q"/>
-                                    <constraint firstItem="HXu-Rr-R4b" firstAttribute="leading" secondItem="IVI-DM-If0" secondAttribute="leading" constant="10" id="PPf-tj-wtF"/>
+                                    <constraint firstItem="Y4R-aN-hPl" firstAttribute="height" secondItem="AXk-Rt-Vr5" secondAttribute="height" multiplier="0.25" id="JGZ-pt-2NF"/>
+                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="top" secondItem="pP9-oB-4mE" secondAttribute="bottom" constant="15" id="MSj-qE-auc"/>
                                     <constraint firstItem="AXk-Rt-Vr5" firstAttribute="height" secondItem="IVI-DM-If0" secondAttribute="height" multiplier="0.65" id="Pbp-pE-AUe"/>
+                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="leading" secondItem="IVI-DM-If0" secondAttribute="leading" constant="20" id="UiD-Kl-SSb"/>
                                     <constraint firstItem="AXk-Rt-Vr5" firstAttribute="top" secondItem="IVI-DM-If0" secondAttribute="top" id="VSo-ae-RwU"/>
-                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="top" secondItem="U7j-P6-yeH" secondAttribute="bottom" constant="10" id="XFv-co-9Fr"/>
-                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="trailing" secondItem="U7j-P6-yeH" secondAttribute="trailing" id="YSp-Nq-22B"/>
-                                    <constraint firstItem="U7j-P6-yeH" firstAttribute="trailing" secondItem="pP9-oB-4mE" secondAttribute="trailing" id="ZSR-L0-szu"/>
-                                    <constraint firstItem="U7j-P6-yeH" firstAttribute="top" secondItem="pP9-oB-4mE" secondAttribute="bottom" constant="20" id="cBW-4l-eGQ"/>
-                                    <constraint firstItem="HXu-Rr-R4b" firstAttribute="top" secondItem="AXk-Rt-Vr5" secondAttribute="bottom" constant="20" id="eR3-QK-s27"/>
+                                    <constraint firstItem="Y4R-aN-hPl" firstAttribute="leading" secondItem="IVI-DM-If0" secondAttribute="leading" id="eFa-Qg-LC4"/>
+                                    <constraint firstItem="Y4R-aN-hPl" firstAttribute="top" secondItem="AXk-Rt-Vr5" secondAttribute="bottom" id="hIE-Hu-wPZ"/>
+                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="height" secondItem="pP9-oB-4mE" secondAttribute="height" id="jgb-Vm-Inb"/>
+                                    <constraint firstItem="CIo-6l-vQh" firstAttribute="trailing" secondItem="pP9-oB-4mE" secondAttribute="trailing" id="lKG-IF-xHw"/>
                                     <constraint firstItem="AXk-Rt-Vr5" firstAttribute="width" secondItem="IVI-DM-If0" secondAttribute="width" id="o8l-EL-cdc"/>
-                                    <constraint firstItem="U7j-P6-yeH" firstAttribute="leading" secondItem="pP9-oB-4mE" secondAttribute="leading" id="ocg-gG-5n1"/>
-                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="leading" secondItem="HXu-Rr-R4b" secondAttribute="leading" id="vcz-Ba-9q2"/>
-                                    <constraint firstItem="HXu-Rr-R4b" firstAttribute="trailing" secondItem="AXk-Rt-Vr5" secondAttribute="trailing" id="yak-lr-fOS"/>
+                                    <constraint firstItem="pP9-oB-4mE" firstAttribute="top" secondItem="Y4R-aN-hPl" secondAttribute="bottom" id="qdd-fg-Ef7"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8xV-UF-fGr">
-                                <rect key="frame" x="5" y="493.5" width="370" height="173.5"/>
+                                <rect key="frame" x="5" y="513.5" width="370" height="153.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="esk-g1-vzB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="esk-g1-vzB" customClass="SearchPhoneNumberTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="370" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esk-g1-vzB" id="xuU-JL-NSm">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전화번호" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmk-z5-tih">
+                                                    <rect key="frame" x="158" y="20.5" width="204" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4T-xp-Odk">
+                                                    <rect key="frame" x="10" y="20.5" width="148" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lmk-z5-tih" firstAttribute="leading" secondItem="s4T-xp-Odk" secondAttribute="trailing" id="SDr-KW-WhU"/>
+                                                <constraint firstItem="s4T-xp-Odk" firstAttribute="leading" secondItem="xuU-JL-NSm" secondAttribute="leading" constant="10" id="bQn-ck-Ovt"/>
+                                                <constraint firstItem="s4T-xp-Odk" firstAttribute="width" secondItem="xuU-JL-NSm" secondAttribute="width" multiplier="0.4" id="dO1-CE-F6Q"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lmk-z5-tih" secondAttribute="trailing" id="gOT-e4-zGg"/>
+                                                <constraint firstAttribute="bottom" secondItem="s4T-xp-Odk" secondAttribute="bottom" constant="2" id="nby-Za-kjE"/>
+                                                <constraint firstItem="lmk-z5-tih" firstAttribute="centerY" secondItem="s4T-xp-Odk" secondAttribute="centerY" id="sZr-xM-Wl6"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="searchedNameLabel" destination="s4T-xp-Odk" id="wOj-Bm-gqp"/>
+                                            <outlet property="searchedPhoneNumberLabel" destination="lmk-z5-tih" id="0pK-0L-qcM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -479,7 +497,7 @@
                             <constraint firstItem="HoF-WC-JU8" firstAttribute="leading" secondItem="pil-Wa-NzJ" secondAttribute="leading" id="1GG-bx-5Wh"/>
                             <constraint firstItem="HoF-WC-JU8" firstAttribute="top" secondItem="pil-Wa-NzJ" secondAttribute="top" id="3r8-bj-IMi"/>
                             <constraint firstItem="8xV-UF-fGr" firstAttribute="leading" secondItem="pil-Wa-NzJ" secondAttribute="leading" constant="5" id="5u0-dr-bJd"/>
-                            <constraint firstItem="8xV-UF-fGr" firstAttribute="top" secondItem="IVI-DM-If0" secondAttribute="bottom" id="B23-i3-CF7"/>
+                            <constraint firstItem="8xV-UF-fGr" firstAttribute="top" secondItem="IVI-DM-If0" secondAttribute="bottom" constant="20" id="B23-i3-CF7"/>
                             <constraint firstItem="IVI-DM-If0" firstAttribute="top" secondItem="HoF-WC-JU8" secondAttribute="bottom" id="J6W-XJ-SM9"/>
                             <constraint firstAttribute="trailing" secondItem="HoF-WC-JU8" secondAttribute="trailing" id="Nys-wh-2GV"/>
                             <constraint firstItem="IVI-DM-If0" firstAttribute="leading" secondItem="pil-Wa-NzJ" secondAttribute="leading" id="PWX-ye-NdD"/>
@@ -493,6 +511,7 @@
                         <outlet property="groupNameField" destination="pP9-oB-4mE" id="3Tm-65-Mkc"/>
                         <outlet property="searchPhoneNumberField" destination="CIo-6l-vQh" id="Jd9-dV-PrO"/>
                         <outlet property="searchedTableView" destination="8xV-UF-fGr" id="mDh-eZ-14L"/>
+                        <outlet property="selectedPeoplesScrollView" destination="Y4R-aN-hPl" id="gOc-AM-IEz"/>
                         <outlet property="selectiedImageView" destination="AXk-Rt-Vr5" id="FR3-qw-dHH"/>
                     </connections>
                 </viewController>
@@ -666,7 +685,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MoE-9a-yu5" id="uKC-2W-wJE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-lo-Bf5">
