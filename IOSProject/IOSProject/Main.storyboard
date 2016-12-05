@@ -382,12 +382,23 @@
                                             <action selector="touchInSideBackButton:" destination="Tlv-sm-jJS" eventType="touchUpInside" id="kgV-iR-55n"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1I-rC-htf">
+                                        <rect key="frame" x="325" y="21" width="30" height="30"/>
+                                        <state key="normal" title="저장">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchInSideStoreButton:" destination="Tlv-sm-jJS" eventType="touchUpInside" id="mvA-Xf-wS0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.31332162022590637" green="0.20333367586135864" blue="0.51477271318435669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="7Xd-EL-Lm6" firstAttribute="centerY" secondItem="HoF-WC-JU8" secondAttribute="centerY" multiplier="1.2" id="8cq-81-1HZ"/>
                                     <constraint firstItem="7Xd-EL-Lm6" firstAttribute="leading" secondItem="HoF-WC-JU8" secondAttribute="leading" constant="20" id="A8B-O6-0QE"/>
+                                    <constraint firstItem="p1I-rC-htf" firstAttribute="centerY" secondItem="7Xd-EL-Lm6" secondAttribute="centerY" id="TpN-gZ-rna"/>
                                     <constraint firstAttribute="height" constant="60" id="Vk3-Cw-ASQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="p1I-rC-htf" secondAttribute="trailing" constant="20" id="rMq-fA-RnS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVI-DM-If0">
