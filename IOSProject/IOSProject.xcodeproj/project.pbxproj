@@ -26,6 +26,7 @@
 		7B5104CB1DF40CAD00A00EFF /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5104CA1DF40CAD00A00EFF /* Contacts.framework */; };
 		7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */; };
+		7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBC15041DF53CAC0084933C /* UtilityClass.m */; };
 		7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */; };
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
@@ -74,6 +75,8 @@
 		7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7BBB810E1DF2A4180039219A /* WriteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCollectionViewCell.h; sourceTree = "<group>"; };
 		7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCollectionViewCell.m; sourceTree = "<group>"; };
+		7BBC15031DF53CAC0084933C /* UtilityClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityClass.h; sourceTree = "<group>"; };
+		7BBC15041DF53CAC0084933C /* UtilityClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityClass.m; sourceTree = "<group>"; };
 		7BBD1D6C1DF01B4D00D49762 /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKCoreKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/libFBSDKCoreKit.a"; sourceTree = "<group>"; };
 		7BBD1D6E1DF01B5D00D49762 /* libFBSDKLoginKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKLoginKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/libFBSDKLoginKit.a"; sourceTree = "<group>"; };
 		7BBD1D701DF01B6400D49762 /* libFBSDKShareKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFBSDKShareKit.a; path = "../../../Library/Developer/Xcode/DerivedData/IOSProject-bncykflhkgyqcbetznvqxggrfrzp/Build/Products/Debug-iphonesimulator/FBSDKShareKit/libFBSDKShareKit.a"; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 		7B4FB8B01DEC2A5400DDAA93 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7BBC15031DF53CAC0084933C /* UtilityClass.h */,
+				7BBC15041DF53CAC0084933C /* UtilityClass.m */,
 				7B4FB8AF1DEC283600DDAA93 /* PrefixHeader.pch */,
 			);
 			name = Utility;
@@ -440,6 +445,7 @@
 				7CE362651DEC2B060048A634 /* ModifyViewController.m in Sources */,
 				7B4FB8AA1DEC068A00DDAA93 /* CustomTextField.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
+				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
 				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
