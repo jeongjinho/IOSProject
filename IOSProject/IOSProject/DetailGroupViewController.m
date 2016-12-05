@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBar.hidden = YES;
     self.centerCollectionView.delegate = self;
     self.centerCollectionView.dataSource = self;
 }

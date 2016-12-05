@@ -7,29 +7,93 @@
 //
 
 #import "WriteViewController.h"
+#import <Photos/PHAsset.h>
+#import <Photos/PHCollection.h>
+#import <Photos/PHImageManager.h>
+#import "WriteCollectionViewCell.h"
 
 @interface WriteViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *bottomCollectionView;
-
+@property (weak, nonatomic) IBOutlet UIImageView *topIamgeView;
+@property (strong,nonatomic) NSMutableArray *loadImageData;
+@property NSInteger cellCount;
 @end
 
 @implementation WriteViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.tabBarController.tabBar.hidden = YES;
+    self.loadImageData = [[NSMutableArray alloc]init];
+    self.cellCount = 0;
+    [self loadImageInDevicePhotoLibray:self.cellCount];
+    NSLog(@"self number: %ld",self.loadImageData.count);
     self.bottomCollectionView.delegate = self;
     self.bottomCollectionView.dataSource = self;
+    
+   
+  
+    
 }
+
+- (void)loadImageInDevicePhotoLibray:(NSUInteger)range{
+    
+    self.cellCount +=40;
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                        options:nil];
+    
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+    //
+    //    // 카메라 롤에 있는 사진을 가져온다.
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.synchronous = YES;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    PHImageManager *photoManager = [PHImageManager defaultManager];
+    
+  
+    
+    for (NSInteger i = range;i<assets.count;i++) {
+        NSLog(@"i의 카운트 :%ld",i);
+            [photoManager requestImageForAsset:assets[i] targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                
+                [self.loadImageData addObject:result];
+                //[loadImages addObject:result];
+                
+                
+            }];
+        
+       // NSLog(@"로드이미지 카운트 : %ld",loadImages.count);
+        NSLog(@"cell count :%ld",self.cellCount);
+        
+        if(self.loadImageData.count ==self.cellCount){
+            
+            
+            return ;
+        }
+    }
+    
+  //  self.loadImageData = [NSMutableArray arrayWithArray:loadImages];
+    
+    }
+
 #pragma -mark CollectionView delegate Method
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
 
     return 1;
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-
-    return 40;
+    
+    return self.loadImageData.count;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -37,7 +101,7 @@
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 1.0;
+    return 2.0;
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
@@ -45,20 +109,81 @@
     return UIEdgeInsetsMake(0, 1, 0, 1);
     
 }
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
     return CGSizeMake(self.bottomCollectionView.frame.size.width/4-2,self.bottomCollectionView.frame.size.width/4-2);
 }
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    WriteCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIImage *loadImage = self.loadImageData[indexPath.row];
+        cell.collectionViewImage.image = loadImage;
+    
+ });
     return cell;
 
+}
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+
+}
+//-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+//    
+//    return YES;
+//}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    CGFloat contentHeight = scrollView.contentSize.height;
+    if (offsetY < contentHeight-30)
+    {
+       
+        
+        [self loadImageInDevicePhotoLibray:self.cellCount];
+        
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [UIView animateWithDuration:0 animations:^{
+                
+                
+                [self.bottomCollectionView performBatchUpdates:^{
+                    [self.bottomCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+                } completion:nil];
+            }];
+        });
+        
+    }
+
+}
+- (void)scrollViewWillScroll:(UIScrollView *)scrollView
+{
+    
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //물어볼것
+   // WriteCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    
+        
+        self.topIamgeView.image = self.loadImageData[indexPath.row];
+   
+    
+
+    
 }
 #pragma -mark touch In Side BackButton
 - (IBAction)touchInSideBackTapVC:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)touchInSidedWriteButton:(id)sender {
+    NSLog(@"글쓰기 버튼 눌림 ");
 }
 
 - (void)didReceiveMemoryWarning {

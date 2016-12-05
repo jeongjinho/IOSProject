@@ -9,8 +9,9 @@
 #import "NetworkingCenter.h"
 #import <AFNetworking.h>
 static NSString *const groupURLString  = @"http://dummy-dev.ap-northeast-2.elasticbeanstalk.com/group/";
-static NSString *const loginURLString = @"http://dummy-dev.ap-northeast-2.elasticbeanstalk.com/group/";
 static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/signup/";
+static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
+
 static NSString  *const emailString = @"email";
 static NSString  *const nameString = @"name";
 static NSString  *const passwordString = @"password";
@@ -71,17 +72,26 @@ static NSString  *const imageString = @"image";
 }
 
 #pragma -mark login method
-+ (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)passwords{
++ (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:loginURLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSData *emailAddressData = [emailAddress dataUsingEncoding:NSUTF8StringEncoding];
-        NSData *passwordData =[passwords dataUsingEncoding:NSUTF8StringEncoding];
-        //append string
-        [formData appendPartWithFormData:emailAddressData name:emailString];
-        [formData appendPartWithFormData:passwordData name:passwordString];
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    NSLog(@"email : %@ ",emailAddress);
+    NSLog(@"phoneNumber : %@",password);
+    //나중에 이메일로 바꿔야함 phoneNumberString ->emailString
+    [bodyParams setObject:emailAddress
+                   forKey:phoneNumberString];
+
+    [bodyParams setObject:password
+                   forKey:passwordString];
+    
+    
+    
+    NSLog(@"bodyParams  :%@", bodyParams);
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:loginURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
         
     } error:nil];
-    //세션생성
+    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     NSURLSessionUploadTask *uploadTask;
@@ -92,14 +102,21 @@ static NSString  *const imageString = @"image";
                       // You are responsible for dispatching to the main queue for UI updates
                       dispatch_async(dispatch_get_main_queue(), ^{
                           //Update the progress view
-                         
+                          
                       });
                   }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
                           NSLog(@"Error: %@", error);
+                          
                       } else {
-                          NSLog(@"%@ %@", response, responseObject);
+                        
+                      NSString *loginToken = [responseObject objectForKey:@"token"];
+                          NSLog(@" token %@",loginToken);
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              
+                              loginHandler(loginToken);
+                          });
                       }
                   }];
     
