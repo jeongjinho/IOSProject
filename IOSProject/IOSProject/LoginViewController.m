@@ -20,6 +20,7 @@ static NSString *const passwordText = @"passwordTextField.text";
 @property (weak, nonatomic) IBOutlet CustomTextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong,nonatomic) UITapGestureRecognizer *windowTap;
+@property NSString *tokenValue;
 @end
 
 @implementation LoginViewController
@@ -28,10 +29,10 @@ static NSString *const passwordText = @"passwordTextField.text";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-#ifdef DEBUG
-    _emailTextField.text = @"321";
-    _passwordTextField.text = @"123123123";
-#endif
+//#ifdef DEBUG
+//    _emailTextField.text = @"321";
+//    _passwordTextField.text = @"123123123";
+//#endif
     
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
@@ -63,52 +64,36 @@ static NSString *const passwordText = @"passwordTextField.text";
     
     [NetworkingCenter loginWithEmail:self.emailTextField.text password:self.passwordTextField.text loginHandler:^(NSString *token) {
         
-        UITabBarController *mainVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
-        if([keychainToken isEqualToString:token]){
-         
+        self.tokenValue = token;
+        NSLog(@"토큰 :%@ ", self.tokenValue);
+         UITabBarController *mainVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
+        if([self.tokenValue isEqualToString:@"fail"]){
             
-            [keychain setObject:token forKey:(id)kSecAttrAccount];
+            
+            return ;
+        }
+        else if([keychainToken isEqualToString:self.tokenValue]){
+            
+            NSLog(@"전에 로그인한적있음");
+            [keychain setObject:self.tokenValue forKey:(id)kSecAttrAccount];
             [self presentViewController:mainVC animated:YES completion:nil];
             
         } else {
-          
-            [keychain setObject:token forKey:(id)kSecAttrAccount];
-             [self presentViewController:mainVC animated:YES completion:nil];
-            }
-      
+               NSLog(@"여기에 처음로그인");
+            [keychain setObject:self.tokenValue forKey:(id)kSecAttrAccount];
+            [self presentViewController:mainVC animated:YES completion:nil];
+        }
+
     }];
         
-        
+   
+    
     
     
 
 }
 
 
-//- (IBAction)touchInSideLoginButton:(id)sender {
-//    
-//    if ([FBSDKAccessToken currentAccessToken]) {
-//       
-//    } else {
-//        // 한번이라도 로그인 하지 않은 사용자의 경우
-//        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-//        [login logInWithReadPermissions: @[@"email"] fromViewController:self
-//                                handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-//                                    if (error) {
-//                                        NSLog(@"Process error");
-//                                    } else if (result.isCancelled) {
-//                                        NSLog(@"Cancelled");
-//                                    } else {
-//                                        NSLog(@"Logged in ");
-//                                        // 로그인 후 액션 지정하기
-//                                        NSString *accessToken = [FBSDKAccessToken currentAccessToken].tokenString;
-//                                        
-//                                        NSLog(@"Login token : %@",accessToken);
-//                                    }
-//                                }];
-//    }
-//    
-//}
 
 
 -(void)resignKeyboard:(UITapGestureRecognizer*)tap{

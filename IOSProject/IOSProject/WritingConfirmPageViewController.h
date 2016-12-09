@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WritingConfirmPageViewController : UIViewController
-
+@property (strong,nonatomic) UIImage *groupMainImage;
 @end

@@ -10,59 +10,203 @@
 #import <Contacts/CNContactStore.h>
 #import <Contacts//CNContactFetchRequest.h>
 #import <Contacts/CNContactFormatter.h>
-
+#import "SearchPhoneNumberTableViewCell.h"
 #import "MainColorTextField.h"
-
+#import "CircleButton.h"
 
 static NSString *const name = @"name";
 static NSString *const phoneNumber = @"phoneNumber";
+
 @interface WritingConfirmPageViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *selectiedImageView;
 @property (weak, nonatomic) IBOutlet MainColorTextField *groupNameField;
 @property (weak, nonatomic) IBOutlet MainColorTextField *searchPhoneNumberField;
 @property (weak, nonatomic) IBOutlet UITableView *searchedTableView;
-@property (strong,nonatomic) UIImage *GroupMainImage;
+@property (weak, nonatomic) IBOutlet UIScrollView *selectedPeoplesScrollView;
+
 @property (strong,nonatomic) NSString *searchWord;
 @property (strong,nonatomic) NSMutableArray *searchedInfos;
 @property  (strong,nonatomic)NSMutableArray *sortingInfo;
 
+@property (strong,nonatomic)NSMutableArray *selectedPersons;
+@property (nonatomic)NSInteger x;
+@property (nonatomic)NSInteger tag;
 @end
 
 @implementation WritingConfirmPageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //초기화
     self.searchWord = @"";
     self.searchedInfos = [[NSMutableArray alloc]init];
-    
-    // Do any additional setup after loading the view.
+    self.selectedPersons = [[NSMutableArray alloc]init];
+    self.selectiedImageView.image = self.groupMainImage;
+   
+    //처음에 연락처 불러옴
     [self callPhoneNumberInfoAtDevice];
+    //텍스트필드델리게이트
     self.groupNameField.delegate = self;
     self.searchPhoneNumberField.delegate =self;
+    //테이블뷰 델리게이트
     self.searchedTableView.delegate = self;
     self.searchedTableView.dataSource = self;
+    //스크롤뷰세팅
+    self.selectedPeoplesScrollView.showsVerticalScrollIndicator=NO;
+    self.selectedPeoplesScrollView.showsHorizontalScrollIndicator=YES;
+    self.selectedPeoplesScrollView.alwaysBounceVertical=NO;
+    self.selectedPeoplesScrollView.alwaysBounceHorizontal=YES;
+    
+    self.selectedPeoplesScrollView.contentSize = CGSizeMake(self.view.frame.size.width, _selectedPeoplesScrollView.frame.size.height);
+
+    
+
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+
+    self.selectedPeoplesScrollView.contentSize = CGSizeMake(self.view.frame.size.width+self.x, _selectedPeoplesScrollView.frame.size.height);
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //선택된 셀을 가져와서
+    SearchPhoneNumberTableViewCell *cell =(SearchPhoneNumberTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    //선택된 사람들의 배열에 딕셔너리로 집어넣는다.
+    
+    //만약 배열에 기존에 선택된 사람이 없다면
+    if(self.selectedPersons.count == 0){
+    
+        [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
+    } else {
+    
+        for (NSDictionary *ckeckperson in self.selectedPersons) {
+            
+            if([[ckeckperson objectForKey:name] isEqualToString:cell.searchedNameLabel.text] &&[[ckeckperson objectForKey:phoneNumber] isEqualToString:cell.searchedPhoneNumberLabel.text]){
+                return ;
+            }
+            
+            
+        }
+        [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
+    }
+                  for (NSDictionary *person in self.selectedPersons) {
+                  
+                      __weak WritingConfirmPageViewController *weakVC = self;
+                      weakVC.x= 0;
+                      weakVC.tag =0;
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIButton *personButton= [[UIButton alloc]init];
+                    
+                    personButton.frame= CGRectMake(weakVC.x, 0,self.selectedPeoplesScrollView.frame.size.width/6,self.selectedPeoplesScrollView.frame.size.width/6);
+                    personButton.layer.cornerRadius = personButton.bounds.size.width/2;
+                    personButton.clipsToBounds =YES;
+                    
+                    personButton.layer.borderColor = mainPurpleColor.CGColor;
+                    personButton.layer.borderWidth = 2.0f;
+                    [personButton setTitle:[person objectForKey:name] forState:UIControlStateNormal];
+                    
+                    [personButton setTitleColor:mainPurpleColor forState:UIControlStateNormal];
+                  
+                    
+                    personButton.tag =self.tag;
+                    weakVC.tag +=1;
+                
+                    
+                    
+                    [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
+                    [self.selectedPeoplesScrollView addSubview:personButton];
+                    self.x +=80;
+                    
+              
+                    [self viewDidLayoutSubviews];
+                    
+               
+                });
+                 
+                 
+
+            }
+   
+}
+#pragma -mark touchUpInside Method for created NameButton 
+- (void)touchInSideUpNameButton:(UIButton *)sender{
+    
+    
+        UIButton *button = sender;
+    
+    
+    for (UIButton *btn in self.selectedPeoplesScrollView.subviews) {
+        
+        [btn removeFromSuperview];
+    }
+    
+    [self.selectedPersons removeObjectAtIndex:button.tag];
+    for (NSDictionary *person in self.selectedPersons) {
+        
+        __weak WritingConfirmPageViewController *weakVC = self;
+        weakVC.x= 0;
+        weakVC.tag =0;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIButton *personButton= [[UIButton alloc]init];
+            
+            personButton.frame= CGRectMake(weakVC.x, 0,self.selectedPeoplesScrollView.frame.size.width/6,self.selectedPeoplesScrollView.frame.size.width/6);
+            personButton.layer.cornerRadius = personButton.bounds.size.width/2;
+            personButton.clipsToBounds =YES;
+            
+            personButton.layer.borderColor = mainPurpleColor.CGColor;
+            personButton.layer.borderWidth = 2.0f;
+            [personButton setTitle:[person objectForKey:name] forState:UIControlStateNormal];
+            
+            [personButton setTitleColor:mainPurpleColor forState:UIControlStateNormal];
+           
+            
+            personButton.tag =self.tag;
+            weakVC.tag +=1;
+        
+            
+            
+            [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
+            [self.selectedPeoplesScrollView addSubview:personButton];
+            self.x +=80;
+            
+          
+            [self viewDidLayoutSubviews];
+            
+         
+        });
+        
+        
+        
+    }
+
 }
 #pragma -mark searchTableView delegate Method
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
-
     return self.sortingInfo.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
+    SearchPhoneNumberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = [self.sortingInfo[indexPath.row] objectForKey:name];
+    
+   
+//    NSLog(@"%@", [[self.sortingInfo[indexPath.row] objectForKey:phoneNumber]firstObject].);
+    cell.searchedNameLabel.text = [self.sortingInfo[indexPath.row] objectForKey:name];
+    cell.searchedPhoneNumberLabel.text = [self.sortingInfo[indexPath.row] objectForKey:phoneNumber];
     return cell;
 
 }
+
+
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
  
@@ -71,7 +215,7 @@ static NSString *const phoneNumber = @"phoneNumber";
     } else{
     
         self.searchWord = [textField.text stringByAppendingString:string];
-        NSLog(@"조합된 텍스트 :%@",self.searchWord);
+       
     }
     
     
@@ -80,15 +224,19 @@ static NSString *const phoneNumber = @"phoneNumber";
     
     return YES;
 }
-
+//들어온 최신글자가  주소록에 있는지 확인
 - (void)searchForInputedNameString:(NSString *)inputedString{
     
     self.sortingInfo = [[NSMutableArray alloc] init];
     for (NSDictionary *info in self.searchedInfos) {
         NSString *infoName = [info objectForKey:name];
+        
+        
         NSString *inputString = [UtilityClass GetUTF8String:inputedString];
+     
         NSString *str = [UtilityClass GetUTF8String:infoName];
-        NSLog(@"str :%@",str);
+        
+     
         NSRange range = [str rangeOfString:inputString];
         if(range.location !=NSNotFound){
             
@@ -111,31 +259,29 @@ static NSString *const phoneNumber = @"phoneNumber";
         NSLog(@"access denied");
     } else {
       
-        
-    CNContactStore *phoneNumberStore = [[CNContactStore alloc]init];
+        CNContactStore *phoneNumberStore = [[CNContactStore alloc]init];
     
-    NSMutableArray *keyArray = [[NSMutableArray alloc] initWithObjects:CNContactPhoneNumbersKey,[CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName], nil];
+        NSMutableArray *keyArray = [[NSMutableArray alloc] initWithObjects:CNContactPhoneNumbersKey,[CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName], nil];
     
     
-    CNContactFetchRequest *fetchRequest = [[CNContactFetchRequest alloc] initWithKeysToFetch:keyArray];
+        CNContactFetchRequest *fetchRequest = [[CNContactFetchRequest alloc] initWithKeysToFetch:keyArray];
 //        CNContactFormatter *fommater =[[CNContactFormatter alloc]init];
 //        fommater.style = CNContactFormatterStyleFullName;
         [phoneNumberStore enumerateContactsWithFetchRequest:fetchRequest error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
               
-           
-            NSString *names =[contact.familyName stringByAppendingString:contact.givenName];
-            NSLog(@"조합된이름 :%@",names);
-     
             
-        [self.searchedInfos  addObject:@{phoneNumber:contact.phoneNumbers, name:names}];
-        
-            NSLog(@"들어온값 %@",[self.searchedInfos objectAtIndex:0]);
-           
+            NSString *names =[contact.familyName stringByAppendingString:contact.givenName];
+            
+            //phoneNumbers 에서 전화번호 가져오기
+            [contact.phoneNumbers enumerateObjectsUsingBlock:^(CNLabeledValue<CNPhoneNumber *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                 NSString *phoneNumbers = [[obj value] stringValue];
+                 [self.searchedInfos addObject:@{phoneNumber:phoneNumbers, name:names}];
+                 NSLog(@"들어온값 %@ %@",names,phoneNumbers);
+            }];
         }];
     
     }
   
-    
 }
 
 #pragma -mark touchInSide Action Method

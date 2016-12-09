@@ -24,6 +24,9 @@
 		7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */; };
 		7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C81DF402C400A00EFF /* MainColorTextField.m */; };
 		7B5104CB1DF40CAD00A00EFF /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5104CA1DF40CAD00A00EFF /* Contacts.framework */; };
+		7B9A3DAC1DF9CEA8001688B6 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */; };
+		7BA02C381DF59785008213B9 /* SearchPhoneNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */; };
+		7BA02C3B1DF5AE9E008213B9 /* CircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */; };
 		7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
 		7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */; };
 		7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBC15041DF53CAC0084933C /* UtilityClass.m */; };
@@ -76,6 +79,12 @@
 		7B5104C71DF402C400A00EFF /* MainColorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainColorTextField.h; sourceTree = "<group>"; };
 		7B5104C81DF402C400A00EFF /* MainColorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainColorTextField.m; sourceTree = "<group>"; };
 		7B5104CA1DF40CAD00A00EFF /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		7B9A3DAA1DF9CEA8001688B6 /* WriteDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteDiaryViewController.h; sourceTree = "<group>"; };
+		7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteDiaryViewController.m; sourceTree = "<group>"; };
+		7BA02C361DF59785008213B9 /* SearchPhoneNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPhoneNumberTableViewCell.h; sourceTree = "<group>"; };
+		7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPhoneNumberTableViewCell.m; sourceTree = "<group>"; };
+		7BA02C391DF5AE9E008213B9 /* CircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleButton.h; sourceTree = "<group>"; };
+		7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleButton.m; sourceTree = "<group>"; };
 		7BB5A1DA1DF168390054D7A4 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7BBB810E1DF2A4180039219A /* WriteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCollectionViewCell.h; sourceTree = "<group>"; };
 		7BBB810F1DF2A4180039219A /* WriteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCollectionViewCell.m; sourceTree = "<group>"; };
@@ -124,6 +133,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2C82A21DF807A900BFE84E /* WriteDiaryPage */ = {
+			isa = PBXGroup;
+			children = (
+				7B9A3DAA1DF9CEA8001688B6 /* WriteDiaryViewController.h */,
+				7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */,
+			);
+			name = WriteDiaryPage;
+			sourceTree = "<group>";
+		};
 		7B4FB87D1DEBFD3100DDAA93 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +168,7 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
+				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
 				7B4FB8C01DEC3DA100DDAA93 /* DataCenter */,
@@ -257,8 +276,12 @@
 			children = (
 				7B5104C31DF3FE7600A00EFF /* WritingConfirmPageViewController.h */,
 				7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */,
+				7BA02C361DF59785008213B9 /* SearchPhoneNumberTableViewCell.h */,
+				7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */,
 				7B5104C71DF402C400A00EFF /* MainColorTextField.h */,
 				7B5104C81DF402C400A00EFF /* MainColorTextField.m */,
+				7BA02C391DF5AE9E008213B9 /* CircleButton.h */,
+				7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */,
 			);
 			name = WritinConfirmPage;
 			sourceTree = "<group>";
@@ -477,6 +500,9 @@
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
 				7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */,
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
+				7B9A3DAC1DF9CEA8001688B6 /* WriteDiaryViewController.m in Sources */,
+				7BA02C381DF59785008213B9 /* SearchPhoneNumberTableViewCell.m in Sources */,
+				7BA02C3B1DF5AE9E008213B9 /* CircleButton.m in Sources */,
 				7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
 				7C63A06D1DF53E80005FD2E4 /* NoticeTableView.m in Sources */,
@@ -607,6 +633,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = IOSProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IOSStudent.IOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -627,6 +654,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = IOSProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = IOSStudent.IOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
