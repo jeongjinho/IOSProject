@@ -63,8 +63,8 @@ static NSString *const phoneNumber = @"phoneNumber";
 
 }
 
--(void)viewDidLayoutSubviews
-{
+-(void)viewDidLayoutSubviews{
+
     [super viewDidLayoutSubviews];
 
     self.selectedPeoplesScrollView.contentSize = CGSizeMake(self.view.frame.size.width+self.x, _selectedPeoplesScrollView.frame.size.height);
@@ -87,7 +87,6 @@ static NSString *const phoneNumber = @"phoneNumber";
                 return ;
             }
             
-            
         }
         [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
     }
@@ -96,7 +95,7 @@ static NSString *const phoneNumber = @"phoneNumber";
                       __weak WritingConfirmPageViewController *weakVC = self;
                       weakVC.x= 0;
                       weakVC.tag =0;
-
+//---------------------이거 메소드따로뺼수 있으면 뺴자
                 dispatch_async(dispatch_get_main_queue(), ^{
                     UIButton *personButton= [[UIButton alloc]init];
                     
@@ -114,30 +113,20 @@ static NSString *const phoneNumber = @"phoneNumber";
                     personButton.tag =self.tag;
                     weakVC.tag +=1;
                 
-                    
-                    
+
                     [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
                     [self.selectedPeoplesScrollView addSubview:personButton];
                     self.x +=80;
                     
               
                     [self viewDidLayoutSubviews];
-                    
-               
                 });
-                 
-                 
-
+//----------------------------------------------------------------
             }
-   
 }
 #pragma -mark touchUpInside Method for created NameButton 
 - (void)touchInSideUpNameButton:(UIButton *)sender{
-    
-    
         UIButton *button = sender;
-    
-    
     for (UIButton *btn in self.selectedPeoplesScrollView.subviews) {
         
         [btn removeFromSuperview];
@@ -163,24 +152,20 @@ static NSString *const phoneNumber = @"phoneNumber";
             
             [personButton setTitleColor:mainPurpleColor forState:UIControlStateNormal];
            
-            
             personButton.tag =self.tag;
             weakVC.tag +=1;
         
             
-            
+//------------------스크롤 크기 80인거 조정
             [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
             [self.selectedPeoplesScrollView addSubview:personButton];
             self.x +=80;
             
-          
+//------------------------------
             [self viewDidLayoutSubviews];
             
          
         });
-        
-        
-        
     }
 
 }
@@ -197,9 +182,6 @@ static NSString *const phoneNumber = @"phoneNumber";
 
     SearchPhoneNumberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell" forIndexPath:indexPath];
     
-    
-   
-//    NSLog(@"%@", [[self.sortingInfo[indexPath.row] objectForKey:phoneNumber]firstObject].);
     cell.searchedNameLabel.text = [self.sortingInfo[indexPath.row] objectForKey:name];
     cell.searchedPhoneNumberLabel.text = [self.sortingInfo[indexPath.row] objectForKey:phoneNumber];
     return cell;
@@ -209,18 +191,16 @@ static NSString *const phoneNumber = @"phoneNumber";
 
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
- 
-    if ([string isEqualToString:@""]) {
+    if(textField.tag == 1){
+    
+        if ([string isEqualToString:@""]) {
         self.searchWord = string;
-    } else{
+            } else{
     
-        self.searchWord = [textField.text stringByAppendingString:string];
-       
-    }
-    
-    
+                self.searchWord = [textField.text stringByAppendingString:string];
+            }
         [self searchForInputedNameString:self.searchWord];
-
+    }
     
     return YES;
 }
@@ -251,7 +231,7 @@ static NSString *const phoneNumber = @"phoneNumber";
    
 }
 
-
+//----------유틸리티클래스로 빼내기
 - (void)callPhoneNumberInfoAtDevice{
     CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
     if( status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusRestricted)
@@ -283,15 +263,47 @@ static NSString *const phoneNumber = @"phoneNumber";
     }
   
 }
-
+//-----------------------------------------
 #pragma -mark touchInSide Action Method
 - (IBAction)touchInSideBackButton:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)touchInSideStoreButton:(id)sender {
+ //길이조정-------------------------------------------------------
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(150,300, 50, 50)];
+    indicator.hidesWhenStopped = YES;
+    [self.view addSubview:indicator];
+//------------------------------------------------------------
+    [indicator startAnimating]; // 애니메이션 시작
     
+    [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage handler:^(NSString *responseData) {
+        
+        [indicator stopAnimating];
+        UIAlertController *alert = [[UIAlertController alloc]init];
+        UIAlertAction *cancel = [[UIAlertAction alloc]init];
+        if ([responseData isEqualToString:@"fail"]) {
+            
+         
+            alert = [UIAlertController alertControllerWithTitle:@"그룹생성 실패" message:@"그룹생성에 실패했습니다.\n다시 생성해주세요" preferredStyle:UIAlertControllerStyleAlert];
+            cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
+            
+        } else {
+        
+          
+            alert = [UIAlertController alertControllerWithTitle:@"그룹만들기 성공" message:@"그룹이 생성되었습니다." preferredStyle:UIAlertControllerStyleAlert];
+             cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                    }
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }];
+        
     
+     
 }
 
 - (void)didReceiveMemoryWarning {

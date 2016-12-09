@@ -19,12 +19,13 @@
     // Initialization code
     self.bottomView.layer.cornerRadius = 5.0f;
     self.thumnailImageView.layer.cornerRadius = 5.0f;
+    self.infoView.layer.cornerRadius = 5.0f;
      self.thumnailImageView.clipsToBounds = YES;
     
-    self.bottomView.layer.shadowColor = [UIColor grayColor].CGColor;
-    self.bottomView.layer.shadowOffset =CGSizeMake(0, 0.5);
-    self.bottomView.layer.shadowOpacity = 0.5;
-    self.bottomView.layer.shadowRadius = 2.0;
+//    self.bottomView.layer.shadowColor = [UIColor grayColor].CGColor;
+//    self.bottomView.layer.shadowOffset =CGSizeMake(0, 0.5);
+//    self.bottomView.layer.shadowOpacity = 0.5;
+//    self.bottomView.layer.shadowRadius = 2.0;
 
     
 }

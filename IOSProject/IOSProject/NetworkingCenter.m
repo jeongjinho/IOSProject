@@ -43,47 +43,44 @@ static NSString *const groupImage = @"group_image";
     
 }
 #pragma -mark create Group method
-+ (void)CreatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler{
-    
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler{
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
-    
     [bodyParams setObject:name forKey:groupName];
-    
+
+   NSData *imageData = UIImagePNGRepresentation(image);
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:createNewGroupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        //폼데이터
+        [formData appendPartWithFileData:imageData
+                                    name:groupImage
+                                fileName:@"image.png"
+                                mimeType:@"image/png"];
     } error:nil];
-   
-    //헤더 만들기
-    //나중에 키체인을 싱글턴을 만들어야겠다.
-   
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
-    
+    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 
     NSURLSessionUploadTask *uploadTask;
+    
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
+                 
+                    }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
+                       
                           NSLog(@"Error: %@", error);
-                          
+                          handler(fail);
                       } else {
-                          
-                          
+                         
+                          NSLog(@"응답객체 :%@",responseObject);
+                          handler(succcess);
                         }
                   }];
     
     [uploadTask resume];
 }
+
 #pragma -mark login method
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
     
@@ -97,7 +94,6 @@ static NSString *const groupImage = @"group_image";
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:loginURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        
     } error:nil];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -106,13 +102,8 @@ static NSString *const groupImage = @"group_image";
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
+                    }
+                  
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       NSString *loginToken = [responseObject objectForKey:@"token"];
                       NSLog(@" token %@",loginToken);
@@ -120,73 +111,14 @@ static NSString *const groupImage = @"group_image";
                           
                           loginHandler(fail);
                       } else {
-                        
-                      
-                          
-                          
-                              
-                                loginHandler(loginToken);
+                            loginHandler(loginToken);
                          
-                      }
+                        }
                   }];
     
     [uploadTask resume];
 }
 
-//+ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image{
-//    
-//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-//    NSLog(@"email : %@ ",emailAddress);
-//    NSLog(@"phoneNumber : %@",password);
-//    [bodyParams setObject:emailAddress
-//                   forKey:emailString];
-//    
-//    [bodyParams setObject:phoneNumber
-//                   forKey:phoneNumberString];
-//
-//    [bodyParams setObject:password
-//                   forKey:passwordString];
-//    
-//    [bodyParams setObject:name
-//                   forKey:nameString];
-//    
-//    NSLog(@"bodyParams  :%@", bodyParams);
-//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//       
-//
-//    } error:nil];
-//    
-//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//    
-//    NSURLSessionUploadTask *uploadTask;
-//    uploadTask = [manager
-//                  uploadTaskWithStreamedRequest:request
-//                  progress:^(NSProgress * _Nonnull uploadProgress) {
-//                      // This is not called back on the main queue.
-//                      // You are responsible for dispatching to the main queue for UI updates
-//                      dispatch_async(dispatch_get_main_queue(), ^{
-//                          //Update the progress view
-//                         
-//                      });
-//                  }
-//                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-//                      if (error) {
-//                          NSLog(@"Error: %@", error);
-//                          NSLog(@"실패`````");
-//                      } else {
-//                          NSLog(@"%@ %@", response, responseObject);
-//                          NSLog(@"networking success!");
-//                          
-//                          dispatch_async(dispatch_get_main_queue(), ^{
-//                              
-//                              
-//                          });
-//                      }
-//                  }];
-//    
-//    [uploadTask resume];
-//    
-//}
 + (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image requestHandler:(requestHandler)handlers {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
@@ -216,12 +148,7 @@ static NSString *const groupImage = @"group_image";
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
+                      
                   }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {

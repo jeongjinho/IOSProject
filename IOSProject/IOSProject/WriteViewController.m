@@ -158,10 +158,7 @@
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
 
 }
-//-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
-//    
-//    return YES;
-//}
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
 
     CGFloat offsetY = scrollView.contentOffset.y;
@@ -169,16 +166,10 @@
     CGFloat contentHeight = scrollView.contentSize.height;
     if (offsetY < contentHeight-30)
     {
-       
-        
         [self loadImageInDevicePhotoLibray:self.cellCount];
-        
-      
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [UIView animateWithDuration:0 animations:^{
-                
-                
                 [self.bottomCollectionView performBatchUpdates:^{
                     [self.bottomCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
                 } completion:nil];
@@ -188,53 +179,29 @@
     }
 
 }
-- (void)scrollViewWillScroll:(UIScrollView *)scrollView
-{
-    
-}
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //물어볼것
-   // WriteCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    
-    
-    self.topIamgeView.image = [self selectedImageInDevicePhotoLibray:indexPath.row];
-   
-    
 
-    
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    self.topIamgeView.image = [self selectedImageInDevicePhotoLibray:indexPath.row];
 }
 #pragma -mark touch In Side BackButton
 - (IBAction)touchInSideBackTapVC:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)touchInSidedWriteButton:(id)sender {
-    NSLog(@"글쓰기 버튼 눌림 ");
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
     if([segue.identifier isEqualToString:@"Next"]){
     
         WritingConfirmPageViewController *writeConfirmVC = segue.destinationViewController;
         writeConfirmVC.groupMainImage = self.topIamgeView.image;
-    
     }
-    
-
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
+
 
 @end

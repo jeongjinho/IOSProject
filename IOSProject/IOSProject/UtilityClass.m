@@ -36,9 +36,9 @@
 }
 //헤더에 보낼 토큰값 만들기
 + (NSString *)tokenForHeader{
-    KeychainItemWrapper *keyChain  = [[KeychainItemWrapper alloc]init];
-    NSString *headerToken = [NSString stringWithFormat:@"Token %@",[keyChain objectForKey:(NSString *)kSecAttrAccount]];
-
+    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"glue" accessGroup:nil];
+    NSString *headerToken = [NSString stringWithFormat:@"Token %@",[keychain objectForKey:(NSString *)kSecAttrAccount]];
+    NSLog(@"토큰 :%@",headerToken);
     return headerToken;
 }
 
