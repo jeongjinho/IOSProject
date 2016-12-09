@@ -90,13 +90,19 @@
     }
    NSLog(@"id :%@ pw :%@",self.idText.text,self.pwText.text);
    
- [NetworkingCenter singUpWithPhoneNumber:self.pwText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:nil requestHandler:^(NSString *success) {
-     
+ [NetworkingCenter singUpWithPhoneNumber:self.phoneText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:nil requestHandler:^(NSString *success) {
+     NSLog(@"이메일 %@",self.emailText.text);
+     NSLog(@"폰넘버 ;%@",self.phoneText.text);
      if([success isEqualToString:@"success"]){
      
          NSLog(@"success back to login");
          [self.navigationController popViewControllerAnimated:YES];
+     } else {
+     
+         NSLog(@"에러");
      }
+     
+    
  }];
 }
 

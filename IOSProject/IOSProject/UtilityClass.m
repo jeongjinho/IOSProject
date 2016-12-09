@@ -7,7 +7,10 @@
 //
 
 #import "UtilityClass.h"
-
+#import <Photos/PHAsset.h>
+#import <Photos/PHCollection.h>
+#import <Photos/PHImageManager.h>
+#import "WriteCollectionViewCell.h"
 @implementation UtilityClass
 
 
@@ -30,6 +33,61 @@
         }
     }
     return returnText;
+}
+//헤더에 보낼 토큰값 만들기
++ (NSString *)tokenForHeader{
+    KeychainItemWrapper *keyChain  = [[KeychainItemWrapper alloc]init];
+    NSString *headerToken = [NSString stringWithFormat:@"Token %@",[keyChain objectForKey:(NSString *)kSecAttrAccount]];
+
+    return headerToken;
+}
+
++ (NSMutableArray *)loadImageInDevicePhotoLibray{
+    NSMutableArray *loadImageDatas = [[NSMutableArray alloc]init];
+    NSInteger cellCount  = 0;
+    
+        cellCount +=40;
+    
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                        options:nil];
+    
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+    //
+    //    // 카메라 롤에 있는 사진을 가져온다.
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.synchronous = YES;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    PHImageManager *photoManager = [PHImageManager defaultManager];
+    
+    
+    
+    for (PHAsset *asset in assets) {
+        
+        [photoManager requestImageForAsset:asset targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            
+            [loadImageDatas addObject:result];
+            //[loadImages addObject:result];
+            
+            
+        }];
+
+    }
+    
+    
+        NSLog(@"cell count :%ld",cellCount);
+        
+        if(loadImageDatas.count ==cellCount){
+            
+            
+            return nil ;
+        }
+    
+    
+    return loadImageDatas;
+    
 }
 
 @end

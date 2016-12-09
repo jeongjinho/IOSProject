@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -115,7 +114,6 @@
                                         </state>
                                         <connections>
                                             <action selector="touchInSideLoginButton:" destination="buh-Z8-OfN" eventType="touchUpInside" id="B5u-v3-DRv"/>
-                                            <segue destination="Cxc-Rm-TK4" kind="presentation" id="pcL-wQ-zYB"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -255,13 +253,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xF-Pa-FbS">
                                 <rect key="frame" x="0.0" y="60" width="375" height="341"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O3o-Hu-2NP">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="340"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alubumPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="O3o-Hu-2NP">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="273"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.99616474473164052" blue="0.52578120490810287" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.95639318227767944" green="0.96844011545181274" blue="0.98496979475021362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="O3o-Hu-2NP" firstAttribute="leading" secondItem="7xF-Pa-FbS" secondAttribute="leading" id="DU3-3q-IlD"/>
+                                    <constraint firstItem="O3o-Hu-2NP" firstAttribute="height" secondItem="7xF-Pa-FbS" secondAttribute="height" multiplier="0.8" id="LJE-tJ-yTM"/>
                                     <constraint firstItem="O3o-Hu-2NP" firstAttribute="top" secondItem="7xF-Pa-FbS" secondAttribute="top" id="YI0-oC-ivY"/>
                                     <constraint firstAttribute="trailing" secondItem="O3o-Hu-2NP" secondAttribute="trailing" id="oIo-5k-lRV"/>
                                 </constraints>
@@ -271,7 +270,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIL-Xf-cwN">
                                         <rect key="frame" x="20" y="21" width="30" height="30"/>
-                                        <state key="normal" title="뒤로">
+                                        <state key="normal" title="취소">
                                             <color key="titleColor" red="0.98844350673416626" green="1" blue="0.9934400156563199" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -298,7 +297,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Nhk-GL-mlC">
-                                <rect key="frame" x="0.0" y="400" width="375" height="267"/>
+                                <rect key="frame" x="0.0" y="343" width="375" height="324"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rVG-1I-VJ3">
                                     <size key="itemSize" width="50" height="50"/>
@@ -335,18 +334,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WQG-Kk-FFh" firstAttribute="top" secondItem="Nhk-GL-mlC" secondAttribute="bottom" id="3TI-zX-Q58"/>
+                            <constraint firstAttribute="bottom" secondItem="Nhk-GL-mlC" secondAttribute="bottom" id="2GQ-rD-zFG"/>
                             <constraint firstAttribute="trailing" secondItem="7xF-Pa-FbS" secondAttribute="trailing" id="6OT-fH-ShD"/>
-                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="height" secondItem="sOr-mW-jbO" secondAttribute="height" multiplier="0.4" id="CXw-K0-puN"/>
+                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="8Yl-cS-OWC"/>
                             <constraint firstItem="7xF-Pa-FbS" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="E2o-Fe-cQO"/>
+                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="top" secondItem="O3o-Hu-2NP" secondAttribute="bottom" constant="10" id="Ero-Na-NnI"/>
                             <constraint firstAttribute="trailing" secondItem="49n-6e-ouY" secondAttribute="trailing" id="Fjd-5F-h97"/>
                             <constraint firstItem="7xF-Pa-FbS" firstAttribute="top" secondItem="49n-6e-ouY" secondAttribute="bottom" id="Gq3-2D-whB"/>
-                            <constraint firstAttribute="trailing" secondItem="Nhk-GL-mlC" secondAttribute="trailing" id="KTB-U4-u1B"/>
-                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="Wwv-DS-01x"/>
+                            <constraint firstAttribute="trailing" secondItem="Nhk-GL-mlC" secondAttribute="trailing" id="HxF-LY-E2b"/>
                             <constraint firstItem="49n-6e-ouY" firstAttribute="top" secondItem="sOr-mW-jbO" secondAttribute="top" id="g2S-rl-hMA"/>
                             <constraint firstItem="49n-6e-ouY" firstAttribute="leading" secondItem="sOr-mW-jbO" secondAttribute="leading" id="g6H-jG-rmD"/>
                             <constraint firstItem="WQG-Kk-FFh" firstAttribute="top" secondItem="7xF-Pa-FbS" secondAttribute="bottom" constant="266" id="h4H-sT-i53"/>
-                            <constraint firstItem="Nhk-GL-mlC" firstAttribute="top" secondItem="O3o-Hu-2NP" secondAttribute="bottom" id="xBu-Ht-F2Z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wo2-fh-JlC"/>
@@ -357,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFB-fE-hR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2121" y="873"/>
+            <point key="canvasLocation" x="2120.8000000000002" y="896.40179910044981"/>
         </scene>
         <!--Writing Confirm Page View Controller-->
         <scene sceneID="EsG-JJ-2Gb">
@@ -459,7 +457,7 @@
                                         <rect key="frame" x="0.0" y="28" width="370" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esk-g1-vzB" id="xuU-JL-NSm">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전화번호" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmk-z5-tih">
@@ -572,7 +570,7 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9nA-Ef-kA2">
-                                        <rect key="frame" x="0.0" y="70" width="375" height="330"/>
+                                        <rect key="frame" x="0.0" y="70" width="375" height="290"/>
                                         <color key="backgroundColor" red="0.94363540410995483" green="0.9436575174331665" blue="0.9436456561088562" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LxE-eQ-bVA">
                                             <size key="itemSize" width="182" height="153"/>
@@ -622,13 +620,26 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hWV-PH-koS">
+                                        <rect key="frame" x="0.0" y="360" width="375" height="40"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3Ao-N9-g7d"/>
+                                        </constraints>
+                                        <state key="normal" title="글쓰기">
+                                            <color key="titleColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94678992033004761" green="0.94671338796615601" blue="0.94363546371459961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="hWV-PH-koS" firstAttribute="width" secondItem="9nA-Ef-kA2" secondAttribute="width" id="K17-Bg-j2A"/>
                                     <constraint firstAttribute="trailing" secondItem="XA8-nH-UUa" secondAttribute="trailing" id="Q9M-2L-i6t"/>
+                                    <constraint firstItem="hWV-PH-koS" firstAttribute="leading" secondItem="UrD-GP-Wkf" secondAttribute="leading" id="Vrg-jf-IcP"/>
                                     <constraint firstItem="9nA-Ef-kA2" firstAttribute="leading" secondItem="UrD-GP-Wkf" secondAttribute="leading" id="W71-cj-Z2A"/>
                                     <constraint firstItem="9nA-Ef-kA2" firstAttribute="top" secondItem="XA8-nH-UUa" secondAttribute="bottom" constant="30" id="YLE-dP-qYk"/>
-                                    <constraint firstAttribute="bottom" secondItem="9nA-Ef-kA2" secondAttribute="bottom" id="bLl-q4-nOL"/>
+                                    <constraint firstItem="hWV-PH-koS" firstAttribute="top" secondItem="9nA-Ef-kA2" secondAttribute="bottom" id="YXO-uP-upN"/>
+                                    <constraint firstAttribute="bottom" secondItem="9nA-Ef-kA2" secondAttribute="bottom" constant="40" id="bLl-q4-nOL"/>
                                     <constraint firstItem="XA8-nH-UUa" firstAttribute="leading" secondItem="UrD-GP-Wkf" secondAttribute="leading" id="gaQ-4l-eYL"/>
                                     <constraint firstAttribute="trailing" secondItem="9nA-Ef-kA2" secondAttribute="trailing" id="hjn-k1-s2x"/>
                                     <constraint firstItem="XA8-nH-UUa" firstAttribute="top" secondItem="UrD-GP-Wkf" secondAttribute="top" id="j63-a3-5RA"/>
@@ -663,7 +674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K1A-rW-1vd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3111" y="-99"/>
+            <point key="canvasLocation" x="3109.5999999999999" y="-99.400299850074973"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="c8O-Zs-CcH">
@@ -685,7 +696,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MoE-9a-yu5" id="uKC-2W-wJE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-lo-Bf5">
@@ -867,7 +878,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpy-aJ-WOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2121" y="764"/>
+            <point key="canvasLocation" x="2121" y="1422"/>
         </scene>
         <!--settingVC-->
         <scene sceneID="hHN-oT-uX0">
@@ -902,6 +913,7 @@
     <resources>
         <image name="Heart-icon" width="16" height="16"/>
         <image name="Moonbow" width="16" height="16"/>
+        <image name="alubumPlaceHolder" width="187" height="133"/>
         <image name="broken-heart" width="16" height="16"/>
         <image name="key" width="16" height="16"/>
         <image name="logo" width="16" height="16"/>

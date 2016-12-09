@@ -16,6 +16,7 @@
 
 static NSString *const name = @"name";
 static NSString *const phoneNumber = @"phoneNumber";
+
 @interface WritingConfirmPageViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *selectiedImageView;
 @property (weak, nonatomic) IBOutlet MainColorTextField *groupNameField;
@@ -28,7 +29,8 @@ static NSString *const phoneNumber = @"phoneNumber";
 @property  (strong,nonatomic)NSMutableArray *sortingInfo;
 
 @property (strong,nonatomic)NSMutableArray *selectedPersons;
-
+@property (nonatomic)NSInteger x;
+@property (nonatomic)NSInteger tag;
 @end
 
 @implementation WritingConfirmPageViewController
@@ -40,6 +42,7 @@ static NSString *const phoneNumber = @"phoneNumber";
     self.searchedInfos = [[NSMutableArray alloc]init];
     self.selectedPersons = [[NSMutableArray alloc]init];
     self.selectiedImageView.image = self.groupMainImage;
+   
     //처음에 연락처 불러옴
     [self callPhoneNumberInfoAtDevice];
     //텍스트필드델리게이트
@@ -53,48 +56,135 @@ static NSString *const phoneNumber = @"phoneNumber";
     self.selectedPeoplesScrollView.showsHorizontalScrollIndicator=YES;
     self.selectedPeoplesScrollView.alwaysBounceVertical=NO;
     self.selectedPeoplesScrollView.alwaysBounceHorizontal=YES;
+    
     self.selectedPeoplesScrollView.contentSize = CGSizeMake(self.view.frame.size.width, _selectedPeoplesScrollView.frame.size.height);
-    
+
     
 
 }
 
-- (void)creatingPeopleLabelOnScrollView{
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
 
-    
-    
+    self.selectedPeoplesScrollView.contentSize = CGSizeMake(self.view.frame.size.width+self.x, _selectedPeoplesScrollView.frame.size.height);
 }
 
-#pragma -mark searchTableView delegate Method
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //선택된 셀을 가져와서
     SearchPhoneNumberTableViewCell *cell =(SearchPhoneNumberTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     //선택된 사람들의 배열에 딕셔너리로 집어넣는다.
-    [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
-     __block NSInteger x =0;
+    
+    //만약 배열에 기존에 선택된 사람이 없다면
+    if(self.selectedPersons.count == 0){
+    
+        [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
+    } else {
+    
+        for (NSDictionary *ckeckperson in self.selectedPersons) {
+            
+            if([[ckeckperson objectForKey:name] isEqualToString:cell.searchedNameLabel.text] &&[[ckeckperson objectForKey:phoneNumber] isEqualToString:cell.searchedPhoneNumberLabel.text]){
+                return ;
+            }
+            
+            
+        }
+        [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
+    }
+                  for (NSDictionary *person in self.selectedPersons) {
+                  
+                      __weak WritingConfirmPageViewController *weakVC = self;
+                      weakVC.x= 0;
+                      weakVC.tag =0;
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIButton *personButton= [[UIButton alloc]init];
+                    
+                    personButton.frame= CGRectMake(weakVC.x, 0,self.selectedPeoplesScrollView.frame.size.width/6,self.selectedPeoplesScrollView.frame.size.width/6);
+                    personButton.layer.cornerRadius = personButton.bounds.size.width/2;
+                    personButton.clipsToBounds =YES;
+                    
+                    personButton.layer.borderColor = mainPurpleColor.CGColor;
+                    personButton.layer.borderWidth = 2.0f;
+                    [personButton setTitle:[person objectForKey:name] forState:UIControlStateNormal];
+                    
+                    [personButton setTitleColor:mainPurpleColor forState:UIControlStateNormal];
+                  
+                    
+                    personButton.tag =self.tag;
+                    weakVC.tag +=1;
+                
+                    
+                    
+                    [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
+                    [self.selectedPeoplesScrollView addSubview:personButton];
+                    self.x +=80;
+                    
+              
+                    [self viewDidLayoutSubviews];
+                    
+               
+                });
+                 
+                 
+
+            }
+   
+}
+#pragma -mark touchUpInside Method for created NameButton 
+- (void)touchInSideUpNameButton:(UIButton *)sender{
+    
+    
+        UIButton *button = sender;
+    
+    
+    for (UIButton *btn in self.selectedPeoplesScrollView.subviews) {
+        
+        [btn removeFromSuperview];
+    }
+    
+    [self.selectedPersons removeObjectAtIndex:button.tag];
     for (NSDictionary *person in self.selectedPersons) {
         
+        __weak WritingConfirmPageViewController *weakVC = self;
+        weakVC.x= 0;
+        weakVC.tag =0;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-           UIButton *personButton= [[UIButton alloc]init];
+            UIButton *personButton= [[UIButton alloc]init];
             
-            personButton.frame= CGRectMake(x, 0,self.selectedPeoplesScrollView.frame.size.width/6,self.selectedPeoplesScrollView.frame.size.width/6);
+            personButton.frame= CGRectMake(weakVC.x, 0,self.selectedPeoplesScrollView.frame.size.width/6,self.selectedPeoplesScrollView.frame.size.width/6);
             personButton.layer.cornerRadius = personButton.bounds.size.width/2;
             personButton.clipsToBounds =YES;
-           
+            
             personButton.layer.borderColor = mainPurpleColor.CGColor;
             personButton.layer.borderWidth = 2.0f;
             [personButton setTitle:[person objectForKey:name] forState:UIControlStateNormal];
             
             [personButton setTitleColor:mainPurpleColor forState:UIControlStateNormal];
-            NSLog(@"선택된사람%@",[person objectForKey:name]);
+           
+            
+            personButton.tag =self.tag;
+            weakVC.tag +=1;
+        
+            
+            
+            [personButton addTarget:self action:@selector(touchInSideUpNameButton:) forControlEvents:UIControlEventTouchUpInside];
             [self.selectedPeoplesScrollView addSubview:personButton];
-            x +=100;
-
+            self.x +=80;
+            
+          
+            [self viewDidLayoutSubviews];
+            
+         
         });
         
+        
+        
     }
-    
+
 }
+#pragma -mark searchTableView delegate Method
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -125,7 +215,7 @@ static NSString *const phoneNumber = @"phoneNumber";
     } else{
     
         self.searchWord = [textField.text stringByAppendingString:string];
-        NSLog(@"조합된 텍스트 :%@",self.searchWord);
+       
     }
     
     
@@ -143,10 +233,10 @@ static NSString *const phoneNumber = @"phoneNumber";
         
         
         NSString *inputString = [UtilityClass GetUTF8String:inputedString];
-        NSLog(@"str :%@",inputString);
+     
         NSString *str = [UtilityClass GetUTF8String:infoName];
         
-        NSLog(@"str :%@",str);
+     
         NSRange range = [str rangeOfString:inputString];
         if(range.location !=NSNotFound){
             

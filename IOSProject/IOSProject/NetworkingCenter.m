@@ -8,16 +8,25 @@
 
 #import "NetworkingCenter.h"
 #import <AFNetworking.h>
-static NSString *const groupURLString  = @"http://dummy-dev.ap-northeast-2.elasticbeanstalk.com/group/";
+
+static NSString *const succcess  = @"success";
+static NSString *const fail = @"fail";
+static NSString *const authorization = @"Authorization";
+
+static NSString *const createNewGroupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
 static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/signup/";
 static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
 
+//SignUp
 static NSString  *const emailString = @"email";
 static NSString  *const nameString = @"name";
 static NSString  *const passwordString = @"password";
 static NSString  *const phoneNumberString = @"phone_number";
 static NSString  *const imageString = @"image";
 
+//CreateGroup
+static NSString *const groupName = @"group_name";
+static NSString *const groupImage = @"group_image";
 
 @implementation NetworkingCenter
 
@@ -33,60 +42,59 @@ static NSString  *const imageString = @"image";
     return networkingObject;
     
 }
-#pragma -mark groupPage method
-+ (void)requestGroupPageDataList{
-    NSURLSessionConfiguration *configuration  = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *networkingManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    NSURL *URL = [NSURL URLWithString:groupURLString];
+#pragma -mark create Group method
++ (void)CreatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler{
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    [request setHTTPMethod:@"POST"];
-    [request setURL:URL];
-    NSURLSessionDataTask *dataTask = [networkingManager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    
+    [bodyParams setObject:name forKey:groupName];
+    
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:createNewGroupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        NSString *notificationName;
-        if(error){
-            
-            NSLog(@" error : %@",error);
-        } else{
-            
-            NSLog(@" response: %@ ,reponseObject: %@",response,responseObject);
-            if(responseObject){
-                notificationName = GroupListResponseNotification;
-                
-                NSMutableArray *dataArray = responseObject;
-                [DataCenter sharedData].GroupDataList = dataArray;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName
-                        object:nil];
-               
-                });
-                
-            }
-        }
-    }];
-    [dataTask resume];
-}
+        //폼데이터
+    } error:nil];
+   
+    //헤더 만들기
+    //나중에 키체인을 싱글턴을 만들어야겠다.
+   
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"Error: %@", error);
+                          
+                      } else {
+                          
+                          
+                        }
+                  }];
+    
+    [uploadTask resume];
+}
 #pragma -mark login method
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    NSLog(@"email : %@ ",emailAddress);
-    NSLog(@"phoneNumber : %@",password);
+    
     //나중에 이메일로 바꿔야함 phoneNumberString ->emailString
     [bodyParams setObject:emailAddress
                    forKey:phoneNumberString];
-
     [bodyParams setObject:password
                    forKey:passwordString];
     
-    
-    
-    NSLog(@"bodyParams  :%@", bodyParams);
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:loginURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         
@@ -106,17 +114,19 @@ static NSString  *const imageString = @"image";
                       });
                   }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      NSString *loginToken = [responseObject objectForKey:@"token"];
+                      NSLog(@" token %@",loginToken);
                       if (error) {
-                          NSLog(@"Error: %@", error);
                           
+                          loginHandler(fail);
                       } else {
                         
-                      NSString *loginToken = [responseObject objectForKey:@"token"];
-                          NSLog(@" token %@",loginToken);
-                          dispatch_async(dispatch_get_main_queue(), ^{
+                      
+                          
+                          
                               
-                              loginHandler(loginToken);
-                          });
+                                loginHandler(loginToken);
+                         
                       }
                   }];
     
@@ -223,7 +233,7 @@ static NSString  *const imageString = @"image";
                           
                           dispatch_async(dispatch_get_main_queue(), ^{
                               
-                              handlers(@"success");
+                              handlers(succcess);
                           });
                       }
                   }];

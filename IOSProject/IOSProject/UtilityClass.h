@@ -12,4 +12,6 @@
 
 
 + (NSString *)GetUTF8String:(NSString *)str;
++ (NSString *)tokenForHeader;
++ (NSMutableArray *)loadImageInDevicePhotoLibray;
 @end

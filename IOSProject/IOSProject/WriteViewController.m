@@ -154,6 +154,7 @@
     return cell;
 
 }
+#pragma -mark srcollView Delegate
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
 
 }
