@@ -13,6 +13,7 @@
 #import "DataCenter.h"
 #import "UtilityClass.h"
 #import "KeychainItemWrapper.h"
+#import <UIImageView+WebCache.h>
 
 #define RedkeyColor  80.0f/255.0f
 #define GreenKeyColor 52.0f/255.0f

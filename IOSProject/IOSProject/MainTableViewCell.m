@@ -9,7 +9,7 @@
 #import "MainTableViewCell.h"
 @interface MainTableViewCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 
 @end
 @implementation MainTableViewCell

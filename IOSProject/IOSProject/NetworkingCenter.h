@@ -10,10 +10,12 @@
 typedef void(^requestHandler)(NSString *success);
 typedef void(^loginHandler)(NSString *token);
 typedef void(^createNewGroupHandler)(NSString *responseData);
+typedef void(^groupListHandler)(NSString *groupList);
 @interface NetworkingCenter : NSObject
 
++ (void)showGroupList:(groupListHandler)handler;
 
-+ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler;
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(createNewGroupHandler)handler;
 
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler;
 

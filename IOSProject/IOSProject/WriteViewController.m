@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *topIamgeView;
 @property (strong,nonatomic) NSMutableArray *loadImageData;
 @property NSInteger cellCount;
+@property NSString *selectedPhotoImageName;
 @end
 
 @implementation WriteViewController
@@ -59,12 +60,15 @@
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
 
-    
+    self.selectedPhotoImageName = [assets[row] valueForKey:@"filename"];
     [photoManager requestImageForAsset:assets[row] targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         
         searchedImage = result;
         
+        
     }];
+    
+ 
     return searchedImage;
 }
 //----------------------------------------------------------------------------
@@ -196,6 +200,7 @@
     
         WritingConfirmPageViewController *writeConfirmVC = segue.destinationViewController;
         writeConfirmVC.groupMainImage = self.topIamgeView.image;
+        writeConfirmVC.groupMainImageFileName  = self.selectedPhotoImageName;
     }
 }
 - (void)didReceiveMemoryWarning {

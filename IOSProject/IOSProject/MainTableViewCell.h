@@ -12,4 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumnailImageView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *infoView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastPostDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *diaryCount;
+@property (weak, nonatomic) IBOutlet UILabel *groupPersonCount;
 @end

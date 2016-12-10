@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface DataCenter : NSObject
-@property NSMutableArray *GroupDataList;
+@property NSArray *groupDataList;
+//------------------MainGroupPageProperty
+@property (strong,nonatomic) NSString *groupTitle;
+
 + (instancetype)sharedData;
+
+//==================valueFor GroupPage
+- (NSDictionary *)groupInfoForIndex:(NSInteger)index;
+- (NSString *)groupTitleForGroupInfo:(NSDictionary *)groupInfo;
 @end

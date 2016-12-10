@@ -458,7 +458,7 @@
                                         <rect key="frame" x="0.0" y="28" width="370" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esk-g1-vzB" id="xuU-JL-NSm">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전화번호" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmk-z5-tih">
@@ -697,7 +697,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MoE-9a-yu5" id="uKC-2W-wJE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-lo-Bf5">
@@ -798,9 +798,12 @@
                                         <color key="backgroundColor" red="0.94363540410995483" green="0.9436575174331665" blue="0.9436456561088562" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="bottomView" destination="WAe-lo-Bf5" id="5DV-Wt-MCA"/>
+                                            <outlet property="diaryCount" destination="M10-wk-G5f" id="t1S-B4-HBI"/>
+                                            <outlet property="groupPersonCount" destination="Kcs-AT-9ar" id="YeH-TU-AsO"/>
                                             <outlet property="infoView" destination="2zK-u8-xRr" id="zUa-DP-O9c"/>
+                                            <outlet property="lastPostDateLabel" destination="PgF-SK-aaQ" id="OJ5-W0-Dxs"/>
                                             <outlet property="thumnailImageView" destination="ain-sU-vI7" id="MJk-9T-of6"/>
-                                            <outlet property="titleLabel" destination="hhp-9Y-Ncz" id="gt6-Vs-Hwc"/>
+                                            <outlet property="titleLabel" destination="hhp-9Y-Ncz" id="geq-FJ-cv9"/>
                                             <segue destination="Dhg-HT-ZnO" kind="show" id="Kky-73-SUm"/>
                                         </connections>
                                     </tableViewCell>

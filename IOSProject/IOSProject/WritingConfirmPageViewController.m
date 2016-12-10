@@ -277,7 +277,7 @@ static NSString *const phoneNumber = @"phoneNumber";
 //------------------------------------------------------------
     [indicator startAnimating]; // 애니메이션 시작
     
-    [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage handler:^(NSString *responseData) {
+    [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage groupImageFileName:self.groupMainImageFileName handler:^(NSString *responseData) {
         
         [indicator stopAnimating];
         UIAlertController *alert = [[UIAlertController alloc]init];

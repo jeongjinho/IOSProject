@@ -13,7 +13,7 @@ static NSString *const succcess  = @"success";
 static NSString *const fail = @"fail";
 static NSString *const authorization = @"Authorization";
 
-static NSString *const createNewGroupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
+static NSString *const groupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
 static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/signup/";
 static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
 
@@ -43,16 +43,17 @@ static NSString *const groupImage = @"group_image";
     
 }
 #pragma -mark create Group method
-+ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler{
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(createNewGroupHandler)handler{
+    
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
     [bodyParams setObject:name forKey:groupName];
 
    NSData *imageData = UIImagePNGRepresentation(image);
-    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:createNewGroupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imageData
                                     name:groupImage
-                                fileName:@"image.png"
+                                fileName:fileName
                                 mimeType:@"image/png"];
     } error:nil];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
@@ -81,6 +82,37 @@ static NSString *const groupImage = @"group_image";
     [uploadTask resume];
 }
 
+#pragma -mark groupList method
++ (void)showGroupList:(groupListHandler)handler{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"GET";
+    [request setURL:[NSURL URLWithString:groupURLString]];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+      AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                   
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+         
+            if (responseObject) {
+                NSMutableArray *array = responseObject;
+                
+                
+                if (array != nil) {
+                    NSLog(@"success");
+                    
+                    
+                    [DataCenter sharedData].groupDataList = array;
+                    NSLog(@"그룹리스트 :%@", [DataCenter sharedData].groupDataList);
+                        }
+                    }
+            handler(succcess);
+            }
+        }];
+   [dataTask resume];
+}
 #pragma -mark login method
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
     
