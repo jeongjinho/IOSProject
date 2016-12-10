@@ -17,5 +17,5 @@
 
 //==================valueFor GroupPage
 - (NSDictionary *)groupInfoForIndex:(NSInteger)index;
-- (NSString *)groupTitleForGroupInfo:(NSDictionary *)groupInfo;
+
 @end

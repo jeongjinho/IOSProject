@@ -24,7 +24,6 @@
 		7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */; };
 		7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5104C81DF402C400A00EFF /* MainColorTextField.m */; };
 		7B5104CB1DF40CAD00A00EFF /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5104CA1DF40CAD00A00EFF /* Contacts.framework */; };
-		7B9A3DAC1DF9CEA8001688B6 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */; };
 		7BA02C381DF59785008213B9 /* SearchPhoneNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */; };
 		7BA02C3B1DF5AE9E008213B9 /* CircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */; };
 		7BB5A1DC1DF169200054D7A4 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */; };
@@ -34,6 +33,7 @@
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
+		7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */; };
 		7C63A05B1DF10ABD005FD2E4 /* ViewUpBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05A1DF10ABD005FD2E4 /* ViewUpBorder.m */; };
 		7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05D1DF10DAE005FD2E4 /* CommentBorder.m */; };
 		7C63A0671DF294BF005FD2E4 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A0661DF294BF005FD2E4 /* Setting.m */; };
@@ -79,8 +79,6 @@
 		7B5104C71DF402C400A00EFF /* MainColorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainColorTextField.h; sourceTree = "<group>"; };
 		7B5104C81DF402C400A00EFF /* MainColorTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainColorTextField.m; sourceTree = "<group>"; };
 		7B5104CA1DF40CAD00A00EFF /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
-		7B9A3DAA1DF9CEA8001688B6 /* WriteDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteDiaryViewController.h; sourceTree = "<group>"; };
-		7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteDiaryViewController.m; sourceTree = "<group>"; };
 		7BA02C361DF59785008213B9 /* SearchPhoneNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchPhoneNumberTableViewCell.h; sourceTree = "<group>"; };
 		7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPhoneNumberTableViewCell.m; sourceTree = "<group>"; };
 		7BA02C391DF5AE9E008213B9 /* CircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleButton.h; sourceTree = "<group>"; };
@@ -102,6 +100,8 @@
 		7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		7BF0CA841DEF256A000227D4 /* WriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteViewController.h; sourceTree = "<group>"; };
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
+		7BF803BC1DFC539F003A9DC9 /* WriteDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteDiaryViewController.h; sourceTree = "<group>"; };
+		7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteDiaryViewController.m; sourceTree = "<group>"; };
 		7C63A0591DF10ABD005FD2E4 /* ViewUpBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUpBorder.h; sourceTree = "<group>"; };
 		7C63A05A1DF10ABD005FD2E4 /* ViewUpBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUpBorder.m; sourceTree = "<group>"; };
 		7C63A05C1DF10DAE005FD2E4 /* CommentBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentBorder.h; sourceTree = "<group>"; };
@@ -136,8 +136,6 @@
 		7B2C82A21DF807A900BFE84E /* WriteDiaryPage */ = {
 			isa = PBXGroup;
 			children = (
-				7B9A3DAA1DF9CEA8001688B6 /* WriteDiaryViewController.h */,
-				7B9A3DAB1DF9CEA8001688B6 /* WriteDiaryViewController.m */,
 			);
 			name = WriteDiaryPage;
 			sourceTree = "<group>";
@@ -168,6 +166,8 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
+				7BF803BC1DFC539F003A9DC9 /* WriteDiaryViewController.h */,
+				7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
@@ -500,7 +500,7 @@
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
 				7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */,
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
-				7B9A3DAC1DF9CEA8001688B6 /* WriteDiaryViewController.m in Sources */,
+				7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */,
 				7BA02C381DF59785008213B9 /* SearchPhoneNumberTableViewCell.m in Sources */,
 				7BA02C3B1DF5AE9E008213B9 /* CircleButton.m in Sources */,
 				7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */,

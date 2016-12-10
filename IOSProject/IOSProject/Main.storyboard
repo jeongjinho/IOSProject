@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Gog-oQ-SWL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kFX-Pe-0GY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -677,6 +677,117 @@
             </objects>
             <point key="canvasLocation" x="3109.5999999999999" y="-99.400299850074973"/>
         </scene>
+        <!--Write Diary View Controller-->
+        <scene sceneID="9Dy-hi-Szg">
+            <objects>
+                <viewController id="kFX-Pe-0GY" customClass="WriteDiaryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tfc-aM-T2n"/>
+                        <viewControllerLayoutGuide type="bottom" id="E3t-kM-ROw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uPj-C0-mcb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QfS-A3-Orq">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Tn-9w-UzB">
+                                        <rect key="frame" x="20" y="15" width="30" height="30"/>
+                                        <state key="normal" title="취소">
+                                            <color key="titleColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Faf-cN-m5y">
+                                        <rect key="frame" x="325" y="15" width="30" height="30"/>
+                                        <state key="normal" title="저장">
+                                            <color key="titleColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Faf-cN-m5y" secondAttribute="trailing" constant="20" id="FJJ-IT-95u"/>
+                                    <constraint firstAttribute="height" constant="60" id="OIH-Pw-2aM"/>
+                                    <constraint firstItem="3Tn-9w-UzB" firstAttribute="leading" secondItem="QfS-A3-Orq" secondAttribute="leading" constant="20" id="T8W-Vp-swx"/>
+                                    <constraint firstItem="3Tn-9w-UzB" firstAttribute="centerY" secondItem="QfS-A3-Orq" secondAttribute="centerY" id="XQM-RX-dQE"/>
+                                    <constraint firstItem="Faf-cN-m5y" firstAttribute="centerY" secondItem="3Tn-9w-UzB" secondAttribute="centerY" id="Xll-4L-B3M"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-hm-wi5">
+                                <rect key="frame" x="0.0" y="60" width="375" height="240"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjo-YJ-TTl">
+                                <rect key="frame" x="0.0" y="360" width="187.5" height="36"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="사진"/>
+                                <connections>
+                                    <action selector="touchUpInSideSelectButton:" destination="kFX-Pe-0GY" eventType="touchUpInside" id="D1v-Bb-dng"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aa1-zk-VMh">
+                                <rect key="frame" x="187.5" y="360" width="187.5" height="36"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="글쓰기">
+                                    <color key="titleColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchUpInSideSelectButton:" destination="kFX-Pe-0GY" eventType="touchUpInside" id="zGY-bM-y88"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tma-ZT-nBd" userLabel="접기">
+                                <rect key="frame" x="365" y="371" width="0.0" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" id="sOt-HU-qfl"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="down"/>
+                                <connections>
+                                    <action selector="touchInSideFoldButton:" destination="kFX-Pe-0GY" eventType="touchUpInside" id="IY3-Ce-Cej"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFf-BP-lIF">
+                                <rect key="frame" x="0.0" y="396" width="375" height="271"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PC4-hm-wi5" secondAttribute="trailing" id="3dx-v5-NkC"/>
+                            <constraint firstItem="sFf-BP-lIF" firstAttribute="leading" secondItem="uPj-C0-mcb" secondAttribute="leading" id="4F0-g6-Wmc"/>
+                            <constraint firstItem="aa1-zk-VMh" firstAttribute="leading" secondItem="fjo-YJ-TTl" secondAttribute="trailing" id="Aic-zl-a1A"/>
+                            <constraint firstAttribute="trailing" secondItem="aa1-zk-VMh" secondAttribute="trailing" id="BCf-Dj-Apd"/>
+                            <constraint firstItem="QfS-A3-Orq" firstAttribute="top" secondItem="uPj-C0-mcb" secondAttribute="top" id="BNJ-th-x03"/>
+                            <constraint firstItem="tma-ZT-nBd" firstAttribute="centerY" secondItem="aa1-zk-VMh" secondAttribute="centerY" id="MUp-Rs-yLC"/>
+                            <constraint firstItem="tma-ZT-nBd" firstAttribute="height" secondItem="aa1-zk-VMh" secondAttribute="height" multiplier="0.4" id="PhJ-Ci-Ypc"/>
+                            <constraint firstItem="fjo-YJ-TTl" firstAttribute="height" secondItem="PC4-hm-wi5" secondAttribute="height" multiplier="0.15" id="Pme-VF-qLu"/>
+                            <constraint firstItem="E3t-kM-ROw" firstAttribute="top" secondItem="sFf-BP-lIF" secondAttribute="bottom" id="WAD-3Y-M4m"/>
+                            <constraint firstAttribute="trailing" secondItem="sFf-BP-lIF" secondAttribute="trailing" id="Xn2-yP-vV3"/>
+                            <constraint firstItem="fjo-YJ-TTl" firstAttribute="leading" secondItem="uPj-C0-mcb" secondAttribute="leading" id="Y7o-u0-xqd"/>
+                            <constraint firstItem="PC4-hm-wi5" firstAttribute="leading" secondItem="uPj-C0-mcb" secondAttribute="leading" id="YPG-Jw-f5k"/>
+                            <constraint firstItem="PC4-hm-wi5" firstAttribute="height" secondItem="QfS-A3-Orq" secondAttribute="height" multiplier="4" id="Z7L-At-f7q"/>
+                            <constraint firstAttribute="trailing" secondItem="QfS-A3-Orq" secondAttribute="trailing" id="edg-YI-enp"/>
+                            <constraint firstItem="sFf-BP-lIF" firstAttribute="top" secondItem="aa1-zk-VMh" secondAttribute="bottom" id="fXS-o0-8hX"/>
+                            <constraint firstItem="QfS-A3-Orq" firstAttribute="leading" secondItem="uPj-C0-mcb" secondAttribute="leading" id="hEg-eA-aiL"/>
+                            <constraint firstAttribute="trailing" secondItem="tma-ZT-nBd" secondAttribute="trailing" constant="10" id="lv6-Rf-Tfs"/>
+                            <constraint firstItem="PC4-hm-wi5" firstAttribute="top" secondItem="QfS-A3-Orq" secondAttribute="bottom" id="qRZ-Gq-qHs"/>
+                            <constraint firstItem="fjo-YJ-TTl" firstAttribute="top" secondItem="PC4-hm-wi5" secondAttribute="bottom" constant="60" id="rFk-Z5-hoq"/>
+                            <constraint firstItem="aa1-zk-VMh" firstAttribute="centerY" secondItem="fjo-YJ-TTl" secondAttribute="centerY" id="xrd-gQ-GKn"/>
+                            <constraint firstItem="fjo-YJ-TTl" firstAttribute="width" secondItem="uPj-C0-mcb" secondAttribute="width" multiplier="0.5" id="yaQ-5E-YDA"/>
+                            <constraint firstItem="aa1-zk-VMh" firstAttribute="height" secondItem="fjo-YJ-TTl" secondAttribute="height" id="ypx-FW-0uS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomScrollView" destination="sFf-BP-lIF" id="M5q-c9-BKK"/>
+                        <outlet property="bottomscrollBottom" destination="WAD-3Y-M4m" id="rdP-xa-9vU"/>
+                        <outlet property="foldButtonWidth" destination="sOt-HU-qfl" id="YBw-Dy-2ii"/>
+                        <outlet property="photoTop" destination="rFk-Z5-hoq" id="dbv-TP-xcz"/>
+                        <outlet property="photoWidth" destination="yaQ-5E-YDA" id="U7B-YI-eyA"/>
+                        <outlet property="writeButton" destination="aa1-zk-VMh" id="9YT-bl-66i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p1p-m2-3tF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3941.5999999999999" y="-99.400299850074973"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="c8O-Zs-CcH">
             <objects>
@@ -967,6 +1078,7 @@
         <image name="Moonbow" width="16" height="16"/>
         <image name="alubumPlaceHolder" width="187" height="133"/>
         <image name="diary" width="123" height="107"/>
+        <image name="down" width="164" height="139"/>
         <image name="key" width="16" height="16"/>
         <image name="logo" width="16" height="16"/>
         <image name="people" width="93" height="124"/>
