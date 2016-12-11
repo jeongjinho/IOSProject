@@ -19,6 +19,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 @property (strong,nonatomic) NSArray *groupList;
+@property (strong,nonatomic)NSMutableDictionary *groupId;
 
 @end
 
@@ -40,6 +41,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.groupId = [[NSMutableDictionary alloc]init];
       self.navigationController.navigationBar.hidden = YES;
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
@@ -100,17 +102,17 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+    
         MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
         selectiedCell.bottomView.backgroundColor = lightPurpleColor;
-    });
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //UIViewController *vc = [UtilityClass viewControllerInStoryBoard:@"Main" VCIdentifier:@"next"];
-    
-    
-   // [self.navigationController pushViewController:vc animated:YES];
+   
+     NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+   
+    NSInteger groupId = [[groupInfo objectForKey:keyForGroupIdentifierNumber] integerValue];
+    NSNumber *idNumber = [NSNumber numberWithInteger:groupId];
+    [self.groupId setValue:idNumber forKey:@"groupId"];
+      NSLog(@"그룹아이디 %@",self.groupId);
+    [[NSNotificationCenter defaultCenter] postNotificationName:GroupIdNotification object:self userInfo:self.groupId];
     
 }
 
@@ -135,4 +137,9 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
     return cell;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+    
+
+}
 @end

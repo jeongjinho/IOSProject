@@ -21,7 +21,7 @@
 #define lightPurpleColor  [UIColor colorWithRed:160.f/255.0f green:141.0f/255.0f blue:195.0f/255.0f alpha:1]
 #define mainPurpleColor  [UIColor colorWithRed:80.f/255.0f green:52.0f/255.0f blue:131.0f/255.0f alpha:1]
 
-static NSString *const GroupListResponseNotification = @"GroupListResponseNotification";
+static NSString *const GroupIdNotification = @"GroupIdNotification";
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

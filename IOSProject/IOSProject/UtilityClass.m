@@ -45,16 +45,13 @@
 + (NSMutableArray *)loadImageInDevicePhotoLibray{
     NSMutableArray *loadImageDatas = [[NSMutableArray alloc]init];
     NSInteger cellCount  = 0;
-    
         cellCount +=40;
-    
     PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                         subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
                                                                         options:nil];
     
     PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
-    //
-    //    // 카메라 롤에 있는 사진을 가져온다.
+  
     PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.networkAccessAllowed = YES;
@@ -62,32 +59,39 @@
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
     
-    
-    
     for (PHAsset *asset in assets) {
         
         [photoManager requestImageForAsset:asset targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             
             [loadImageDatas addObject:result];
-            //[loadImages addObject:result];
-            
-            
         }];
-
     }
-    
-    
         NSLog(@"cell count :%ld",cellCount);
         
         if(loadImageDatas.count ==cellCount){
             
-            
             return nil ;
         }
-    
-    
     return loadImageDatas;
-    
 }
 
++ (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize{
+
+    UIImage *img = image;
+    
+    // 변경할 사이즈
+    float resizeWidth  = widthSize;
+    float resizeHeight = heightSize;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(resizeWidth, resizeHeight));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, resizeHeight);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGContextDrawImage(context, CGRectMake(0.0, 0.0, resizeWidth, resizeHeight), [img CGImage]);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 @end

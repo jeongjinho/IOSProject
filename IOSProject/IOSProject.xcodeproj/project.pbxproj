@@ -34,6 +34,7 @@
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
 		7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */; };
+		7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803C61DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m */; };
 		7C63A05B1DF10ABD005FD2E4 /* ViewUpBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05A1DF10ABD005FD2E4 /* ViewUpBorder.m */; };
 		7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A05D1DF10DAE005FD2E4 /* CommentBorder.m */; };
 		7C63A0671DF294BF005FD2E4 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C63A0661DF294BF005FD2E4 /* Setting.m */; };
@@ -102,6 +103,8 @@
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
 		7BF803BC1DFC539F003A9DC9 /* WriteDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteDiaryViewController.h; sourceTree = "<group>"; };
 		7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteDiaryViewController.m; sourceTree = "<group>"; };
+		7BF803C51DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteDiaryCollectionViewCell.h; sourceTree = "<group>"; };
+		7BF803C61DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteDiaryCollectionViewCell.m; sourceTree = "<group>"; };
 		7C63A0591DF10ABD005FD2E4 /* ViewUpBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUpBorder.h; sourceTree = "<group>"; };
 		7C63A05A1DF10ABD005FD2E4 /* ViewUpBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUpBorder.m; sourceTree = "<group>"; };
 		7C63A05C1DF10DAE005FD2E4 /* CommentBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentBorder.h; sourceTree = "<group>"; };
@@ -136,6 +139,10 @@
 		7B2C82A21DF807A900BFE84E /* WriteDiaryPage */ = {
 			isa = PBXGroup;
 			children = (
+				7BF803BC1DFC539F003A9DC9 /* WriteDiaryViewController.h */,
+				7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */,
+				7BF803C51DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.h */,
+				7BF803C61DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m */,
 			);
 			name = WriteDiaryPage;
 			sourceTree = "<group>";
@@ -166,8 +173,6 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
-				7BF803BC1DFC539F003A9DC9 /* WriteDiaryViewController.h */,
-				7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
@@ -494,6 +499,7 @@
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
+				7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */,
 				7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */,
 				7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */,
 				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
