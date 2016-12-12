@@ -16,6 +16,8 @@ static NSString *const authorization = @"Authorization";
 static NSString *const groupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
 static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/signup/";
 static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
+//뒤에 id/ 붙여야함
+static NSString *const postDiaryURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_list/";
 
 //SignUp
 static NSString  *const emailString = @"email";
@@ -27,7 +29,10 @@ static NSString  *const imageString = @"image";
 //CreateGroup
 static NSString *const groupName = @"group_name";
 static NSString *const groupImage = @"group_image";
-
+//postDiary
+static NSString *const groupID = @"group";
+static NSString *const content = @"content";
+static NSString *const photos = @"photos";
 @implementation NetworkingCenter
 
 + (instancetype)sharedNetwork{
@@ -201,4 +206,58 @@ static NSString *const groupImage = @"group_image";
     
 }
 
++ (void)postDiaryWithGroupId:(NSInteger)groupId postText:(NSString *)postText selectedImages:(NSArray *)imageInfos postDiaryHander:(postDiaryHandler)handler{
+    
+    NSString *groupIdString = [NSString stringWithFormat:@"%ld",groupId];
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    [bodyParams setObject:groupIdString forKey:groupID];
+    [bodyParams setObject:postText forKey:content];
+    
+    NSString *groupURL = [postDiaryURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupId]];
+    NSLog(@"그룹 유알엘 :%@",groupURL);
+   
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        
+        for ( NSInteger i=0;i<imageInfos.count;i++) {
+            
+            NSData *imageData = UIImageJPEGRepresentation([imageInfos[i] objectForKey:@"image"],0.1);
+            NSString *fileName = [imageInfos[i] objectForKey:@"fileName"];
+         //   NSLog(@"imageData :%@",imageData);
+            NSLog(@"파일내임 :%@",fileName);
+            
+            [formData appendPartWithFileData:imageData
+                                        name:photos
+                                    fileName:fileName
+                                    mimeType:@"image/png"];
+        }
+        
+    } error:nil];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          
+                          NSLog(@"Error: %@", error);
+                          handler(fail);
+                      } else {
+                          
+                          NSLog(@"응답객체 :%@",responseObject);
+                          handler(succcess);
+                      }
+                  }];
+    
+    [uploadTask resume];
+
+
+}
 @end

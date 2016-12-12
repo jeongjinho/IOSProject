@@ -12,7 +12,7 @@
 @property NSArray *groupDataList;
 //------------------MainGroupPageProperty
 @property (strong,nonatomic) NSString *groupTitle;
-
+@property  NSInteger selectedGroupId;
 + (instancetype)sharedData;
 
 //==================valueFor GroupPage

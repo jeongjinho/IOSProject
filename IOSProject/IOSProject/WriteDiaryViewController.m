@@ -8,6 +8,7 @@
 
 #import "WriteDiaryViewController.h"
 #import "WriteDiaryCollectionViewCell.h"
+#import "DiaryModel.h"
 @interface WriteDiaryViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 //UI
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;
@@ -27,10 +28,10 @@
 @property CGFloat tempFoldButtonWidth;
 
 //photo data
-@property NSMutableArray *loadImages;
+@property NSArray *loadImages;
 //selectied photos at bottom photoCollectionView
-@property NSMutableArray *selectedPhotos;
-@property NSNumber *groupId;
+//@property NSMutableArray *selectedPhotos;
+@property NSInteger groupId;
 @end
 
 @implementation WriteDiaryViewController
@@ -39,9 +40,9 @@
     [super viewDidLoad];
     //두배해주고
     [self initializeComponent];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deliveredGroupId:) name:GroupIdNotification object:nil];
-     NSLog(@"전달된 그룹아이디 :%@",self.groupId);
-    self.loadImages = [NSMutableArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
+  self.groupId = [DataCenter sharedData].selectedGroupId;
+    
+    self.loadImages = [NSArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(showKeyBoardMode:)
@@ -50,16 +51,7 @@
     
 }
 
-- (void)deliveredGroupId:(NSNotification *)notification{
 
-    if(notification.name ==GroupIdNotification){
-    
-        self.groupId = [notification.userInfo objectForKey:@"groupId"];
-       
-    
-    }
-
-}
 
 #pragma -mark  bottom collectionView delegate methos
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -98,35 +90,47 @@
     
     WriteDiaryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WriteDiaryCell" forIndexPath:indexPath];
 
-        UIImage *loadImage = self.loadImages[indexPath.row];
-        cell.imageView.image = loadImage;
+        cell.label.hidden =YES;
+    
+            UIImage *loadImage = self.loadImages[indexPath.row];
+            cell.imageView.image = loadImage;
+            for (NSNumber *rowNumber in [DiaryModel sharedData].selectedPhotos) {
+                
+                if(rowNumber.integerValue ==indexPath.row){
+                NSLog(@"인덱스패스:%ld",indexPath.row);
+                    NSLog(@"저장된 인덱스패스%ld",rowNumber.integerValue);
+                    cell.label.hidden =NO;
+                
+                }
+            }
+    
+    
 
     return cell;
 }
 //==== 되긴하는데 카운트가 이상함
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
      WriteDiaryCollectionViewCell *cell = (WriteDiaryCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    NSLog(@"선택된 사진수 :%ld",self.selectedPhotos.count);
-    if(cell.label.hidden ==YES&&self.selectedPhotos.count<6){
+       if(cell.label.hidden ==YES&&[DiaryModel sharedData].selectedPhotos.count<6){
         cell.label.hidden = NO;
-        NSDictionary *dic = [[NSDictionary alloc]init];
+       // NSDictionary *dic = [[NSDictionary alloc]init];
         NSNumber *indexPathNumber = [NSNumber numberWithInteger:indexPath.row];
-        dic = @{@"indexPath":indexPathNumber,@"image":cell.imageView.image};
-        [self.selectedPhotos addObject:dic];
+    //    dic = @{@"indexPath":indexPathNumber,@"image":cell.imageView.image};
+        [[DiaryModel sharedData].selectedPhotos addObject:indexPathNumber];
+       
     } else{
     
         if (cell.label.hidden == NO){
             
-            for (NSInteger i=0;i<self.selectedPhotos.count;i++) {
-                NSDictionary *temp= [NSDictionary dictionaryWithDictionary:self.selectedPhotos[i]];
-                
-                NSInteger selectedNumber = [[temp objectForKey:@"indexPath"] integerValue];
+            for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
+                NSInteger selectedNumber = [[DiaryModel sharedData].selectedPhotos[i] integerValue];
                 
                 
                 if(indexPath.row == selectedNumber){
-                    [self.selectedPhotos removeObjectAtIndex:i];
+                    [[DiaryModel sharedData].selectedPhotos removeObjectAtIndex:i];
                     cell.label.hidden = YES;
-                    NSLog(@"지웠음");
+                    ;;
                    
                 }
             }
@@ -176,6 +180,41 @@
 
 
 }
+- (IBAction)touchUpInSIdeStoreButton:(id)sender {
+    
+    NSMutableArray *imagesInfo =[[NSMutableArray alloc]init];
+    for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
+        //---------------이미지사이즈줄이기
+        [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray:[[DiaryModel sharedData].selectedPhotos[i] integerValue] widthSize:500 heightSize:500]];
+        UIImage *img= [imagesInfo[i] objectForKey:@"image"];
+       NSLog(@"image size:%lf",img.size.width);
+        [UtilityClass resizingImage:img widthSize:500 heightSize:500];
+        NSLog(@"afte image size:%lf",img.size.width);
+
+    }
+    
+    [NetworkingCenter postDiaryWithGroupId:self.groupId postText:self.textView.text selectedImages:imagesInfo postDiaryHander:^(NSString *postDiary) {
+        
+        UIAlertController *alert = [[UIAlertController alloc]init];
+        
+        if([postDiary isEqualToString:@"success"]){
+        
+            alert = [UIAlertController alertControllerWithTitle:@"포스트 성공" message:@"정상적으로 회원님의 일기가 올라갔습니다." preferredStyle:UIAlertControllerStyleAlert];
+            
+        
+        } else {
+            alert = [UIAlertController alertControllerWithTitle:@"포스트 실패" message:@"다시한번 시도해 주세요." preferredStyle:UIAlertControllerStyleAlert];
+        }
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+        }];
+        [alert addAction:cancle];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }];
+}
 
 - (IBAction)touchUpInSideCancelButton:(id)sender {
     
@@ -199,7 +238,7 @@
 }
 - (void)initializeComponent{
     self.isFoldingMode = YES;
-    self.selectedPhotos = [[NSMutableArray alloc]init];
+//    self.selectedPhotos = [[NSMutableArray alloc]init];
     //scrollView
     [self.bottomScrollView setContentSize:CGSizeMake(self.view.frame.size.width*2, self.bottomScrollView.frame.size.height)];
     
@@ -210,6 +249,7 @@
     self.photoCollectionView.delegate = self;
     self.photoCollectionView.dataSource = self;
     [self.photoCollectionView registerClass:[WriteDiaryCollectionViewCell class] forCellWithReuseIdentifier:@"WriteDiaryCell"];
+  //  [self.photoCollectionView setAllowsMultipleSelection:YES];
     //textView
     self.textView = [[UITextView alloc]initWithFrame:CGRectMake(self.bottomScrollView.frame.size.width,0, self.bottomScrollView.frame.size.width, self.bottomScrollView.frame.size.height)];
     self.textView.delegate = self;

@@ -75,6 +75,37 @@
     return loadImageDatas;
 }
 
++ (NSDictionary *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height {
+    
+    CGSize size;
+    size.width =width;
+    size.height =height;
+    __block NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                        options:nil];
+    
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+    //
+    //    // 카메라 롤에 있는 사진을 가져온다.
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.synchronous = YES;
+   // options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    PHImageManager *photoManager = [PHImageManager defaultManager];
+    
+    [dic setObject:[assets[row] valueForKey:@"filename"] forKey:@"fileName"];
+    [photoManager requestImageForAsset:assets[row] targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        NSLog(@"결과사이즈:%lf",result.size.width);
+        [dic setObject:result forKey:@"image"];
+        
+        
+    }];
+    
+    
+    return dic;
+}
 + (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize{
 
     UIImage *img = image;

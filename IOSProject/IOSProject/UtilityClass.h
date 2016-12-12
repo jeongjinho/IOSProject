@@ -14,4 +14,6 @@
 + (NSString *)GetUTF8String:(NSString *)str;
 + (NSString *)tokenForHeader;
 + (NSMutableArray *)loadImageInDevicePhotoLibray;
++ (NSDictionary *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height;
++ (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize;
 @end
