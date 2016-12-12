@@ -2,44 +2,58 @@
 //  WriteDiaryViewController.m
 //  IOSProject
 //
-//  Created by 진호놀이터 on 2016. 12. 9..
+//  Created by 진호놀이터 on 2016. 12. 11..
 //  Copyright © 2016년 진호놀이터. All rights reserved.
 //
 
 #import "WriteDiaryViewController.h"
-
-@interface WriteDiaryViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+#import "WriteDiaryCollectionViewCell.h"
+#import "DiaryModel.h"
+@interface WriteDiaryViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+//UI
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;
-@property (strong,nonatomic)UICollectionView *leftCollectionView;
-@property (strong,nonatomic)UITextView  *rightTextView;
-@property (strong,nonatomic)NSMutableArray *loadImages;
+@property (strong,nonatomic)UICollectionView *photoCollectionView;
+@property (strong,nonatomic)UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIButton *writeButton;
+//애니메이션
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *photoWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *photoTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomscrollBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *foldButtonWidth;
+@property (assign,nonatomic)CGFloat keyboardHeight;
+@property  (assign,nonatomic)BOOL isFoldingMode;
+@property CGFloat tempPhotoWidth;
+@property CGFloat tempTop;
+@property CGFloat tempBottom;
+@property CGFloat tempFoldButtonWidth;
+
+//photo data
+@property NSArray *loadImages;
+//selectied photos at bottom photoCollectionView
+//@property NSMutableArray *selectedPhotos;
+@property NSInteger groupId;
 @end
 
 @implementation WriteDiaryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self initialViews];
-    self.loadImages = [NSMutableArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
-
+    //두배해주고
+    [self initializeComponent];
+  self.groupId = [DataCenter sharedData].selectedGroupId;
+    
+    self.loadImages = [NSArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(showKeyBoardMode:)
+     name:UIKeyboardWillShowNotification
+     object:nil];
+    
 }
 
 
 
-- (void)initialViews{
-
-    [self.bottomScrollView setContentSize:CGSizeMake(self.view.frame.size.width*2, self.bottomScrollView.frame.size.height)];
-    self.bottomScrollView.showsVerticalScrollIndicator = NO;
-    self.bottomScrollView.showsHorizontalScrollIndicator  = YES;
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    self.leftCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.bottomScrollView.frame.size.width, self.bottomScrollView.frame.size.height)collectionViewLayout:layout];
-    self.rightTextView = [[UITextView alloc]initWithFrame:CGRectMake(self.bottomScrollView.frame.size.width, 0, self.bottomScrollView.frame.size.width, self.bottomScrollView.frame.size.height)];
-    [self.bottomScrollView addSubview:self.leftCollectionView];
-    [self.bottomScrollView addSubview:self.rightTextView];
-}
-
-#pragma leftScrollView Delegate Methos
+#pragma -mark  bottom collectionView delegate methos
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
     return 1;
@@ -69,35 +83,202 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return CGSizeMake(self.leftCollectionView.frame.size.width/4-2,self.leftCollectionView.frame.size.width/4-2);
+    return CGSizeMake(self.photoCollectionView.frame.size.width/4-2,self.photoCollectionView.frame.size.width/4-2);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WriteDiaryCell" forIndexPath:indexPath];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//        UIImage *loadImage = self.loadImages[indexPath.row];
-//        cell.collectionViewImage.image = loadImage;
-//        
-//    });
+    WriteDiaryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WriteDiaryCell" forIndexPath:indexPath];
+
+        cell.label.hidden =YES;
     
+            UIImage *loadImage = self.loadImages[indexPath.row];
+            cell.imageView.image = loadImage;
+            for (NSNumber *rowNumber in [DiaryModel sharedData].selectedPhotos) {
+                
+                if(rowNumber.integerValue ==indexPath.row){
+                NSLog(@"인덱스패스:%ld",indexPath.row);
+                    NSLog(@"저장된 인덱스패스%ld",rowNumber.integerValue);
+                    cell.label.hidden =NO;
+                
+                }
+            }
+    
+    
+
     return cell;
 }
+//==== 되긴하는데 카운트가 이상함
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+     WriteDiaryCollectionViewCell *cell = (WriteDiaryCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+       if(cell.label.hidden ==YES&&[DiaryModel sharedData].selectedPhotos.count<6){
+        cell.label.hidden = NO;
+       // NSDictionary *dic = [[NSDictionary alloc]init];
+        NSNumber *indexPathNumber = [NSNumber numberWithInteger:indexPath.row];
+    //    dic = @{@"indexPath":indexPathNumber,@"image":cell.imageView.image};
+        [[DiaryModel sharedData].selectedPhotos addObject:indexPathNumber];
+       
+    } else{
+    
+        if (cell.label.hidden == NO){
+            
+            for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
+                NSInteger selectedNumber = [[DiaryModel sharedData].selectedPhotos[i] integerValue];
+                
+                
+                if(indexPath.row == selectedNumber){
+                    [[DiaryModel sharedData].selectedPhotos removeObjectAtIndex:i];
+                    cell.label.hidden = YES;
+                    ;;
+                   
+                }
+            }
+        } else{
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"사진선택" message:@"6개까지 선택할 수 있습니다" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:action];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+        }
 
+    }
+   
+    
+}
+
+#pragma -mark notification method
+- (void)showKeyBoardMode:(NSNotification *)notification{
+    self.writeButton.userInteractionEnabled = NO;
+
+    if(notification.name == UIKeyboardWillShowNotification){
+    
+        self.keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+        
+        if(self.isFoldingMode==NO){
+
+        } else {
+        
+            self.tempPhotoWidth = self.photoWidth.constant;
+            self.tempTop = self.photoTop.constant;
+            self.tempBottom = self.bottomscrollBottom.constant;
+            self.tempFoldButtonWidth  =self.foldButtonWidth.constant;
+            [UIView animateWithDuration:1.0f animations:^{
+                
+                self.photoWidth.constant  = -self.view.frame.size.width/2;;
+                self.foldButtonWidth.constant= 15;
+                self.photoTop.constant = -self.keyboardHeight;
+                self.bottomscrollBottom.constant = self.keyboardHeight;
+                [self.view layoutIfNeeded];
+            }];
+
+        
+        }
+    }
+
+
+}
+- (IBAction)touchUpInSIdeStoreButton:(id)sender {
+    
+    NSMutableArray *imagesInfo =[[NSMutableArray alloc]init];
+    for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
+        //---------------이미지사이즈줄이기
+        [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray:[[DiaryModel sharedData].selectedPhotos[i] integerValue] widthSize:500 heightSize:500]];
+        UIImage *img= [imagesInfo[i] objectForKey:@"image"];
+       NSLog(@"image size:%lf",img.size.width);
+        [UtilityClass resizingImage:img widthSize:500 heightSize:500];
+        NSLog(@"afte image size:%lf",img.size.width);
+
+    }
+    
+    [NetworkingCenter postDiaryWithGroupId:self.groupId postText:self.textView.text selectedImages:imagesInfo postDiaryHander:^(NSString *postDiary) {
+        
+        UIAlertController *alert = [[UIAlertController alloc]init];
+        
+        if([postDiary isEqualToString:@"success"]){
+        
+            alert = [UIAlertController alertControllerWithTitle:@"포스트 성공" message:@"정상적으로 회원님의 일기가 올라갔습니다." preferredStyle:UIAlertControllerStyleAlert];
+            
+        
+        } else {
+            alert = [UIAlertController alertControllerWithTitle:@"포스트 실패" message:@"다시한번 시도해 주세요." preferredStyle:UIAlertControllerStyleAlert];
+        }
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+        }];
+        [alert addAction:cancle];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }];
+}
+
+- (IBAction)touchUpInSideCancelButton:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+#pragma  -mark touchUpInsideButton methods
+//----------Up 붙이기
+- (IBAction)touchInSideFoldButton:(id)sender {
+    NSLog(@"눌림");
+    self.writeButton.userInteractionEnabled = YES;
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        self.photoWidth.constant = self.tempPhotoWidth;
+        self.photoTop.constant = self.tempTop;
+        self.bottomscrollBottom.constant = self.tempBottom;
+        self.foldButtonWidth.constant =self.tempFoldButtonWidth;
+        [self.view layoutIfNeeded];
+    }];
+    self.isFoldingMode = YES;
+    [_textView resignFirstResponder];
+}
+- (void)initializeComponent{
+    self.isFoldingMode = YES;
+//    self.selectedPhotos = [[NSMutableArray alloc]init];
+    //scrollView
+    [self.bottomScrollView setContentSize:CGSizeMake(self.view.frame.size.width*2, self.bottomScrollView.frame.size.height)];
+    
+    //PhotoCollectionView
+    UICollectionViewFlowLayout *collectionLayout = [[UICollectionViewFlowLayout alloc]init];
+    self.photoCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(self.bottomScrollView.frame.origin.x,0,self.bottomScrollView.frame.size.width, self.bottomScrollView.frame.size.height) collectionViewLayout:collectionLayout];
+    self.photoCollectionView.backgroundColor = [UIColor clearColor];
+    self.photoCollectionView.delegate = self;
+    self.photoCollectionView.dataSource = self;
+    [self.photoCollectionView registerClass:[WriteDiaryCollectionViewCell class] forCellWithReuseIdentifier:@"WriteDiaryCell"];
+  //  [self.photoCollectionView setAllowsMultipleSelection:YES];
+    //textView
+    self.textView = [[UITextView alloc]initWithFrame:CGRectMake(self.bottomScrollView.frame.size.width,0, self.bottomScrollView.frame.size.width, self.bottomScrollView.frame.size.height)];
+    self.textView.delegate = self;
+   //add subView
+    [self.bottomScrollView addSubview:self.photoCollectionView];
+    [self.bottomScrollView addSubview:self.textView];
+
+}
+
+- (IBAction)touchUpInSideSelectButton:(id)sender {
+    UIButton *button = sender;
+    if([button isKindOfClass:[UIButton class]]){
+        switch (button.tag) {
+            case 0:
+                
+                [self.bottomScrollView setContentOffset:CGPointZero animated:YES];
+                break;
+            case 1:
+                
+                [self.bottomScrollView setContentOffset:CGPointMake(self.bottomScrollView.contentSize.width/2,0) animated:YES];
+                break;
+            default:
+                break;
+        }
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

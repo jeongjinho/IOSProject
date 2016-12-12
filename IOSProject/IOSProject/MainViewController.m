@@ -8,36 +8,51 @@
 
 #import "MainViewController.h"
 #import "MainTableViewCell.h"
+
+static NSString *const keyForGroupTitle = @"group_name";
+static NSString *const keyForGroupImage = @"group_image";
+static NSString *const keyForGroupLastPostDate = @"last_updated";
+static NSString *const keyForGroupPersonCount = @"user_count";
+static NSString *const keyForGroupPostCount = @"post_count";
+static NSString *const keyForGroupMaster = @"master";
+static NSString *const keyForGroupIdentifierNumber = @"id";
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
+@property (strong,nonatomic) NSArray *groupList;
+
 
 @end
 
 @implementation MainViewController
-
+- (NSArray *)imageInfos {
+    return [[DataCenter sharedData] groupDataList];
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [NetworkingCenter showGroupList:^(NSString *groupList) {
+        
+        if([groupList isEqualToString:@"success"]){
+            
+            NSLog(@"정상적으로 불러옴");
+            [self.mainTable reloadData];
+        }
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
       self.navigationController.navigationBar.hidden = YES;
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     self.tabBarController.delegate = self;
     
+    
+    
 }
--(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-    NSLog(@"view tag : %ld",viewController.tabBarController.selectedIndex);
-   
-   //                        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    
-//    UIViewController *view1 = [storyBoard instantiateViewControllerWithIdentifier:@"leap"];
-//    [self presentViewController:view1 animated:YES completion:nil];
-  //  [self.tabBarController setModalPresentationCapturesStatusBarAppearance:YES];
-    
-    
-    
-   
 
-}
+
+
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     
     NSInteger index = viewController.tabBarItem.tag;
@@ -70,7 +85,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
 
-    return 20;
+    return [DataCenter sharedData].groupDataList.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
@@ -87,17 +102,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
+    
         MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
         selectiedCell.bottomView.backgroundColor = lightPurpleColor;
-    });
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //UIViewController *vc = [UtilityClass viewControllerInStoryBoard:@"Main" VCIdentifier:@"next"];
+   
+     NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+   
+    NSInteger groupId = [[groupInfo objectForKey:keyForGroupIdentifierNumber] integerValue];
+    NSLog(@"그룹 id%ld",groupId);
+
+    [DataCenter sharedData].selectedGroupId = groupId;
     
+  
     
-   // [self.navigationController pushViewController:vc animated:YES];
+   
     
 }
 
@@ -106,17 +124,25 @@
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     cell.thumnailImageView.image = [UIImage imageNamed:@"Moonbow"];
+    NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
     
+    cell.titleLabel.text = [groupInfo objectForKey:keyForGroupTitle];
+      cell.lastPostDateLabel.text =[groupInfo objectForKey:keyForGroupLastPostDate];
+   
+    
+    cell.groupPersonCount.text =[NSString stringWithFormat:@"%@",[groupInfo objectForKey:keyForGroupPersonCount]];
+    cell.diaryCount.text =[NSString stringWithFormat:@"%@",[groupInfo objectForKey:keyForGroupPostCount]];
+    
+    NSURL *url = [NSURL URLWithString:[groupInfo objectForKey:keyForGroupImage]];
+    
+    [cell.thumnailImageView sd_setImageWithURL:url];
+
     return cell;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+    
+
 }
-*/
-
 @end

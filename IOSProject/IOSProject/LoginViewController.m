@@ -70,7 +70,13 @@ static NSString *const passwordText = @"passwordTextField.text";
         if([self.tokenValue isEqualToString:@"fail"]){
             
             
-            return ;
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"로그인 실패" message:@"로그인이 실패 되었습니다.\n아이디와 비밀번호를 확인해주세요." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
+            self.emailTextField.text = @"";
+            self.passwordTextField.text = @"";
+            [alert addAction:cancle];
+            [self presentViewController:alert animated:YES completion:nil];
+
         }
         else if([keychainToken isEqualToString:self.tokenValue]){
             
@@ -87,8 +93,6 @@ static NSString *const passwordText = @"passwordTextField.text";
     }];
         
    
-    
-    
     
 
 }

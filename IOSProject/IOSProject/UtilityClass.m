@@ -36,18 +36,51 @@
 }
 //헤더에 보낼 토큰값 만들기
 + (NSString *)tokenForHeader{
-    KeychainItemWrapper *keyChain  = [[KeychainItemWrapper alloc]init];
-    NSString *headerToken = [NSString stringWithFormat:@"Token %@",[keyChain objectForKey:(NSString *)kSecAttrAccount]];
-
+    KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"glue" accessGroup:nil];
+    NSString *headerToken = [NSString stringWithFormat:@"Token %@",[keychain objectForKey:(NSString *)kSecAttrAccount]];
+    NSLog(@"토큰 :%@",headerToken);
     return headerToken;
 }
 
 + (NSMutableArray *)loadImageInDevicePhotoLibray{
     NSMutableArray *loadImageDatas = [[NSMutableArray alloc]init];
     NSInteger cellCount  = 0;
-    
         cellCount +=40;
+    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                        options:nil];
     
+    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
+  
+    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.synchronous = YES;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    PHImageManager *photoManager = [PHImageManager defaultManager];
+    
+    for (PHAsset *asset in assets) {
+        
+        [photoManager requestImageForAsset:asset targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            
+            [loadImageDatas addObject:result];
+        }];
+    }
+        NSLog(@"cell count :%ld",cellCount);
+        
+        if(loadImageDatas.count ==cellCount){
+            
+            return nil ;
+        }
+    return loadImageDatas;
+}
+
++ (NSDictionary *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height {
+    
+    CGSize size;
+    size.width =width;
+    size.height =height;
+    __block NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                         subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
                                                                         options:nil];
@@ -59,35 +92,37 @@
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.networkAccessAllowed = YES;
     options.synchronous = YES;
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+   // options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
     
-    
-    
-    for (PHAsset *asset in assets) {
+    [dic setObject:[assets[row] valueForKey:@"filename"] forKey:@"fileName"];
+    [photoManager requestImageForAsset:assets[row] targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        NSLog(@"결과사이즈:%lf",result.size.width);
+        [dic setObject:result forKey:@"image"];
         
-        [photoManager requestImageForAsset:asset targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            
-            [loadImageDatas addObject:result];
-            //[loadImages addObject:result];
-            
-            
-        }];
-
-    }
-    
-    
-        NSLog(@"cell count :%ld",cellCount);
         
-        if(loadImageDatas.count ==cellCount){
-            
-            
-            return nil ;
-        }
+    }];
     
     
-    return loadImageDatas;
-    
+    return dic;
 }
++ (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize{
 
+    UIImage *img = image;
+    
+    // 변경할 사이즈
+    float resizeWidth  = widthSize;
+    float resizeHeight = heightSize;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(resizeWidth, resizeHeight));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, resizeHeight);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGContextDrawImage(context, CGRectMake(0.0, 0.0, resizeWidth, resizeHeight), [img CGImage]);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 @end

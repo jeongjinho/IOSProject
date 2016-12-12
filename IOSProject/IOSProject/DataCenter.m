@@ -21,6 +21,12 @@
         
     });
     return datObject;
-    
 }
+#pragma -mark mainPage Group Ger Mehtods
+- (NSDictionary *)groupInfoForIndex:(NSInteger)index{
+    return self.groupDataList[index];
+}
+
+
+
 @end

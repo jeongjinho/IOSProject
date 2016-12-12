@@ -13,9 +13,11 @@ static NSString *const succcess  = @"success";
 static NSString *const fail = @"fail";
 static NSString *const authorization = @"Authorization";
 
-static NSString *const createNewGroupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
+static NSString *const groupURLString  = @"https://glue-dev.muse9.net/group/group_list/";
 static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/signup/";
 static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
+//뒤에 id/ 붙여야함
+static NSString *const postDiaryURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_list/";
 
 //SignUp
 static NSString  *const emailString = @"email";
@@ -27,7 +29,10 @@ static NSString  *const imageString = @"image";
 //CreateGroup
 static NSString *const groupName = @"group_name";
 static NSString *const groupImage = @"group_image";
-
+//postDiary
+static NSString *const groupID = @"group";
+static NSString *const content = @"content";
+static NSString *const photos = @"photos";
 @implementation NetworkingCenter
 
 + (instancetype)sharedNetwork{
@@ -43,46 +48,75 @@ static NSString *const groupImage = @"group_image";
     
 }
 #pragma -mark create Group method
-+ (void)CreatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image handler:(createNewGroupHandler)handler{
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(createNewGroupHandler)handler{
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
-    
     [bodyParams setObject:name forKey:groupName];
-    
-    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:createNewGroupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+
+   NSData *imageData = UIImagePNGRepresentation(image);
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        //폼데이터
+        [formData appendPartWithFileData:imageData
+                                    name:groupImage
+                                fileName:fileName
+                                mimeType:@"image/png"];
     } error:nil];
-   
-    //헤더 만들기
-    //나중에 키체인을 싱글턴을 만들어야겠다.
-   
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
-    
+    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 
     NSURLSessionUploadTask *uploadTask;
+    
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
+                 
+                    }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
+                       
                           NSLog(@"Error: %@", error);
-                          
+                          handler(fail);
                       } else {
-                          
-                          
+                         
+                          NSLog(@"응답객체 :%@",responseObject);
+                          handler(succcess);
                         }
                   }];
     
     [uploadTask resume];
+}
+
+#pragma -mark groupList method
++ (void)showGroupList:(groupListHandler)handler{
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"GET";
+    [request setURL:[NSURL URLWithString:groupURLString]];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+      AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                   
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+         
+            if (responseObject) {
+                NSMutableArray *array = responseObject;
+                
+                
+                if (array != nil) {
+                    NSLog(@"success");
+                    
+                    
+                    [DataCenter sharedData].groupDataList = array;
+                    NSLog(@"그룹리스트 :%@", [DataCenter sharedData].groupDataList);
+                        }
+                    }
+            handler(succcess);
+            }
+        }];
+   [dataTask resume];
 }
 #pragma -mark login method
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
@@ -97,7 +131,6 @@ static NSString *const groupImage = @"group_image";
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:loginURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        
     } error:nil];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -106,13 +139,8 @@ static NSString *const groupImage = @"group_image";
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
+                    }
+                  
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       NSString *loginToken = [responseObject objectForKey:@"token"];
                       NSLog(@" token %@",loginToken);
@@ -120,73 +148,14 @@ static NSString *const groupImage = @"group_image";
                           
                           loginHandler(fail);
                       } else {
-                        
-                      
-                          
-                          
-                              
-                                loginHandler(loginToken);
+                            loginHandler(loginToken);
                          
-                      }
+                        }
                   }];
     
     [uploadTask resume];
 }
 
-//+ (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image{
-//    
-//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-//    NSLog(@"email : %@ ",emailAddress);
-//    NSLog(@"phoneNumber : %@",password);
-//    [bodyParams setObject:emailAddress
-//                   forKey:emailString];
-//    
-//    [bodyParams setObject:phoneNumber
-//                   forKey:phoneNumberString];
-//
-//    [bodyParams setObject:password
-//                   forKey:passwordString];
-//    
-//    [bodyParams setObject:name
-//                   forKey:nameString];
-//    
-//    NSLog(@"bodyParams  :%@", bodyParams);
-//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//       
-//
-//    } error:nil];
-//    
-//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//    
-//    NSURLSessionUploadTask *uploadTask;
-//    uploadTask = [manager
-//                  uploadTaskWithStreamedRequest:request
-//                  progress:^(NSProgress * _Nonnull uploadProgress) {
-//                      // This is not called back on the main queue.
-//                      // You are responsible for dispatching to the main queue for UI updates
-//                      dispatch_async(dispatch_get_main_queue(), ^{
-//                          //Update the progress view
-//                         
-//                      });
-//                  }
-//                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-//                      if (error) {
-//                          NSLog(@"Error: %@", error);
-//                          NSLog(@"실패`````");
-//                      } else {
-//                          NSLog(@"%@ %@", response, responseObject);
-//                          NSLog(@"networking success!");
-//                          
-//                          dispatch_async(dispatch_get_main_queue(), ^{
-//                              
-//                              
-//                          });
-//                      }
-//                  }];
-//    
-//    [uploadTask resume];
-//    
-//}
 + (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image requestHandler:(requestHandler)handlers {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
@@ -216,12 +185,7 @@ static NSString *const groupImage = @"group_image";
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
+                      
                   }
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
@@ -242,4 +206,58 @@ static NSString *const groupImage = @"group_image";
     
 }
 
++ (void)postDiaryWithGroupId:(NSInteger)groupId postText:(NSString *)postText selectedImages:(NSArray *)imageInfos postDiaryHander:(postDiaryHandler)handler{
+    
+    NSString *groupIdString = [NSString stringWithFormat:@"%ld",groupId];
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    [bodyParams setObject:groupIdString forKey:groupID];
+    [bodyParams setObject:postText forKey:content];
+    
+    NSString *groupURL = [postDiaryURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupId]];
+    NSLog(@"그룹 유알엘 :%@",groupURL);
+   
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        
+        for ( NSInteger i=0;i<imageInfos.count;i++) {
+            
+            NSData *imageData = UIImageJPEGRepresentation([imageInfos[i] objectForKey:@"image"],0.1);
+            NSString *fileName = [imageInfos[i] objectForKey:@"fileName"];
+         //   NSLog(@"imageData :%@",imageData);
+            NSLog(@"파일내임 :%@",fileName);
+            
+            [formData appendPartWithFileData:imageData
+                                        name:photos
+                                    fileName:fileName
+                                    mimeType:@"image/png"];
+        }
+        
+    } error:nil];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          
+                          NSLog(@"Error: %@", error);
+                          handler(fail);
+                      } else {
+                          
+                          NSLog(@"응답객체 :%@",responseObject);
+                          handler(succcess);
+                      }
+                  }];
+    
+    [uploadTask resume];
+
+
+}
 @end
