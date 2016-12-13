@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailCollectionViewCell : UICollectionViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
+@property (weak, nonatomic) IBOutlet UILabel *diaryTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dislikeCountLabel;
 @end

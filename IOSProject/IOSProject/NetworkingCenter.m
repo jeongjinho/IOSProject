@@ -18,7 +18,7 @@ static NSString *const signUpURLString = @"https://glue-dev.muse9.net/member/sig
 static NSString *const loginURLString = @"https://glue-dev.muse9.net/member/login/";
 //뒤에 id/ 붙여야함
 static NSString *const postDiaryURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_list/";
-
+static NSString *const diaryListURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_list/";
 //SignUp
 static NSString  *const emailString = @"email";
 static NSString  *const nameString = @"name";
@@ -102,15 +102,15 @@ static NSString *const photos = @"photos";
         } else {
          
             if (responseObject) {
-                NSMutableArray *array = responseObject;
+                NSMutableArray *array = [responseObject objectForKey:@"Response"];
                 
-                
+                NSLog(@"어레이 :%@",array);
                 if (array != nil) {
                     NSLog(@"success");
                     
                     
-                    [DataCenter sharedData].groupDataList = array;
-                    NSLog(@"그룹리스트 :%@", [DataCenter sharedData].groupDataList);
+                    [DiaryModel sharedData].groupList = array;
+                    NSLog(@"그룹리스트 :%@", [DiaryModel sharedData].groupList);
                         }
                     }
             handler(succcess);
@@ -257,7 +257,103 @@ static NSString *const photos = @"photos";
                   }];
     
     [uploadTask resume];
+}
+
++ (void)diaryListForGroupID:(NSInteger)groupID handler:(diaryListHandler)handler{
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"GET";
+    
+    NSString *diaryURL = [diaryListURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupID]];
+    NSLog(@"다이어리리스트 :%@",diaryURL);
+    [request setURL:[NSURL URLWithString:diaryURL]];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+            
+            if (responseObject) {
+               
+                    NSLog(@"success");
+                NSMutableDictionary *arr = responseObject;
+                [DiaryModel sharedData].diaryList  = [NSMutableDictionary dictionaryWithDictionary:arr];
+                NSLog(@"다이어리리스트:%@",[DiaryModel sharedData].diaryList);
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       
+                       handler(succcess);
+                   });
+                  
+                    
+              
+            }
+           
+        }
+    }];
+    [dataTask resume];
+
 
 
 }
+
+
++ (void)diaryListForNextURL:(NSString *)nextURL handler:(nextPageHandler)handler{
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"GET";
+    
+    
+    [request setURL:[NSURL URLWithString:nextURL]];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+            
+            if (responseObject) {
+                
+                NSLog(@"success");
+                NSMutableDictionary *dic = responseObject;
+                if([[dic objectForKey:@"next"] isKindOfClass:[NSNull class]]){
+                    NSLog(@" next:%@",[dic objectForKey:@"next"]);
+                    [[DiaryModel sharedData].diaryList removeObjectForKey:@"next"];
+                    
+                } else{
+                   
+                    [[DiaryModel sharedData].diaryList setValue:[dic objectForKey:@"next"] forKey:@"next"];
+                
+                
+                }
+                NSArray *addArray =[dic objectForKey:@"results"];
+                
+                NSMutableArray *list = [NSMutableArray arrayWithArray:[[DiaryModel sharedData].diaryList objectForKey:@"results"]];
+                
+                [list addObjectsFromArray:addArray];
+                [[DiaryModel sharedData].diaryList removeObjectForKey:@"results"];
+                [[DiaryModel sharedData].diaryList setValue:list forKey:@"results"];
+              
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    handler(succcess);
+                });
+                
+                
+                
+            }
+            
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
+}
+
 @end

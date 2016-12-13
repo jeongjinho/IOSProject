@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "NetworkingCenter.h"
 #import "DataCenter.h"
+#import "DiaryModel.h"
 #import "UtilityClass.h"
 #import "KeychainItemWrapper.h"
 #import <UIImageView+WebCache.h>

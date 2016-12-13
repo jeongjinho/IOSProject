@@ -8,7 +8,7 @@
 
 #import "DetailCollectionViewCell.h"
 @interface DetailCollectionViewCell()
-@property (weak, nonatomic) IBOutlet UIImageView *cellImage;
+
 
 @end
 @implementation DetailCollectionViewCell

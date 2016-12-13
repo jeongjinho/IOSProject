@@ -10,7 +10,32 @@
 
 @interface DiaryModel : NSObject
 
+@property NSMutableArray *groupList;
+
+@property NSMutableDictionary *diaryList;
+
+
+
+
+
+
+@property NSInteger selectedGroupID;
+@property UIImage *selectedGroupImage;
+
+
 @property NSMutableArray *selectedPhotos;
 
 + (instancetype)sharedData;
+//groupPage
+- (NSDictionary *)groupInfoForIndex:(NSInteger)index;
+
+
+//diaryList
+- (NSInteger)countOfDiaryList;
+- (NSString *)nextDiaryListURLOfDiaryList;
+- (NSString *)previusURLOfDiaryList;
+- (NSArray *)resultsOfDiaryList;
+- (NSInteger)likeCountOfDiaryList;
+- (NSInteger)dislikeCountOfDiaryList;
+- (NSDictionary *)diaryInResultForIndexPath:(NSInteger)index;
 @end

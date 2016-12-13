@@ -12,6 +12,8 @@ typedef void(^loginHandler)(NSString *token);
 typedef void(^createNewGroupHandler)(NSString *responseData);
 typedef void(^groupListHandler)(NSString *groupList);
 typedef void(^postDiaryHandler)(NSString *postDiary);
+typedef void(^diaryListHandler)(NSString *diaryList);
+typedef void(^nextPageHandler)(NSString *nextPage);
 @interface NetworkingCenter : NSObject
 
 + (void)showGroupList:(groupListHandler)handler;
@@ -23,4 +25,7 @@ typedef void(^postDiaryHandler)(NSString *postDiary);
 + (void)singUpWithPhoneNumber:(NSString *)phoneNumber password:(NSString *)password name:(NSString *)name emailAddress:(NSString *)emailAddress image:(NSData *)image requestHandler:(requestHandler)handlers;
 
 + (void)postDiaryWithGroupId:(NSInteger)groupId postText:(NSString *)postText selectedImages:(NSArray *)images postDiaryHander:(postDiaryHandler)handler;
+
++ (void)diaryListForGroupID:(NSInteger)groupID handler:(diaryListHandler)handler;
++ (void)diaryListForNextURL:(NSString *)nextURL handler:(nextPageHandler)handler;
 @end

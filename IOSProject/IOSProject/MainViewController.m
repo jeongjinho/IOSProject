@@ -25,7 +25,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 @implementation MainViewController
 - (NSArray *)imageInfos {
-    return [[DataCenter sharedData] groupDataList];
+    return [[DiaryModel sharedData] groupList];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -85,7 +85,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
 
-    return [DataCenter sharedData].groupDataList.count;
+    return [DiaryModel sharedData].groupList.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
@@ -106,13 +106,13 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
         MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
         selectiedCell.bottomView.backgroundColor = lightPurpleColor;
    
-     NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+     NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
    
     NSInteger groupId = [[groupInfo objectForKey:keyForGroupIdentifierNumber] integerValue];
     NSLog(@"그룹 id%ld",groupId);
 
-    [DataCenter sharedData].selectedGroupId = groupId;
-    
+    [DiaryModel sharedData].selectedGroupID = groupId;
+    [DiaryModel sharedData].selectedGroupImage = [groupInfo objectForKey:keyForGroupImage];
   
     
    
@@ -124,7 +124,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     cell.thumnailImageView.image = [UIImage imageNamed:@"Moonbow"];
-    NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+    NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
     
     cell.titleLabel.text = [groupInfo objectForKey:keyForGroupTitle];
       cell.lastPostDateLabel.text =[groupInfo objectForKey:keyForGroupLastPostDate];

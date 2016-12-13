@@ -40,7 +40,7 @@
     [super viewDidLoad];
     //두배해주고
     [self initializeComponent];
-  self.groupId = [DataCenter sharedData].selectedGroupId;
+  self.groupId = [DiaryModel sharedData].selectedGroupID;
     
     self.loadImages = [NSArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
     [[NSNotificationCenter defaultCenter]

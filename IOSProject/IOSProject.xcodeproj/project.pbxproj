@@ -176,8 +176,7 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
-				7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */,
-				7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */,
+				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
@@ -294,6 +293,15 @@
 				7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */,
 			);
 			name = WritinConfirmPage;
+			sourceTree = "<group>";
+		};
+		7BCC4C571DFFCB8000CBE37F /* DiaryModel */ = {
+			isa = PBXGroup;
+			children = (
+				7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */,
+				7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */,
+			);
+			name = DiaryModel;
 			sourceTree = "<group>";
 		};
 		7BEF3EAA1DEFF1E000569AC2 /* WritePage */ = {
