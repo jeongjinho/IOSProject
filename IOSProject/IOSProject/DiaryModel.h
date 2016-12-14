@@ -18,9 +18,9 @@
 
 
 
-
+@property NSInteger selectedIndex;
 @property NSInteger selectedGroupID;
-@property UIImage *selectedGroupImage;
+@property NSString *selectedGroupImageURL;
 
 
 @property NSMutableArray *selectedPhotos;
@@ -28,8 +28,10 @@
 + (instancetype)sharedData;
 //groupPage
 - (NSDictionary *)groupInfoForIndex:(NSInteger)index;
-
-
+- (NSString *)groupNameOfGroupListForSelectedIndex;
+- (NSInteger)postCountOfGroupListForSelectedIndex;
+- (NSInteger)masterOfGroupForSelectedIndex;
+- (NSInteger)memberCountOfGroupForSelectedIndex;
 //diaryList
 - (NSInteger)countOfDiaryList;
 - (NSString *)nextDiaryListURLOfDiaryList;

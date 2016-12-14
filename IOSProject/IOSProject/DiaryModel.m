@@ -7,6 +7,13 @@
 //
 
 #import "DiaryModel.h"
+//groupListPage
+static NSString *const groupName = @"group_name";
+static NSString *const lastUpdated = @"last_updated";
+static NSString *const posts = @"posts";
+static NSString *const master = @"master";
+static NSString *const members = @"members";
+static NSString *const groupPostCount = @"post_count";
 //detailPage
 static NSString *const diaryCount = @"count";
 static NSString *const nextURLString = @"next";
@@ -48,8 +55,33 @@ static NSString *const dislikeCount = @"dislikes_count";
     return self.groupList[index];
 }
 
+- (NSString *)groupNameOfGroupListForSelectedIndex{
+  return  [self.groupList[self.selectedIndex] objectForKey:groupName];
+
+}
+
+- (NSString *)lastUpdateOfGroupListForSelectedIndex{
+
+    return  [self.groupList[self.selectedIndex] objectForKey:lastUpdated];
+}
+- (NSInteger)postCountOfGroupListForSelectedIndex{
+    
+    return [[self.groupList[self.selectedIndex] objectForKey:diaryCount] integerValue] ;
+   }
+
+- (NSInteger)masterOfGroupForSelectedIndex{
+
+    return  [[self.groupList[self.selectedIndex] objectForKey:master] integerValue];
+}
+- (NSInteger)memberCountOfGroupForSelectedIndex{
+   
+    NSArray *memberArray = [self.groupList[self.selectedIndex] objectForKey:members];
+    return  memberArray.count;
+}
+
 #pragma -mark detailPage  Mehtods
 - (NSInteger)countOfDiaryList{
+    NSLog(@"다이어리 카운트%@",self.diaryList);
     return  [[_diaryList objectForKey:diaryCount] integerValue];
 }
 

@@ -33,6 +33,7 @@
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
 		7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */; };
+		7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
 		7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */; };
 		7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803C61DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m */; };
@@ -101,6 +102,8 @@
 		7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCollectionViewCell.m; sourceTree = "<group>"; };
 		7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryModel.h; sourceTree = "<group>"; };
 		7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryModel.m; sourceTree = "<group>"; };
+		7BCC4C581E01B33800CBE37F /* ReadDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDiaryViewController.h; sourceTree = "<group>"; };
+		7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDiaryViewController.m; sourceTree = "<group>"; };
 		7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		7BF0CA841DEF256A000227D4 /* WriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteViewController.h; sourceTree = "<group>"; };
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
+				7BCC4C581E01B33800CBE37F /* ReadDiaryViewController.h */,
+				7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */,
 				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
@@ -511,6 +516,7 @@
 				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
 				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
+				7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
 				7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */,

@@ -27,6 +27,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 - (NSArray *)imageInfos {
     return [[DiaryModel sharedData] groupList];
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [NetworkingCenter showGroupList:^(NSString *groupList) {
@@ -102,7 +103,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
         selectiedCell.bottomView.backgroundColor = lightPurpleColor;
    
@@ -110,9 +111,10 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
    
     NSInteger groupId = [[groupInfo objectForKey:keyForGroupIdentifierNumber] integerValue];
     NSLog(@"그룹 id%ld",groupId);
-
+    
     [DiaryModel sharedData].selectedGroupID = groupId;
-    [DiaryModel sharedData].selectedGroupImage = [groupInfo objectForKey:keyForGroupImage];
+    [DiaryModel sharedData].selectedIndex = indexPath.row;
+    [DiaryModel sharedData].selectedGroupImageURL = [groupInfo objectForKey:keyForGroupImage];
   
     
    
