@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B257A061DF160680039624C /* KeychainItemWrapper.m */; };
+		7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B304E951E028C2500275674 /* CommentTableViewCell.m */; };
 		7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88A1DEBFD3100DDAA93 /* main.m */; };
 		7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */; };
 		7B4FB8961DEBFD3100DDAA93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */; };
@@ -53,6 +54,8 @@
 		7B257A061DF160680039624C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		7B257A071DF160680039624C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		7B257A091DF1617C0039624C /* IOSProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSProject.entitlements; sourceTree = "<group>"; };
+		7B304E941E028C2500275674 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		7B304E951E028C2500275674 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		7B4FB8861DEBFD3100DDAA93 /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B4FB88A1DEBFD3100DDAA93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
 				7BCC4C581E01B33800CBE37F /* ReadDiaryViewController.h */,
 				7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */,
+				7B304E941E028C2500275674 /* CommentTableViewCell.h */,
+				7B304E951E028C2500275674 /* CommentTableViewCell.m */,
 				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
@@ -514,6 +519,7 @@
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */,
 				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
+				7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */,
 				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */,

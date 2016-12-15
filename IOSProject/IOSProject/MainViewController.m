@@ -30,6 +30,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tabBarController.tabBar setHidden:NO];
     [NetworkingCenter showGroupList:^(NSString *groupList) {
         
         if([groupList isEqualToString:@"success"]){
