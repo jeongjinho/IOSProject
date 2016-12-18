@@ -14,25 +14,43 @@
 
 @property NSMutableDictionary *diaryList;
 
+@property NSMutableDictionary *diaryInfo;
 
+@property NSMutableDictionary *likeInfo;
+@property NSMutableDictionary *dislikeInfo;
 
+//userInfo
+@property NSMutableDictionary *myInfo;
 
-
+//groupList
 @property NSInteger selectedIndex;
 @property NSInteger selectedGroupID;
 @property NSString *selectedGroupImageURL;
+@property NSInteger seletedDiaryPK;
+
+
+//invite
+@property NSInteger createNewGroupId;
+
 
 
 @property NSMutableArray *selectedPhotos;
 
 + (instancetype)sharedData;
+//myInfo
+- (NSString *)emailOfMyInfo;
+- (NSInteger)myIdOfMyInfo;
+- (UIImage *)profileImageOfMyInfo;
 //groupPage
+- (NSInteger)groupIdOfGroupListForSelectedIndex;
 - (NSDictionary *)groupInfoForIndex:(NSInteger)index;
 - (NSString *)groupNameOfGroupListForSelectedIndex;
 - (NSInteger)postCountOfGroupListForSelectedIndex;
 - (NSInteger)masterOfGroupForSelectedIndex;
 - (NSInteger)memberCountOfGroupForSelectedIndex;
+- (void)lastPostOfGroupForSelectedIndex;
 //diaryList
+- (NSInteger)diaryPkOfDiaryList;
 - (NSInteger)countOfDiaryList;
 - (NSString *)nextDiaryListURLOfDiaryList;
 - (NSString *)previusURLOfDiaryList;
@@ -40,4 +58,23 @@
 - (NSInteger)likeCountOfDiaryList;
 - (NSInteger)dislikeCountOfDiaryList;
 - (NSDictionary *)diaryInResultForIndexPath:(NSInteger)index;
+//diarInfo
+- (NSInteger)pkOfDiaryInfo;
+- (NSString *)contentOfDiaryInfo;
+- (NSInteger)uploadedUserOfDiaryInfo;
+- (NSString *)uloadedUserNameOfDiaryInfo;
+- (NSURL *)uploadedUserImageOfDiaryInfo;
+- (NSInteger)groupPkOfDiaryInfo;
+- (NSArray *)photosOfDiaryInfo;
+- (NSInteger)likeCountOfDiaryInfo;
+- (NSInteger )likerOfDiaryInfo;
+- (NSInteger)dislikeCountOfDiaryInfo;
+- (NSInteger )dislikerOfDiaryInfo;
+
+//likeInfo
+- (NSInteger)didlikeUserIdOfLikeInfo;
+- (NSInteger)likeCountOfLikeInfo;
+//dislikeInfo
+- (NSInteger)didDislikeUserIdOfLikeInfo;
+- (NSInteger)dislikeCountOfLikeInfo;
 @end

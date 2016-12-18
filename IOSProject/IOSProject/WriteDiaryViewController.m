@@ -36,6 +36,11 @@
 
 @implementation WriteDiaryViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     //두배해주고
@@ -209,6 +214,7 @@
             
             [self dismissViewControllerAnimated:YES completion:nil];
             [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+            
         }];
         [alert addAction:cancle];
         [self presentViewController:alert animated:YES completion:nil];
@@ -276,6 +282,7 @@
         }
     }
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -8,7 +8,7 @@
 
 #import "DetailGroupViewController.h"
 #import "DetailCollectionViewCell.h"
-
+#import "ReadDiaryViewController.h"
 
 
 @interface DetailGroupViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
@@ -34,6 +34,7 @@
             
             DiaryModel *diaryData = [DiaryModel sharedData];
             self.diaryCountLabel.text = [NSString stringWithFormat:@"%ld",[diaryData countOfDiaryList]];
+            diaryData.seletedDiaryPK = [[[[diaryData resultsOfDiaryList] firstObject] objectForKey:@"pk"] integerValue];
         }
     }];
 
@@ -46,11 +47,12 @@
     self.centerCollectionView.delegate = self;
     self.centerCollectionView.dataSource = self;
    NSURL *url = [NSURL URLWithString:[DiaryModel sharedData].selectedGroupImageURL];
+    NSLog(@"유알엘%@",url);
     [self.groupImageView sd_setImageWithURL:url];
     
         DiaryModel *diaryData = [DiaryModel sharedData];
     self.groupTitleLabel.text = [diaryData groupNameOfGroupListForSelectedIndex];
-    NSLog(@"그룹타이틀:%ld", [diaryData countOfDiaryList]);
+   
    
     self.personCountLabel.text = [NSString stringWithFormat:@"%ld",[diaryData memberCountOfGroupForSelectedIndex]];
 }
@@ -108,6 +110,16 @@
     return collectionCell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *diary = [[DiaryModel sharedData] diaryInResultForIndexPath:indexPath.row];
+    
+    [DiaryModel sharedData].seletedDiaryPK = [[diary objectForKey:@"pk"] integerValue];
+    
+    ReadDiaryViewController *readVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReadVC"];
+    readVC.segueIdentifier = @"ReadVC";
+    [self.navigationController pushViewController:readVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -14,6 +14,13 @@ typedef void(^groupListHandler)(NSString *groupList);
 typedef void(^postDiaryHandler)(NSString *postDiary);
 typedef void(^diaryListHandler)(NSString *diaryList);
 typedef void(^nextPageHandler)(NSString *nextPage);
+typedef void(^invitePersonsHandler)(NSString *invitedPerson);
+typedef void(^diayInfoHandler)(NSString *diaryInfo);
+typedef void(^myInfoHandler)(NSString *myInfo);
+typedef void(^deleteHandler)(NSString *deleteDiary);
+typedef void(^likeHandler)(NSString *likeHandler);
+typedef void(^dislikeHandler)(NSString *dislikeHandler);
+typedef void(^deleteGroupHandler)(NSString *deleteGroupHandler);
 @interface NetworkingCenter : NSObject
 
 + (void)showGroupList:(groupListHandler)handler;
@@ -28,4 +35,14 @@ typedef void(^nextPageHandler)(NSString *nextPage);
 
 + (void)diaryListForGroupID:(NSInteger)groupID handler:(diaryListHandler)handler;
 + (void)diaryListForNextURL:(NSString *)nextURL handler:(nextPageHandler)handler;
+
++ (void)invitePersonsOfGroupForPhoneNumber:(NSArray *)selectedPersons groupID:(NSInteger)groupID handler:(invitePersonsHandler)handler;
+
++ (void)diaryForPostID:(NSInteger)diaryID handler:(diayInfoHandler)handler;
+
++ (void)myInfoAtApp:(myInfoHandler)handler;
++ (void)deleteFordiaryID:(NSInteger)diaryID handler:(deleteHandler)handler;
++ (void)likeForDiaryID:(NSInteger)diaryID handler:(likeHandler)handler;
++ (void)dislikeForDiaryID:(NSInteger)diaryID handler:(dislikeHandler)handler;
++ (void)deleteGroupForGroupID:(NSInteger)groupID handler:(deleteGroupHandler)handler;
 @end

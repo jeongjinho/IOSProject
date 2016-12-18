@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ReadDiaryViewController : UIViewController
-
+@property NSString *segueIdentifier;
 @end
