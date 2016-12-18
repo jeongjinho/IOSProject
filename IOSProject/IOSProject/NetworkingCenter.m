@@ -40,6 +40,8 @@ static NSString *const groupImage = @"group_image";
 static NSString *const groupID = @"group";
 static NSString *const content = @"content";
 static NSString *const photos = @"photos";
+//modify diary
+static NSString *const modifiedContent = @"content";
 @implementation NetworkingCenter
 
 + (instancetype)sharedNetwork{
@@ -575,7 +577,7 @@ static NSString *const photos = @"photos";
             if (responseObject) {
                 
                 NSLog(@"success");
-                
+                NSLog(@"obj:%@",responseObject);
                 [DiaryModel sharedData].likeInfo = responseObject;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -612,7 +614,7 @@ static NSString *const photos = @"photos";
                 NSLog(@"obj:%@",responseObject);
                 
                 
-                [DiaryModel sharedData].dislikeInfo = responseObject;
+                [DiaryModel sharedData].likeInfo = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     handler(succcess);
@@ -623,4 +625,46 @@ static NSString *const photos = @"photos";
     }];
     [dataTask resume];
 }
+#pragma -mark modifyContent
++ (void)modifyContentForDiaryID:(NSInteger)diaryID content:(NSString *)content handler:(diayInfoHandler)handler{
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"PATCH";
+    
+    NSString *diaryURL = [diaryInfoURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",diaryID]];
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    [bodyParams setObject:content forKey:modifiedContent];
+    
+    [request setURL:[NSURL URLWithString:diaryURL]];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+            
+            if (responseObject) {
+                
+                NSLog(@"success");
+                
+                NSString *content = [responseObject objectForKey:modifiedContent] ;
+                NSLog(@"컨텐츠 :%@",content);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    handler(content);
+                });
+                
+            }
+            
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
+}
+
 @end

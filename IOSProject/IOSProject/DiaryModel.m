@@ -68,7 +68,7 @@ static NSString *const disliker = @"dislike";
         self.diaryInfo = [[NSMutableDictionary alloc]init];
         self.myInfo = [[NSMutableDictionary alloc]init];
         self.likeInfo = [[NSMutableDictionary alloc]init];
-        self.dislikeInfo = [[NSMutableDictionary alloc]init];
+       
     }
     return self;
 }
@@ -131,7 +131,7 @@ static NSString *const disliker = @"dislike";
   return [[_diaryList objectForKey:pk] integerValue];
 }
 - (NSInteger)countOfDiaryList{
-    NSLog(@"다이어리 카운트%@",self.diaryList);
+
     return  [[_diaryList objectForKey:diaryCount] integerValue];
 }
 
@@ -151,16 +151,19 @@ static NSString *const disliker = @"dislike";
 
 - (NSDictionary *)diaryInResultForIndexPath:(NSInteger)index{
 
- //   NSLog(@"결과 :%@",[_diaryList objectForKey:results][index]);
+ 
     return  [_diaryList objectForKey:results][index];
 }
-- (NSInteger)likeCountOfDiaryList{
-    
-    return [[_diaryList objectForKey:likeCount] integerValue];
+- (NSInteger)likeCountAtIndexOfDiaryList:(NSInteger)index{
+    NSLog(@"다이어리리스트:%@",[_diaryList objectForKey:likeCount] );
+    return  [[[_diaryList objectForKey:results][index] objectForKey:likeCount] integerValue];
+   
 }
-- (NSInteger)dislikeCountOfDiaryList{
+
+
+- (NSInteger)dislikeCountAtIndexOfDiaryList:(NSInteger)index{
     
-    return [[_diaryList objectForKey:dislikeCount] integerValue];
+    return [[[_diaryList objectForKey:results][index] objectForKey:dislikeCount] integerValue];
 }
 
 #pragma -mark readingpage model Method
@@ -176,7 +179,7 @@ static NSString *const disliker = @"dislike";
 
 - (NSInteger)uploadedUserOfDiaryInfo{
 
-    NSLog(@"%@",[self.diaryInfo objectForKey:uploadedUserId]);
+   
     return  [[[self.diaryInfo objectForKey:user] objectForKey:uploadedUserId] integerValue];
 }
 
@@ -226,7 +229,7 @@ static NSString *const disliker = @"dislike";
     NSArray *array = [NSArray arrayWithArray:[self.diaryInfo objectForKey:liker]];
     if(array.count !=0){
         
-    likerUserID =[[[self.diaryInfo objectForKey:liker][0] objectForKey:@"user"] integerValue];
+    likerUserID =[[[[self.diaryInfo objectForKey:liker][0] objectForKey:@"user"] objectForKey:@"user_pk"] integerValue];
     
     } else {
         likerUserID = 0;
@@ -241,41 +244,65 @@ static NSString *const disliker = @"dislike";
     return [[self.diaryInfo objectForKey:dislikeCount] integerValue];
 }
 
-//- (NSInteger )dislikerOfDiaryInfo{
-//    
-//    NSInteger dislikerUserID;
-//    NSArray *array = [NSArray arrayWithArray:[self.diaryInfo objectForKey:disliker]];
-//    if(array.count !=0){
-//        
-//        dislikerUserID =[[[self.diaryInfo objectForKey:disliker][0] objectForKey:@"user"] integerValue];
-//        
-//    } else {
-//        dislikerUserID = 0;
-//    }
-//    
-//    // NSLog(@"어레이정보:%ld",likerUserID);
-//    return dislikerUserID;
-//}
+- (NSInteger )dislikerOfDiaryInfo{
+    
+    NSInteger dislikerUserID;
+    NSArray *array = [NSArray arrayWithArray:[self.diaryInfo objectForKey:disliker]];
+    if(array.count !=0){
+        
+        dislikerUserID =[[[[self.diaryInfo objectForKey:disliker][0] objectForKey:@"user"]objectForKey:@"user_pk"] integerValue];
+        
+    } else {
+        dislikerUserID = 0;
+    }
+    
+    // NSLog(@"어레이정보:%ld",likerUserID);
+    return dislikerUserID;
+}
 
 //likeInfo;
-- (NSInteger)didlikeUserIdOfLikeInfo{
-    NSLog(@"라이큰유저:%ld",[[self.likeInfo objectForKey:@"user"] integerValue]);
-    return  [[self.likeInfo objectForKey:@"user"] integerValue];
+- (BOOL)didlikeOfLikeInfo{
+    BOOL islike;
+    
+    if([[self.likeInfo objectForKey:@"is_like"] isKindOfClass:[NSNull class]] || [[self.likeInfo objectForKey:@"is_like"] boolValue] == NO){
+    
+    
+        islike = NO;
+    } else{
+    
+        islike = YES;
+    
+    }
+    
+    return islike;
 }
 
 - (NSInteger)likeCountOfLikeInfo{
- 
-    return [[self.likeInfo objectForKey:@"post"] integerValue];
+    
+    return [[self.likeInfo objectForKey:@"like_count"] integerValue];
 }
 
-//dislikeInfo;
-- (NSInteger)didDislikeUserIdOfLikeInfo{
-    NSLog(@"디스라이큰유저:%ld",[[self.dislikeInfo objectForKey:@"user"] integerValue]);
-    return  [[self.dislikeInfo objectForKey:@"user"] integerValue];
+- (BOOL)didDislikeOfLikeInfo{
+ 
+    BOOL isDislike;
+    
+    if([[self.likeInfo objectForKey:@"is_dislike"] isKindOfClass:[NSNull class]] || [[self.likeInfo objectForKey:@"is_dislike"] boolValue] == NO){
+        
+        
+        isDislike = NO;
+    } else{
+        
+        isDislike = YES;
+        
+    }
+    
+    return isDislike;
 }
+
 
 - (NSInteger)dislikeCountOfLikeInfo{
     
-    return [[self.dislikeInfo objectForKey:@"post"] integerValue];
+    return [[self.likeInfo objectForKey:@"dislike_count"] integerValue];
 }
+
 @end

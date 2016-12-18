@@ -47,12 +47,10 @@
     self.centerCollectionView.delegate = self;
     self.centerCollectionView.dataSource = self;
    NSURL *url = [NSURL URLWithString:[DiaryModel sharedData].selectedGroupImageURL];
-    NSLog(@"유알엘%@",url);
     [self.groupImageView sd_setImageWithURL:url];
     
         DiaryModel *diaryData = [DiaryModel sharedData];
     self.groupTitleLabel.text = [diaryData groupNameOfGroupListForSelectedIndex];
-   
    
     self.personCountLabel.text = [NSString stringWithFormat:@"%ld",[diaryData memberCountOfGroupForSelectedIndex]];
 }
@@ -104,9 +102,9 @@
     //title
     collectionCell.diaryTitleLabel.text = [diary objectForKey:@"content"];
     //likeCount
-    collectionCell.likeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] likeCountOfDiaryList]];
+    collectionCell.likeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] likeCountAtIndexOfDiaryList:indexPath.row]];
     //dislikeCount
-    collectionCell.dislikeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] dislikeCountOfDiaryList]];
+    collectionCell.dislikeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] dislikeCountAtIndexOfDiaryList:indexPath.row]];
     return collectionCell;
 }
 
@@ -136,14 +134,9 @@
     
         [NetworkingCenter diaryListForNextURL:[[DiaryModel sharedData] nextDiaryListURLOfDiaryList] handler:^(NSString *nextPage) {
             
-            NSLog(@"넥스트페이징성공");
             [self.centerCollectionView reloadData];
         }];
-    
-    
     }
-    
-
 }
 /*
 #pragma mark - Navigation

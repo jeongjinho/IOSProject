@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2215911E070949009B59E9 /* MyInfoModel.m */; };
 		7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B257A061DF160680039624C /* KeychainItemWrapper.m */; };
 		7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B304E951E028C2500275674 /* CommentTableViewCell.m */; };
 		7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88A1DEBFD3100DDAA93 /* main.m */; };
@@ -51,6 +52,8 @@
 /* Begin PBXFileReference section */
 		1C39EB9C6ABD31511D5C670D /* Pods-IOSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		766630537B85BE0AE116F902 /* Pods-IOSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.release.xcconfig"; sourceTree = "<group>"; };
+		7B2215901E070949009B59E9 /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
+		7B2215911E070949009B59E9 /* MyInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoModel.m; sourceTree = "<group>"; };
 		7B257A061DF160680039624C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		7B257A071DF160680039624C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		7B257A091DF1617C0039624C /* IOSProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSProject.entitlements; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */,
 				7B304E941E028C2500275674 /* CommentTableViewCell.h */,
 				7B304E951E028C2500275674 /* CommentTableViewCell.m */,
+				7B2215901E070949009B59E9 /* MyInfoModel.h */,
+				7B2215911E070949009B59E9 /* MyInfoModel.m */,
 				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
@@ -520,6 +525,7 @@
 				7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */,
 				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
 				7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */,
+				7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */,
 				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
 				7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */,

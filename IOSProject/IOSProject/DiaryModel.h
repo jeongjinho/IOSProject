@@ -55,8 +55,8 @@
 - (NSString *)nextDiaryListURLOfDiaryList;
 - (NSString *)previusURLOfDiaryList;
 - (NSArray *)resultsOfDiaryList;
-- (NSInteger)likeCountOfDiaryList;
-- (NSInteger)dislikeCountOfDiaryList;
+- (NSInteger)likeCountAtIndexOfDiaryList:(NSInteger)index;
+- (NSInteger)dislikeCountAtIndexOfDiaryList:(NSInteger)index;
 - (NSDictionary *)diaryInResultForIndexPath:(NSInteger)index;
 //diarInfo
 - (NSInteger)pkOfDiaryInfo;
@@ -72,9 +72,8 @@
 - (NSInteger )dislikerOfDiaryInfo;
 
 //likeInfo
-- (NSInteger)didlikeUserIdOfLikeInfo;
+- (BOOL)didlikeOfLikeInfo;
 - (NSInteger)likeCountOfLikeInfo;
-//dislikeInfo
-- (NSInteger)didDislikeUserIdOfLikeInfo;
+- (BOOL)didDislikeOfLikeInfo;
 - (NSInteger)dislikeCountOfLikeInfo;
 @end

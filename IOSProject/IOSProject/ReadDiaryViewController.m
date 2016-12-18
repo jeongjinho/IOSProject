@@ -16,16 +16,24 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentTableX;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputCommentViewBottom;
+
+@property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dislikeCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
 @property (weak, nonatomic) IBOutlet UIImageView *uploadedUserImageView;
 @property (weak, nonatomic) IBOutlet UILabel *uploadedUserNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *modifiedCancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *modifiedStoreButton;
+@property CGRect tempArticleViewFrame;
 @property CGFloat keyboardHeight;
 @property CGFloat tempCommentTableX;
 @property CGFloat tempInputCommentViewBottom;
+@property CGFloat tempCommentViewTop;
+@property NSString *tempArticleString;
 @property BOOL  isFoldingMode;
 
 @end
@@ -39,23 +47,24 @@
         if([diaryInfo isEqualToString:@"success"]){
         
             DiaryModel *diary = [DiaryModel sharedData];
-            //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
+           // 만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
             
-//            if([diary myIdOfMyInfo] == [diary likerOfDiaryInfo]){
-//            
-//                self.likeButton.selected = YES;
-//            } else {
-//                self.likeButton.selected = NO;
-//            }
-//            
-//            if([diary myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
-//                
-//                self.dislikeButton.selected = YES;
-//            } else {
-//                self.dislikeButton.selected = NO;
-//            }
+            if([diary myIdOfMyInfo] == [diary likerOfDiaryInfo]){
+            
+                self.likeButton.selected = YES;
+            } else {
+                self.likeButton.selected = NO;
+            }
+            
+            if([diary myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
+                
+                self.dislikeButton.selected = YES;
+            } else {
+                self.dislikeButton.selected = NO;
+            }
 
             self.articleTextView.text = [diary contentOfDiaryInfo];
+            [self.articleTextView setEditable:NO];
             self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfDiaryInfo]];
             self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfDiaryInfo]];
             
@@ -70,10 +79,7 @@
                 UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.photosScrollView.frame.size.width*i,0, self.photosScrollView.frame.size.width, self.photosScrollView.frame.size.height)];
                 
                 [imageView sd_setImageWithURL:url];
-                NSLog(@"유알엘:%@",url);
                 [self.photosScrollView addSubview:imageView];
-                
-                
             //업로드한사람 사진 , 이름
                 [self.uploadedUserImageView sd_setImageWithURL:[diary uploadedUserImageOfDiaryInfo]];
                 self.uploadedUserNameLabel.text = [diary uloadedUserNameOfDiaryInfo];
@@ -102,7 +108,7 @@
     self.commentTableView.rowHeight = UITableViewAutomaticDimension;
     self.commentTableView.estimatedRowHeight = 100;
     
-    
+   
     //세그에따른 상단 버튼 히든 여부
     if([self.segueIdentifier isEqualToString:@"ReadVC"]){
         self.nextButton.hidden = YES;
@@ -122,14 +128,15 @@
 }
 
 - (void)hideKeyBoardMode:(NSNotification *)notification{
-    if(notification.name == UIKeyboardWillShowNotification){
+    if(notification.name == UIKeyboardWillHideNotification){
     [_articleTextView becomeFirstResponder];
     [_articleTextView resignFirstResponder];
     
-    [UIView animateWithDuration:0.2f animations:^{
-        
+    [UIView animateWithDuration:1.0f animations:^{
+        NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
         self.commentTableX.constant = self.tempCommentTableX;
         self.inputCommentViewBottom.constant = self.tempInputCommentViewBottom;
+        NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
         [self.view layoutIfNeeded];
     }];
     self.isFoldingMode = YES;
@@ -154,6 +161,8 @@
                 //self.inputCommentViewTop.constant  = -self.keyboardHeight;
                 self.commentTableX.constant = -self.keyboardHeight;
                 self.inputCommentViewBottom.constant = self.keyboardHeight;
+                
+                NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
                 [self.view layoutIfNeeded];
             }];
         }
@@ -164,13 +173,11 @@
 
     [super viewDidLayoutSubviews];
     NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
-   [self.commentTableView.tableHeaderView setFrame:CGRectMake(self.commentTableView.tableHeaderView.frame.origin.x,self.commentTableView.frame.origin.y, self.commentTableView.tableHeaderView.frame.size.width, 420+self.articleTextView.contentSize.height)];
-  //  [self.articleTextView setContentSize:CGSizeMake(self.articleTextView.frame.size.width, self.commentTableView.tableHeaderView.frame.size.height-315);
-//NSLog(@"바뀌gn 사이즈%lf",self.headerView.frame.size.height);
-  // [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, self.commentTableView.tableHeaderView.frame.size.height)];
-  
+    [self.articleTextView sizeToFit];
     
-    [self.commentTableView setContentSize:CGSizeMake(self.commentTableView.frame.size.width, self.commentTableView.contentSize.height+self.articleTextView.contentSize.height-57)];
+   [self.commentTableView.tableHeaderView setFrame:CGRectMake(self.commentTableView.tableHeaderView.frame.origin.x,self.commentTableView.frame.origin.y, self.commentTableView.tableHeaderView.frame.size.width, 420+self.articleTextView.contentSize.height)];
+
+ //   [self.commentTableView setContentSize:CGSizeMake(self.commentTableView.frame.size.width, self.commentTableView.contentSize.height+self.articleTextView.contentSize.height-57)];
     NSLog(@"dad%lf",self.commentTableView.contentSize.height);
 }
 
@@ -221,74 +228,36 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//- (IBAction)touchUpInSideLikeButton:(id)sender {
-//        [NetworkingCenter likeForDiaryID: [[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *likeHandler) {
-//            
-//            DiaryModel *diary = [DiaryModel sharedData];
-//                        //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
-//            
-//                        if([diary myIdOfMyInfo] == [diary likerOfDiaryInfo]){
-//            
-//                            self.likeButton.selected = YES;
-//                        } else {
-//                            self.likeButton.selected = NO;
-//                        }
-//            
-//                        if([diary myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
-//            
-//                            self.dislikeButton.selected = YES;
-//                        } else {
-//                            self.dislikeButton.selected = NO;
-//                        }
-//            
-//                        self.articleTextView.text = [diary contentOfDiaryInfo];
-//                        self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfDiaryInfo]];
-//                        self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfDiaryInfo]];
-//          
-//        }];
-//    
-//    }
+- (IBAction)touchUpInSideLikeButton:(id)sender {
+        [NetworkingCenter likeForDiaryID: [[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *likeHandler) {
+            
+            DiaryModel *diary = [DiaryModel sharedData];
+            //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
+            
+            self.likeButton.selected = [diary didlikeOfLikeInfo];
+            self.dislikeButton.selected = [diary didDislikeOfLikeInfo];
+            self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfLikeInfo]];
+            self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfLikeInfo]];
+        }];
+    }
 
-//- (IBAction)touchUpInSideDisLikeButton:(id)sender {
-//    
-//    
-//    [NetworkingCenter dislikeForDiaryID: [[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *dislikeHandler) {
-//        
-//      
-// 
-//       
-//    }];
-//    [self viewWillAppear:YES];
+- (IBAction)touchUpInSideDisLikeButton:(id)sender {
+    
+    
+    [NetworkingCenter dislikeForDiaryID: [[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *likeHandler) {
+        
+        DiaryModel *diary = [DiaryModel sharedData];
+        //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
+        
+        self.likeButton.selected = [diary didlikeOfLikeInfo];
+        self.dislikeButton.selected = [diary didDislikeOfLikeInfo];
+        self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfLikeInfo]];
+        self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfLikeInfo]];
+    }];
 
-//    [NetworkingCenter diaryForPostID:[DiaryModel sharedData].seletedDiaryPK handler:^(NSString *diaryInfo) {
-//        if([diaryInfo isEqualToString:@"success"]){
-//            
-//            DiaryModel *diary = [DiaryModel sharedData];
-//            //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
-//            
-//            if([diary myIdOfMyInfo] == [diary likerOfDiaryInfo]){
-//                
-//                self.likeButton.selected = YES;
-//            } else {
-//                self.likeButton.selected = NO;
-//            }
-//            
-//            if([diary myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
-//                
-//                self.dislikeButton.selected = YES;
-//            } else {
-//                self.dislikeButton.selected = NO;
-//            }
-//            
-//            self.articleTextView.text = [diary contentOfDiaryInfo];
-//            self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfDiaryInfo]];
-//            self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfDiaryInfo]];
-//            
-//        }
-//    }];
 
     
-//}
+}
 
 - (IBAction)touchUpInSideEtcButton:(id)sender {
     
@@ -303,6 +272,23 @@
             
         }];
         UIAlertAction *modifyAction = [UIAlertAction actionWithTitle:@"수정" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //댓글 뷰를 안보이게하고
+            [self.commentView setHidden:YES];
+            //취소를 대비해서 원래 글을 임시저장
+            self.tempArticleString = self.articleTextView.text;
+           // self.tempArticleViewContentSize = self.artic
+            //컨턴츠창을 에디딩 할 수있게하고
+            [self.articleTextView setEditable:YES];
+            //키보드올리고
+            [self.articleTextView becomeFirstResponder];
+            //댓글뷰 영역을 없앤다.
+            self.tempArticleViewFrame = self.commentTableView.tableHeaderView.frame;
+            //상단버튼 교체
+            [self.backButton setHidden:YES];
+            [self.nextButton setHidden:YES];
+            [self.modifiedCancelButton setHidden:NO];
+            [self.modifiedStoreButton setHidden:NO];
+            
             
             
         }];
@@ -310,16 +296,12 @@
             [NetworkingCenter deleteFordiaryID:[[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *deleteDiary) {
                 
                 if([deleteDiary isEqualToString:@"success"]){
-                    NSLog(@"성공");
                     [NetworkingCenter diaryListForGroupID:[DiaryModel sharedData].selectedGroupID handler:^(NSString *diaryList) {
                         
                         DiaryModel *diaryData = [DiaryModel sharedData];
                       diaryData.seletedDiaryPK = [[[[diaryData resultsOfDiaryList] firstObject] objectForKey:@"pk"] integerValue];
                         [self viewWillAppear:YES];
                     }];
-                     
-                    
-                    
                     
                 }
             }];
@@ -361,6 +343,41 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)touchUpInSideModifiedCancelButton:(id)sender {
+    //키보드 리자인뺏고
+    [self.articleTextView resignFirstResponder];
+    //글 수정 할 수업게 하고
+    [self.articleTextView setEditable:NO];
+    //댓글뷰다시보이게하고
+     [self.commentView setHidden:NO];
+    
+    
+    
+    self.isFoldingMode = YES;
+ 
+    //임시저장한 텍스트 다시주고
+    self.articleTextView.text= self.tempArticleString;
+    
+     //백버튼 넥스트버튼 보이게하고
+    self.backButton.hidden = NO;
+    self.nextButton.hidden = NO;
+    //취소랑 저장버튼 감추기
+    self.modifiedCancelButton.hidden = YES;
+    self.modifiedStoreButton.hidden = YES;
+    [self.commentTableView.tableHeaderView setFrame:self.tempArticleViewFrame];
+}
+- (IBAction)touchUpInSideModifiedStoreButton:(id)sender {
+    
+    NSLog(@"넣을 컨텐츠:%@",self.articleTextView.text);
+    
+    [NetworkingCenter modifyContentForDiaryID:[DiaryModel sharedData].seletedDiaryPK content:self.articleTextView.text handler:^(NSString *modifiedContent) {
+        
+        if(![modifiedContent isEqualToString:@"fail"]){
+            self.articleTextView.text =modifiedContent;
+        }
+        
+    }];
 }
 
 /*
