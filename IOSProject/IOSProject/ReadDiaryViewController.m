@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *uploadedUserNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *modifiedCancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *modifiedStoreButton;
+@property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property CGRect tempArticleViewFrame;
 @property CGFloat keyboardHeight;
 @property CGFloat tempCommentTableX;
@@ -40,23 +41,23 @@
 
 @implementation ReadDiaryViewController
 -(void)viewWillAppear:(BOOL)animated{
-
+    [[DiaryModel sharedData].commentsInfo removeAllObjects];
     [super viewWillAppear:animated];
     
     [NetworkingCenter diaryForPostID:[DiaryModel sharedData].seletedDiaryPK handler:^(NSString *diaryInfo) {
         if([diaryInfo isEqualToString:@"success"]){
-        
+            [self.commentTableView reloadData];
             DiaryModel *diary = [DiaryModel sharedData];
            // 만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
             
-            if([diary myIdOfMyInfo] == [diary likerOfDiaryInfo]){
+            if([[MyInfoModel sharedData] myIdOfMyInfo] == [diary likerOfDiaryInfo]){
             
                 self.likeButton.selected = YES;
             } else {
                 self.likeButton.selected = NO;
             }
             
-            if([diary myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
+            if([[MyInfoModel sharedData] myIdOfMyInfo] == [diary dislikerOfDiaryInfo]){
                 
                 self.dislikeButton.selected = YES;
             } else {
@@ -83,6 +84,7 @@
             //업로드한사람 사진 , 이름
                 [self.uploadedUserImageView sd_setImageWithURL:[diary uploadedUserImageOfDiaryInfo]];
                 self.uploadedUserNameLabel.text = [diary uloadedUserNameOfDiaryInfo];
+                
             }
 
             
@@ -95,6 +97,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //댓글 갱신
+  
     self.isFoldingMode = YES;
     [self.tabBarController.tabBar setHidden:YES];
     [self.photosScrollView bringSubviewToFront:self.pageControl];
@@ -105,10 +109,11 @@
     //commentLabelView
     self.commentTableView.delegate = self;
     self.commentTableView.dataSource = self;
+
     self.commentTableView.rowHeight = UITableViewAutomaticDimension;
     self.commentTableView.estimatedRowHeight = 100;
     
-   
+    self.commentTextView.delegate = self;
     //세그에따른 상단 버튼 히든 여부
     if([self.segueIdentifier isEqualToString:@"ReadVC"]){
         self.nextButton.hidden = YES;
@@ -125,8 +130,50 @@
      name:UIKeyboardWillHideNotification
      object:nil];
     
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForTableView:)];
+    
+    
+    [self.commentTableView addGestureRecognizer:longPressGesture];
 }
 
+- (void)longPressForTableView:(UILongPressGestureRecognizer *)sender{
+
+
+    if (sender.state == UIGestureRecognizerStateEnded){
+        
+        CGPoint currentTouchPosition = [sender locationInView:[sender view]];
+        
+        NSIndexPath *indexPath = [self.commentTableView indexPathForRowAtPoint:currentTouchPosition];
+        
+        
+        DiaryModel *diaryData = [DiaryModel sharedData];
+        NSLog(@"코멘트 유저아이디:%ld",[diaryData commentUserPkOfCommentsInfo:indexPath.row]);
+        if( [[MyInfoModel sharedData] myIdOfMyInfo]==[diaryData commentUserPkOfCommentsInfo:indexPath.row]){
+        
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+          UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"삭제" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [NetworkingCenter deleteCommentsForCommentID:[diaryData commentUserPkOfCommentsInfo:indexPath.row] handler:^(NSString *deleteCommentHandler) {
+                
+                [diaryData.commentsInfo removeObjectAtIndex:indexPath.row];
+                [self.commentTableView reloadData];
+                
+            }];
+            
+        }];
+            
+            [alert addAction:cancelAction];
+            [alert addAction:deleteAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        
+        }
+        
+    
+        
+    }
+
+}
 - (void)hideKeyBoardMode:(NSNotification *)notification{
     if(notification.name == UIKeyboardWillHideNotification){
     [_articleTextView becomeFirstResponder];
@@ -189,31 +236,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-
-    return 5 ;
+    NSLog(@"DIarycomment%ld",[DiaryModel sharedData].commentsInfo.count);
+    return [DiaryModel sharedData].commentsInfo.count ;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
+    DiaryModel *diaryData = [DiaryModel sharedData];
     
+    cell.commentLabel.text = [NSString stringWithFormat:@"%@  %@",[diaryData commentUserNameOfCommentsInfo:indexPath.row],[diaryData contentOfCommentsInfo:indexPath.row]];
+  //  [cell.userImageView sd_setImageWithURL:[diaryData commentUserImageOfCommentsInfo:indexPath.row]];
     
-  
-    if(indexPath.row ==14){
-         cell.commentLabel.text= @"뷁ce";
-    
-    } else {
-        cell.commentLabel.text= @"뷁cell.commentLabel.textㅇㄴㅇㅁㄴ애ㅓㄴㅁ;언ㅁ;엄;ㅓㅇㅁ;넝;ㅁ넝;멍;ㅁ너이;ㅓ;너;ㅓㅇ미;ㅓㅇ미;ㅓㅇ";
-        NSLog(@"텍스트 :%@",cell.commentLabel.text);
-
-    }
     
     return cell;
     
 
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 #pragma -mark scrollView Delegate
 
 
@@ -262,9 +307,9 @@
 - (IBAction)touchUpInSideEtcButton:(id)sender {
     
     UIAlertController *alert = [[UIAlertController alloc]init];
-    NSLog(@"유저아이디 :%ld",[[DiaryModel sharedData] myIdOfMyInfo]);
+    NSLog(@"유저아이디 :%ld",[[MyInfoModel sharedData] myIdOfMyInfo]);
     NSLog(@"업로드아이디 :%ld",[[DiaryModel sharedData] uploadedUserOfDiaryInfo]);
-    if([[DiaryModel sharedData] myIdOfMyInfo] == [[DiaryModel sharedData] uploadedUserOfDiaryInfo]){
+    if([[MyInfoModel sharedData] myIdOfMyInfo] == [[DiaryModel sharedData] uploadedUserOfDiaryInfo]){
         
         [alert setModalPresentationStyle:UIModalPresentationFormSheet];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -330,7 +375,13 @@
 - (IBAction)touchInSidePostButton:(id)sender {
     [_articleTextView becomeFirstResponder];
     [_articleTextView resignFirstResponder];
-
+    
+    [NetworkingCenter createCommentsForDiaryID:[[DiaryModel sharedData] seletedDiaryPK] content:self.commentTextView.text handler:^(NSDictionary *createCommentHandler) {
+        
+        [[DiaryModel sharedData].commentsInfo addObject:createCommentHandler];
+        [self.commentTableView reloadData];
+    }];
+    
     [UIView animateWithDuration:0.2f animations:^{
         
         self.commentTableX.constant = self.tempCommentTableX;
@@ -369,15 +420,29 @@
 }
 - (IBAction)touchUpInSideModifiedStoreButton:(id)sender {
     
-    NSLog(@"넣을 컨텐츠:%@",self.articleTextView.text);
+    
     
     [NetworkingCenter modifyContentForDiaryID:[DiaryModel sharedData].seletedDiaryPK content:self.articleTextView.text handler:^(NSString *modifiedContent) {
         
         if(![modifiedContent isEqualToString:@"fail"]){
             self.articleTextView.text =modifiedContent;
+            
+            [self.articleTextView resignFirstResponder];
+            //글 수정 할 수업게 하고
+            [self.articleTextView setEditable:NO];
+            //댓글뷰다시보이게하고
+            [self.commentView setHidden:NO];
+            self.isFoldingMode = YES;
+            self.backButton.hidden = NO;
+            self.nextButton.hidden = NO;
+            //취소랑 저장버튼 감추기
+            self.modifiedCancelButton.hidden = YES;
+            self.modifiedStoreButton.hidden = YES;
         }
         
     }];
+    
+    
 }
 
 /*

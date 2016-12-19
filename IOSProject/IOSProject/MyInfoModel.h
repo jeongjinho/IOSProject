@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-static NSString *const email = @"email";
-static NSString *const myID = @"id";
-static NSString *const profileImage = @"image";
-static NSString *const myGroup = @"my_group";
+
 
 @interface MyInfoModel : NSObject
 
 @property NSMutableDictionary *myInfo;
 + (instancetype)sharedData;
+- (NSString *)emailOfMyInfo;
+- (NSInteger)myIdOfMyInfo;
+- (UIImage *)profileImageOfMyInfo;
 @end

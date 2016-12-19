@@ -26,6 +26,8 @@ static NSString *const deleteDiaryURLString = @"http://glue2-eb-dev.ap-northeast
 static NSString *const likeURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_like/";
 static NSString *const dislikeURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/post_dislike/";
 static NSString *const deleteGroupURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/group/group_delete/";
+static NSString *const createCommentURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/comment_create/";
+static NSString *const deleteCommentURLString = @"http://glue2-eb-dev.ap-northeast-2.elasticbeanstalk.com/posts/comment_detail/";
 //SignUp
 static NSString  *const emailString = @"email";
 static NSString  *const nameString = @"name";
@@ -42,6 +44,9 @@ static NSString *const content = @"content";
 static NSString *const photos = @"photos";
 //modify diary
 static NSString *const modifiedContent = @"content";
+
+//comment
+static NSString *const createComment = @"content";
 @implementation NetworkingCenter
 
 + (instancetype)sharedNetwork{
@@ -467,6 +472,9 @@ static NSString *const modifiedContent = @"content";
                 NSMutableDictionary *arr = responseObject;
                 [DiaryModel sharedData].diaryInfo  = [NSMutableDictionary dictionaryWithDictionary:arr];
                 NSLog(@"다이어리리스트:%@",[DiaryModel sharedData].diaryInfo);
+                ;
+                 [[DiaryModel sharedData] commentsOfDiaryInfo];
+                NSLog(@"코멘트인포:%@",[DiaryModel sharedData].commentsInfo);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     handler(succcess);
@@ -487,9 +495,6 @@ static NSString *const modifiedContent = @"content";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
     
-   // NSString *diaryURL = [diaryInfoURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",diaryID]];
-  //  NSLog(@"다이어리 :%@",diaryURL);
-   // [request setURL:[NSURL URLWithString:diaryURL]];
     [request setURL:[NSURL URLWithString:myInfoURLString]];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -505,7 +510,7 @@ static NSString *const modifiedContent = @"content";
                 NSLog(@"success");
                 NSLog(@"응답%@",responseObject);
                 
-                [DiaryModel sharedData].myInfo = responseObject;
+                [MyInfoModel sharedData].myInfo = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                   
@@ -627,16 +632,94 @@ static NSString *const modifiedContent = @"content";
 }
 #pragma -mark modifyContent
 + (void)modifyContentForDiaryID:(NSInteger)diaryID content:(NSString *)content handler:(diayInfoHandler)handler{
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
-    request.HTTPMethod = @"PATCH";
-    
-    NSString *diaryURL = [diaryInfoURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",diaryID]];
+    NSLog(@"content%@",content);
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
     [bodyParams setObject:content forKey:modifiedContent];
+
+      NSString *diaryURL = [diaryInfoURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",diaryID]];
     
-    [request setURL:[NSURL URLWithString:diaryURL]];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"PATCH" URLString:diaryURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+  
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            handler(fail);
+        } else {
+            
+            if (responseObject) {
+                
+                NSLog(@"success");
+                NSLog(@"%@",responseObject);
+                NSString *contents = [responseObject objectForKey:modifiedContent] ;
+                NSLog(@"컨텐츠 :%@",contents);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    handler(contents);
+                });
+                
+            }
+            
+        }
+    }];
+    [dataTask resume];
+}
+
++ (void)createCommentsForDiaryID:(NSInteger)diaryID content:(NSString *)comment handler:(createCommentHandler)handler{
+    NSLog(@"content%@",comment);
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    [bodyParams setObject:comment forKey:createComment];
+    
+    NSString *diaryURL = [createCommentURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",diaryID]];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:diaryURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+         //   handler(fail);
+        } else {
+            
+            if (responseObject) {
+                
+                NSLog(@"success");
+                NSLog(@"%@",responseObject);
+                NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject];
+                 NSLog(@"obj:%@",responseObject);
+                               NSLog(@"코멘트%@",[DiaryModel sharedData].commentsInfo);
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    handler(dic);
+                });
+                
+            }
+            
+        }
+    }];
+    [dataTask resume];
+}
+
++ (void)deleteCommentsForCommentID:(NSInteger)commentID handler:(deleteCommentHandler)handler{
+    
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    request.HTTPMethod = @"DELETE";
+    
+    NSString *deleteCommentURL = [deleteCommentURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",commentID]];
+    
+    [request setURL:[NSURL URLWithString:deleteCommentURL]];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -649,22 +732,21 @@ static NSString *const modifiedContent = @"content";
             if (responseObject) {
                 
                 NSLog(@"success");
+                NSLog(@"obj:%@",responseObject);
                 
-                NSString *content = [responseObject objectForKey:modifiedContent] ;
-                NSLog(@"컨텐츠 :%@",content);
+                
+                [DiaryModel sharedData].likeInfo = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    handler(content);
+                    handler(succcess);
                 });
-                
             }
             
         }
     }];
     [dataTask resume];
-    
-    
-    
 }
+
+
 
 @end

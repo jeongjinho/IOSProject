@@ -22,6 +22,8 @@ typedef void(^likeHandler)(NSString *likeHandler);
 typedef void(^dislikeHandler)(NSString *dislikeHandler);
 typedef void(^deleteGroupHandler)(NSString *deleteGroupHandler);
 typedef void(^modifiedDiaryHandler)(NSString *modifiedContent);
+typedef void(^createCommentHandler)(NSDictionary *createCommentHandler);
+typedef void(^deleteCommentHandler)(NSString *deleteCommentHandler);
 @interface NetworkingCenter : NSObject
 
 + (void)showGroupList:(groupListHandler)handler;
@@ -47,4 +49,6 @@ typedef void(^modifiedDiaryHandler)(NSString *modifiedContent);
 + (void)dislikeForDiaryID:(NSInteger)diaryID handler:(dislikeHandler)handler;
 + (void)deleteGroupForGroupID:(NSInteger)groupID handler:(deleteGroupHandler)handler;
 + (void)modifyContentForDiaryID:(NSInteger)diaryID content:(NSString *)content handler:(modifiedDiaryHandler)handler;
++ (void)createCommentsForDiaryID:(NSInteger)diaryID content:(NSString *)comment handler:(createCommentHandler)handler;
++ (void)deleteCommentsForCommentID:(NSInteger)commentID handler:(deleteCommentHandler)handler;
 @end

@@ -20,7 +20,7 @@
 @property NSMutableDictionary *dislikeInfo;
 
 //userInfo
-@property NSMutableDictionary *myInfo;
+//@property NSMutableDictionary *myInfo;
 
 //groupList
 @property NSInteger selectedIndex;
@@ -36,11 +36,14 @@
 
 @property NSMutableArray *selectedPhotos;
 
+
+//comment
+@property NSMutableArray *commentsInfo;
 + (instancetype)sharedData;
 //myInfo
-- (NSString *)emailOfMyInfo;
-- (NSInteger)myIdOfMyInfo;
-- (UIImage *)profileImageOfMyInfo;
+//- (NSString *)emailOfMyInfo;
+//- (NSInteger)myIdOfMyInfo;
+//- (UIImage *)profileImageOfMyInfo;
 //groupPage
 - (NSInteger)groupIdOfGroupListForSelectedIndex;
 - (NSDictionary *)groupInfoForIndex:(NSInteger)index;
@@ -70,10 +73,17 @@
 - (NSInteger )likerOfDiaryInfo;
 - (NSInteger)dislikeCountOfDiaryInfo;
 - (NSInteger )dislikerOfDiaryInfo;
+- (void)commentsOfDiaryInfo;
 
 //likeInfo
 - (BOOL)didlikeOfLikeInfo;
 - (NSInteger)likeCountOfLikeInfo;
 - (BOOL)didDislikeOfLikeInfo;
 - (NSInteger)dislikeCountOfLikeInfo;
+
+//comentsInfo
+- (NSString *)contentOfCommentsInfo:(NSInteger)index;
+- (NSURL *)commentUserImageOfCommentsInfo:(NSInteger)index;
+- (NSString *)commentUserNameOfCommentsInfo:(NSInteger)index;
+- (NSInteger)commentUserPkOfCommentsInfo:(NSInteger)index;
 @end

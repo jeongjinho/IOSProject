@@ -8,10 +8,10 @@
 
 #import "DiaryModel.h"
 //myInfo
-static NSString *const email = @"email";
-static NSString *const myID = @"id";
-static NSString *const profileImage = @"image";
-static NSString *const myGroup = @"my_group";
+//static NSString *const email = @"email";
+//static NSString *const myID = @"id";
+//static NSString *const profileImage = @"image";
+//static NSString *const myGroup = @"my_group";
 //groupListPage
 static NSString *const groupID = @"id";
 static NSString *const groupName = @"group_name";
@@ -37,10 +37,18 @@ static NSString *const uploadedUserName = @"name";
 static NSString *const uploadedUserImage = @"image";
 static NSString *const group = @"group";
 static NSString *const photos = @"photos";
+static NSString *const comments = @"comments";
 //static NSString *const likeCount = @"like_count";
 static NSString *const liker = @"like";
 //static NSString *const dislikesCount = @"dislikes_count";
 static NSString *const disliker = @"dislike";
+
+//commentsInfo
+static NSString *const contentForComment = @"content";
+static NSString *const commentUser = @"user";
+static NSString *const commentUserImage = @"image";
+static NSString *const commentUserName = @"name";
+static NSString *const commentUserPK = @"user_pk";
 @interface DiaryModel()
 
 @end
@@ -66,28 +74,28 @@ static NSString *const disliker = @"dislike";
         self.groupList = [[NSMutableArray alloc]init];
         self.diaryList = [[NSMutableDictionary alloc]init];
         self.diaryInfo = [[NSMutableDictionary alloc]init];
-        self.myInfo = [[NSMutableDictionary alloc]init];
+//        self.myInfo = [[NSMutableDictionary alloc]init];
         self.likeInfo = [[NSMutableDictionary alloc]init];
-       
+        self.commentsInfo = [[NSMutableArray alloc]init];
     }
     return self;
 }
 
 #pragma -mark myInfo methods
-- (NSString *)emailOfMyInfo{
-
-    return [self.myInfo objectForKey:email];
-}
-
-- (NSInteger)myIdOfMyInfo{
-
-    return [[self.myInfo objectForKey:myID] integerValue];
-}
-
-- (UIImage *)profileImageOfMyInfo{
-
-    return  [self.myInfo objectForKey:profileImage];
-}
+//- (NSString *)emailOfMyInfo{
+//
+//    return [self.myInfo objectForKey:email];
+//}
+//
+//- (NSInteger)myIdOfMyInfo{
+//
+//    return [[self.myInfo objectForKey:myID] integerValue];
+//}
+//
+//- (UIImage *)profileImageOfMyInfo{
+//
+//    return  [self.myInfo objectForKey:profileImage];
+//}
 #pragma -mark mainPage Group  Methods
 - (NSDictionary *)groupInfoForIndex:(NSInteger)index{
     return self.groupList[index];
@@ -167,6 +175,12 @@ static NSString *const disliker = @"dislike";
 }
 
 #pragma -mark readingpage model Method
+- (void)commentsOfDiaryInfo{
+
+  self.commentsInfo =[NSMutableArray arrayWithArray: [self.diaryInfo objectForKey:comments]];
+
+    NSLog(@"커맨트%@",self.commentsInfo);
+}
 - (NSInteger)pkOfDiaryInfo{
 
     return  [[self.diaryInfo objectForKey:pk] integerValue];;
@@ -304,5 +318,27 @@ static NSString *const disliker = @"dislike";
     
     return [[self.likeInfo objectForKey:@"dislike_count"] integerValue];
 }
+//commentsInfo
 
+- (NSString *)contentOfCommentsInfo:(NSInteger)index{
+
+    return [[self.commentsInfo objectAtIndex:index] objectForKey:contentForComment];
+}
+- (NSURL *)commentUserImageOfCommentsInfo:(NSInteger)index{
+    
+    NSURL *url =[NSURL URLWithString: [[[self.commentsInfo objectAtIndex:index] objectForKey:commentUser] objectForKey:commentUserImage]];
+  
+    return url;
+}
+
+- (NSString *)commentUserNameOfCommentsInfo:(NSInteger)index{
+
+    return [[[self.commentsInfo objectAtIndex:index] objectForKey:commentUser] objectForKey:commentUserName];
+    
+}
+
+- (NSInteger)commentUserPkOfCommentsInfo:(NSInteger)index{
+    
+    return [[[[self.commentsInfo objectAtIndex:index] objectForKey:commentUser] objectForKey:commentUserPK] integerValue];
+}
 @end

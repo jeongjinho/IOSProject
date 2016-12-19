@@ -192,9 +192,8 @@
         //---------------이미지사이즈줄이기
         [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray:[[DiaryModel sharedData].selectedPhotos[i] integerValue] widthSize:500 heightSize:500]];
         UIImage *img= [imagesInfo[i] objectForKey:@"image"];
-       NSLog(@"image size:%lf",img.size.width);
         [UtilityClass resizingImage:img widthSize:500 heightSize:500];
-        NSLog(@"afte image size:%lf",img.size.width);
+      
 
     }
     

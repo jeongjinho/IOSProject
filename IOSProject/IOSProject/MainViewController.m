@@ -61,12 +61,8 @@ static NSString *const keyFforGroupImage= @"thumbnail";
 
     if (sender.state == UIGestureRecognizerStateEnded){
         
-        // 해당 뷰의 선택된 영역의 CGPoint를 가져온다.
-        
         CGPoint currentTouchPosition = [sender locationInView:[sender view]];
-        
-        // 테이블 뷰의 위치의 Cell의 indexPath를 가져온다
-        
+    
         NSIndexPath *indexPath = [self.mainTable indexPathForRowAtPoint:currentTouchPosition];
         
        
@@ -77,7 +73,7 @@ static NSString *const keyFforGroupImage= @"thumbnail";
         
         diaryData.selectedIndex = indexPath.row;
          //선택된 인덱스패스의 값의 마스터와 내 아이디가 같다면
-        if([diaryData myIdOfMyInfo] == [diaryData masterOfGroupForSelectedIndex]){
+        if([[MyInfoModel sharedData] myIdOfMyInfo] == [diaryData masterOfGroupForSelectedIndex]){
              //수정액션,삭제액션이있는 알럿창을띄운다.
             [alert setModalPresentationStyle:UIModalPresentationFormSheet];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:nil];

@@ -108,8 +108,11 @@
                                 <state key="normal" title="확인"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Lg-9v-J6H">
-                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.38555628061294556" green="0.24898025393486023" blue="0.63249117136001587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="b74-ir-tjt"/>
+                                </constraints>
                                 <state key="normal" title="로그인 페이지로 가기">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -118,19 +121,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B41-jp-Aif">
-                                <rect key="frame" x="159" y="570" width="56" height="30"/>
+                                <rect key="frame" x="159" y="560" width="56" height="30"/>
                                 <state key="normal" title="회원 가입"/>
                                 <connections>
                                     <action selector="setSignupBtn:" destination="prj-Se-zMc" eventType="touchUpInside" id="4Xx-eK-bUQ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-UR-ZBF" customClass="CustomTextField">
-                                <rect key="frame" x="71" y="538" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.31475648283958435" green="0.20495548844337463" blue="0.51317286491394043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -156,8 +152,7 @@
                     <connections>
                         <outlet property="CertificationText" destination="gVw-B9-8eA" id="zLE-sJ-nzo"/>
                         <outlet property="confirmText" destination="UUY-xw-O1J" id="lFR-QO-pZ9"/>
-                        <outlet property="emailText" destination="7Pb-UR-ZBF" id="H6G-VE-2H0"/>
-                        <outlet property="idText" destination="pA7-yg-F8W" id="fK7-ME-nkn"/>
+                        <outlet property="emailText" destination="pA7-yg-F8W" id="kRx-Hx-zlG"/>
                         <outlet property="nameText" destination="xSX-rA-Vv2" id="mTg-3n-pPz"/>
                         <outlet property="phoneCertification" destination="Nkn-Z9-DsI" id="0AN-1D-OAM"/>
                         <outlet property="phoneConfirm" destination="8Xf-is-OJW" id="vX3-hf-58y"/>
@@ -209,7 +204,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-2Z-YIi">
                                 <rect key="frame" x="27" y="581" width="40" height="25"/>
-                                <state key="normal" image="0E33842F-3226-44AD-A84D-73AF4DD4F859"/>
+                                <state key="normal" image="88E80818-97C3-4666-99DA-E54DC12193B3"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzs-Lr-eX6">
                                 <rect key="frame" x="109" y="581" width="40" height="25"/>
@@ -217,7 +212,7 @@
                                     <constraint firstAttribute="width" constant="40" id="KG7-ym-40S"/>
                                     <constraint firstAttribute="height" constant="25" id="P4W-Fe-REI"/>
                                 </constraints>
-                                <state key="normal" image="A923CA9F-E849-4A69-8DC2-CD4ACDEF0EDF"/>
+                                <state key="normal" image="03C1D37F-CFD9-4E64-8F36-AE2017ECFEC3"/>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQp-Sc-zdu" customClass="ImageScrollView">
                                 <rect key="frame" x="12" y="59" width="350" height="226"/>
@@ -444,7 +439,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0E33842F-3226-44AD-A84D-73AF4DD4F859" width="16" height="16">
+        <image name="03C1D37F-CFD9-4E64-8F36-AE2017ECFEC3" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -460,7 +455,7 @@ AZ4BpgGzAbgBugG8AcEByQHMAdEB2QHcAe4B8QH2AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAAAAAAAAAA
 Afg
 </mutableData>
         </image>
-        <image name="A923CA9F-E849-4A69-8DC2-CD4ACDEF0EDF" width="16" height="16">
+        <image name="88E80818-97C3-4666-99DA-E54DC12193B3" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
