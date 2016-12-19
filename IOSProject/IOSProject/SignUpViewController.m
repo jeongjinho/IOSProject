@@ -12,7 +12,7 @@
 @interface SignUpViewController ()<UITextFieldDelegate>
 
 
-@property (weak, nonatomic) IBOutlet CustomTextField *idText;
+//@property (weak, nonatomic) IBOutlet CustomTextField *idText;
 @property (weak, nonatomic) IBOutlet CustomTextField *pwText;
 @property (weak, nonatomic) IBOutlet CustomTextField *confirmText;
 @property (weak, nonatomic) IBOutlet CustomTextField *phoneText;
@@ -36,15 +36,15 @@
     [super viewDidLoad];
     
     //id TextField ,passwordTextField 키보드 델리게이트
-    self.idText.delegate = self;
+   // self.idText.delegate = self;
     self.pwText.delegate = self;
     self.confirmText.delegate = self;
     self.nameText.delegate = self;
     self.phoneText.delegate = self;
     self.CertificationText.delegate = self;
     self.emailText.delegate = self;
-    self.idText.attributedPlaceholder =[[NSAttributedString alloc]
-                                        initWithString:@"아이디를 입력해주세요"];
+    self.emailText.attributedPlaceholder =[[NSAttributedString alloc]
+                                        initWithString:@"이메일형식에 맞게 입력해주세요"];
     
     
 }
@@ -70,15 +70,15 @@
          attributes:@{NSForegroundColorAttributeName:color}];
         
     }
-    if (self.idText.text.length <= 5 && self.idText.text.stringByRemovingPercentEncoding && " " )
-    {
-        self.idText.text = nil;
-        UIColor *color = [UIColor redColor];
-        self.idText.attributedPlaceholder =[[NSAttributedString alloc]
-         initWithString:@"5글자이상 , 특수문자는 쓰지 마세요."
-         attributes:@{NSForegroundColorAttributeName:color}];
-        
-    }
+//    if (self.idText.text.length <= 5 && self.idText.text.stringByRemovingPercentEncoding && " " )
+//    {
+//        self.idText.text = nil;
+//        UIColor *color = [UIColor redColor];
+//        self.idText.attributedPlaceholder =[[NSAttributedString alloc]
+//         initWithString:@"5글자이상 , 특수문자는 쓰지 마세요."
+//         attributes:@{NSForegroundColorAttributeName:color}];
+    
+ //   }
     if (self.pwText.text.length <=8 && self.confirmText.text.length <=8)
     {
         NSString *Warring = [NSString stringWithFormat:@"8글자 이상 작성해 주세요."];
@@ -88,11 +88,10 @@
                                             initWithString:Warring
                                             attributes:@{NSForegroundColorAttributeName:color}];
     }
-   NSLog(@"id :%@ pw :%@",self.idText.text,self.pwText.text);
+  
    
  [NetworkingCenter singUpWithPhoneNumber:self.phoneText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:nil requestHandler:^(NSString *success) {
-     NSLog(@"이메일 %@",self.emailText.text);
-     NSLog(@"폰넘버 ;%@",self.phoneText.text);
+  
      if([success isEqualToString:@"success"]){
      
          NSLog(@"success back to login");

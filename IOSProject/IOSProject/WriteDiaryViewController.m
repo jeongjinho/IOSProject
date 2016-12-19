@@ -36,11 +36,16 @@
 
 @implementation WriteDiaryViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     //두배해주고
     [self initializeComponent];
-  self.groupId = [DataCenter sharedData].selectedGroupId;
+  self.groupId = [DiaryModel sharedData].selectedGroupID;
     
     self.loadImages = [NSArray arrayWithArray:[UtilityClass loadImageInDevicePhotoLibray]];
     [[NSNotificationCenter defaultCenter]
@@ -187,9 +192,8 @@
         //---------------이미지사이즈줄이기
         [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray:[[DiaryModel sharedData].selectedPhotos[i] integerValue] widthSize:500 heightSize:500]];
         UIImage *img= [imagesInfo[i] objectForKey:@"image"];
-       NSLog(@"image size:%lf",img.size.width);
         [UtilityClass resizingImage:img widthSize:500 heightSize:500];
-        NSLog(@"afte image size:%lf",img.size.width);
+      
 
     }
     
@@ -209,6 +213,7 @@
             
             [self dismissViewControllerAnimated:YES completion:nil];
             [[DiaryModel sharedData].selectedPhotos removeAllObjects];
+            
         }];
         [alert addAction:cancle];
         [self presentViewController:alert animated:YES completion:nil];
@@ -276,6 +281,7 @@
         }
     }
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

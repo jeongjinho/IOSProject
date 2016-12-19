@@ -276,27 +276,47 @@ static NSString *const phoneNumber = @"phoneNumber";
     [self.view addSubview:indicator];
 //------------------------------------------------------------
     [indicator startAnimating]; // 애니메이션 시작
-    
+    __block UIAlertController *alert = [[UIAlertController alloc]init];
+    __block UIAlertAction *cancel = [[UIAlertAction alloc]init];
     [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage groupImageFileName:self.groupMainImageFileName handler:^(NSString *responseData) {
         
         [indicator stopAnimating];
-        UIAlertController *alert = [[UIAlertController alloc]init];
-        UIAlertAction *cancel = [[UIAlertAction alloc]init];
-        if ([responseData isEqualToString:@"fail"]) {
+        
+        NSLog(@"응답객체:%@",responseData);
+        if ([responseData isKindOfClass:[NSString class]]) {
             
-         
             alert = [UIAlertController alertControllerWithTitle:@"그룹생성 실패" message:@"그룹생성에 실패했습니다.\n다시 생성해주세요" preferredStyle:UIAlertControllerStyleAlert];
             cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
             
         } else {
-        
-          
+            
             alert = [UIAlertController alertControllerWithTitle:@"그룹만들기 성공" message:@"그룹이 생성되었습니다." preferredStyle:UIAlertControllerStyleAlert];
-             cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
-                }];
-                    }
+            }];
+
+            
+            
+            NSInteger groupId = [responseData integerValue];
+           
+            NSLog(@"dkdlel %ld",groupId);
+            
+            NSMutableArray *array = [[NSMutableArray alloc]init];
+            for (NSDictionary *dic in self.selectedPersons) {
+                
+                [array addObject:[dic objectForKey:@"phoneNumber"]];
+            }
+            
+            [NetworkingCenter invitePersonsOfGroupForPhoneNumber:array groupID:groupId handler:^(NSString *invitedPerson) {
+              
+                    if([invitedPerson isEqualToString:@"success"]){
+                        
+                        NSLog(@"초대성공");
+                }
+            }];
+            
+        }
         [alert addAction:cancel];
         [self presentViewController:alert animated:YES completion:nil];
 

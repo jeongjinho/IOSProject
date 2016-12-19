@@ -29,10 +29,10 @@ static NSString *const passwordText = @"passwordTextField.text";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//#ifdef DEBUG
-//    _emailTextField.text = @"321";
-//    _passwordTextField.text = @"123123123";
-//#endif
+#ifdef DEBUG
+    _emailTextField.text = @"010394463765";
+    _passwordTextField.text = @"123456789012345qw!@";
+#endif
     
     // Do any additional setup after loading the view.
      self.navigationController.navigationBar.hidden = YES;
@@ -83,13 +83,14 @@ static NSString *const passwordText = @"passwordTextField.text";
             NSLog(@"전에 로그인한적있음");
             [keychain setObject:self.tokenValue forKey:(id)kSecAttrAccount];
             [self presentViewController:mainVC animated:YES completion:nil];
-            
+            [NetworkingCenter myInfoAtApp:nil];
         } else {
                NSLog(@"여기에 처음로그인");
             [keychain setObject:self.tokenValue forKey:(id)kSecAttrAccount];
             [self presentViewController:mainVC animated:YES completion:nil];
+            [NetworkingCenter myInfoAtApp:nil];
         }
-
+        
     }];
         
    

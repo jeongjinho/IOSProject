@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2215911E070949009B59E9 /* MyInfoModel.m */; };
 		7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B257A061DF160680039624C /* KeychainItemWrapper.m */; };
+		7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B304E951E028C2500275674 /* CommentTableViewCell.m */; };
 		7B4FB88B1DEBFD3100DDAA93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88A1DEBFD3100DDAA93 /* main.m */; };
 		7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */; };
 		7B4FB8961DEBFD3100DDAA93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B4FB8951DEBFD3100DDAA93 /* Assets.xcassets */; };
@@ -33,6 +35,7 @@
 		7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */; };
 		7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */; };
 		7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */; };
+		7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */; };
 		7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0CA851DEF256A000227D4 /* WriteViewController.m */; };
 		7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803BD1DFC539F003A9DC9 /* WriteDiaryViewController.m */; };
 		7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF803C61DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m */; };
@@ -49,9 +52,13 @@
 /* Begin PBXFileReference section */
 		1C39EB9C6ABD31511D5C670D /* Pods-IOSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		766630537B85BE0AE116F902 /* Pods-IOSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.release.xcconfig"; sourceTree = "<group>"; };
+		7B2215901E070949009B59E9 /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
+		7B2215911E070949009B59E9 /* MyInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoModel.m; sourceTree = "<group>"; };
 		7B257A061DF160680039624C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		7B257A071DF160680039624C /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		7B257A091DF1617C0039624C /* IOSProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IOSProject.entitlements; sourceTree = "<group>"; };
+		7B304E941E028C2500275674 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
+		7B304E951E028C2500275674 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
 		7B4FB8861DEBFD3100DDAA93 /* IOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B4FB88A1DEBFD3100DDAA93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7B4FB88C1DEBFD3100DDAA93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -101,6 +108,8 @@
 		7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCollectionViewCell.m; sourceTree = "<group>"; };
 		7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryModel.h; sourceTree = "<group>"; };
 		7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiaryModel.m; sourceTree = "<group>"; };
+		7BCC4C581E01B33800CBE37F /* ReadDiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDiaryViewController.h; sourceTree = "<group>"; };
+		7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDiaryViewController.m; sourceTree = "<group>"; };
 		7BEF3EAB1DEFFBB700569AC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		7BF0CA841DEF256A000227D4 /* WriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteViewController.h; sourceTree = "<group>"; };
 		7BF0CA851DEF256A000227D4 /* WriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteViewController.m; sourceTree = "<group>"; };
@@ -139,6 +148,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2215931E070E68009B59E9 /* MyInfoModel */ = {
+			isa = PBXGroup;
+			children = (
+				7B2215901E070949009B59E9 /* MyInfoModel.h */,
+				7B2215911E070949009B59E9 /* MyInfoModel.m */,
+			);
+			name = MyInfoModel;
+			sourceTree = "<group>";
+		};
+		7B2215941E070E79009B59E9 /* ReadingPage */ = {
+			isa = PBXGroup;
+			children = (
+				7BCC4C581E01B33800CBE37F /* ReadDiaryViewController.h */,
+				7BCC4C591E01B33800CBE37F /* ReadDiaryViewController.m */,
+				7B304E941E028C2500275674 /* CommentTableViewCell.h */,
+				7B304E951E028C2500275674 /* CommentTableViewCell.m */,
+			);
+			name = ReadingPage;
+			sourceTree = "<group>";
+		};
 		7B2C82A21DF807A900BFE84E /* WriteDiaryPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,8 +205,9 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
-				7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */,
-				7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */,
+				7B2215941E070E79009B59E9 /* ReadingPage */,
+				7B2215931E070E68009B59E9 /* MyInfoModel */,
+				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
 				7B2C82A21DF807A900BFE84E /* WriteDiaryPage */,
 				7B5104C61DF3FF1E00A00EFF /* WritinConfirmPage */,
 				7BEF3EAA1DEFF1E000569AC2 /* WritePage */,
@@ -294,6 +324,15 @@
 				7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */,
 			);
 			name = WritinConfirmPage;
+			sourceTree = "<group>";
+		};
+		7BCC4C571DFFCB8000CBE37F /* DiaryModel */ = {
+			isa = PBXGroup;
+			children = (
+				7BCC4C541DFEEBBC00CBE37F /* DiaryModel.h */,
+				7BCC4C551DFEEBBC00CBE37F /* DiaryModel.m */,
+			);
+			name = DiaryModel;
 			sourceTree = "<group>";
 		};
 		7BEF3EAA1DEFF1E000569AC2 /* WritePage */ = {
@@ -501,8 +540,11 @@
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */,
 				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
+				7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */,
+				7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */,
 				7B5104C91DF402C400A00EFF /* MainColorTextField.m in Sources */,
 				7B4FB88E1DEBFD3100DDAA93 /* AppDelegate.m in Sources */,
+				7BCC4C5A1E01B33800CBE37F /* ReadDiaryViewController.m in Sources */,
 				7B4FB8B71DEC2C9600DDAA93 /* MainTableViewCell.m in Sources */,
 				7BCA8BE61DED97530049F62A /* DetailGroupViewController.m in Sources */,
 				7BF803C71DFD4593003A9DC9 /* WriteDiaryCollectionViewCell.m in Sources */,

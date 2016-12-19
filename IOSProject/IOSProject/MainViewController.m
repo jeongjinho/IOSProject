@@ -16,6 +16,7 @@ static NSString *const keyForGroupPersonCount = @"user_count";
 static NSString *const keyForGroupPostCount = @"post_count";
 static NSString *const keyForGroupMaster = @"master";
 static NSString *const keyForGroupIdentifierNumber = @"id";
+static NSString *const keyFforGroupImage= @"thumbnail";
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTable;
 @property (strong,nonatomic) NSArray *groupList;
@@ -25,10 +26,12 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 @implementation MainViewController
 - (NSArray *)imageInfos {
-    return [[DataCenter sharedData] groupDataList];
+    return [[DiaryModel sharedData] groupList];
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tabBarController.tabBar setHidden:NO];
     [NetworkingCenter showGroupList:^(NSString *groupList) {
         
         if([groupList isEqualToString:@"success"]){
@@ -47,10 +50,73 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
     _mainTable.dataSource = self;
     self.tabBarController.delegate = self;
     
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForTableView:)];
     
     
+    [self.mainTable addGestureRecognizer:longPressGesture];
 }
 
+- (void)longPressForTableView:(UILongPressGestureRecognizer *)sender{
+
+
+    if (sender.state == UIGestureRecognizerStateEnded){
+        
+        CGPoint currentTouchPosition = [sender locationInView:[sender view]];
+    
+        NSIndexPath *indexPath = [self.mainTable indexPathForRowAtPoint:currentTouchPosition];
+        
+       
+        
+        
+        DiaryModel *diaryData = [DiaryModel sharedData];
+        UIAlertController *alert = [[UIAlertController alloc]init];
+        
+        diaryData.selectedIndex = indexPath.row;
+         //선택된 인덱스패스의 값의 마스터와 내 아이디가 같다면
+        if([[MyInfoModel sharedData] myIdOfMyInfo] == [diaryData masterOfGroupForSelectedIndex]){
+             //수정액션,삭제액션이있는 알럿창을띄운다.
+            [alert setModalPresentationStyle:UIModalPresentationFormSheet];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *modifyAction = [UIAlertAction actionWithTitle:@"수정" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"삭제" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+                [NetworkingCenter deleteGroupForGroupID:[diaryData groupIdOfGroupListForSelectedIndex] handler:^(NSString *deleteGroupHandler) {
+                    
+                    NSLog(@"%@",deleteGroupHandler);
+                    [NetworkingCenter showGroupList:^(NSString *groupList) {
+                        
+                        if([groupList isEqualToString:@"success"]){
+                            
+                            NSLog(@"정상적으로 불러옴");
+                            [self.mainTable reloadData];
+                            
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"삭제" message:@"삭제되었습니다." preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *completeAction = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDestructive handler:nil];
+                            [alert addAction:completeAction];
+                            [self presentViewController:alert animated:YES completion:nil];
+                        }
+                    }];
+
+                }];
+            }];
+            [alert addAction:cancelAction];
+            [alert addAction:modifyAction];
+            [alert addAction:deleteAction];
+            
+            
+        }  else{ //없으면 편집권한이없다고 알럿창을띄운다.
+            [alert setModalPresentationStyle:UIModalPresentationFormSheet];
+            UIAlertAction *completeAction = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            
+            [alert addAction:completeAction];
+            }
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
 
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
@@ -85,7 +151,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
 
-    return [DataCenter sharedData].groupDataList.count;
+    return [DiaryModel sharedData].groupList.count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
@@ -102,18 +168,20 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         MainTableViewCell *selectiedCell  = [tableView cellForRowAtIndexPath:indexPath];
         selectiedCell.bottomView.backgroundColor = lightPurpleColor;
    
-     NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+     NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
    
     NSInteger groupId = [[groupInfo objectForKey:keyForGroupIdentifierNumber] integerValue];
     NSLog(@"그룹 id%ld",groupId);
-
-    [DataCenter sharedData].selectedGroupId = groupId;
     
-  
+    [DiaryModel sharedData].selectedGroupID = groupId;
+    [DiaryModel sharedData].selectedIndex = indexPath.row;
+    NSDictionary *dic =  [groupInfo objectForKey:keyForGroupImage];
+    [DiaryModel sharedData].selectedGroupImageURL = [dic objectForKey:keyFforGroupImage];
+    [[DiaryModel sharedData] lastPostOfGroupForSelectedIndex];
     
    
     
@@ -124,7 +192,7 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     cell.thumnailImageView.image = [UIImage imageNamed:@"Moonbow"];
-    NSDictionary *groupInfo = [[DataCenter sharedData] groupInfoForIndex:indexPath.row];
+    NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
     
     cell.titleLabel.text = [groupInfo objectForKey:keyForGroupTitle];
       cell.lastPostDateLabel.text =[groupInfo objectForKey:keyForGroupLastPostDate];
@@ -132,8 +200,8 @@ static NSString *const keyForGroupIdentifierNumber = @"id";
     
     cell.groupPersonCount.text =[NSString stringWithFormat:@"%@",[groupInfo objectForKey:keyForGroupPersonCount]];
     cell.diaryCount.text =[NSString stringWithFormat:@"%@",[groupInfo objectForKey:keyForGroupPostCount]];
-    
-    NSURL *url = [NSURL URLWithString:[groupInfo objectForKey:keyForGroupImage]];
+    NSDictionary *dic =  [groupInfo objectForKey:keyForGroupImage];
+    NSURL *url = [NSURL URLWithString:[dic objectForKey:@"thumbnail"]];
     
     [cell.thumnailImageView sd_setImageWithURL:url];
 
