@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentTableX;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputCommentViewBottom;
+@property (weak, nonatomic) IBOutlet UIView *defaultView;
 
 @property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
@@ -41,13 +42,16 @@
 
 @implementation ReadDiaryViewController
 -(void)viewWillAppear:(BOOL)animated{
-    [[DiaryModel sharedData].commentsInfo removeAllObjects];
-    [super viewWillAppear:animated];
     
+    [super viewWillAppear:animated];
+    [[DiaryModel sharedData].commentsInfo removeAllObjects];
+         [self.defaultView setValue:@NO forKeyPath:@"hidden"];
     [NetworkingCenter diaryForPostID:[DiaryModel sharedData].seletedDiaryPK handler:^(NSString *diaryInfo) {
         if([diaryInfo isEqualToString:@"success"]){
+        
             [self.commentTableView reloadData];
             DiaryModel *diary = [DiaryModel sharedData];
+
            // 만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
             
             if([[MyInfoModel sharedData] myIdOfMyInfo] == [diary likerOfDiaryInfo]){
@@ -88,6 +92,11 @@
             }
 
             
+        } else if([diaryInfo isEqualToString:@"fail"]){
+            
+         [self.defaultView setValue:@YES forKeyPath:@"hidden"];
+        
+        
         }
    
     }];

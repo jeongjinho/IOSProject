@@ -18,4 +18,6 @@
 + (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize;
 
 + (NSString *)fomatPhoneNumberString:(NSArray*)phoneNumbers;
+
++ (NSString *)koreaTimefomattingForCurrentDate:(NSDate *)currentDate;
 @end

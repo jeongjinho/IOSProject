@@ -128,4 +128,19 @@
 }
 
 
++ (NSDate *)koreaTimefomattingForCurrentDate:(NSString *)currentDate{
+    NSLog(@"현재시간%@",currentDate.class);
+    NSDate *date = [[NSDate alloc] init];
+     NSDateFormatter *dateFormat=[[NSDateFormatter alloc]init];
+    //[dateFormat setDateFormat:@"EEEE MMMM d, YYYY hh"];
+    [dateFormat setDateFormat:@"MMM dd, yyyy, hh:mm a"];
+    [dateFormat setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"ko_KR"]];
+    date= [dateFormat dateFromString:currentDate];
+    NSLog(@"today is %@",date);
+    
+    return date;
+    
+}
+
+
 @end

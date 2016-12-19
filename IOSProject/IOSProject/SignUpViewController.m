@@ -89,8 +89,10 @@
                                             attributes:@{NSForegroundColorAttributeName:color}];
     }
   
-   
- [NetworkingCenter singUpWithPhoneNumber:self.phoneText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:nil requestHandler:^(NSString *success) {
+    UIImage *profile = [UIImage imageNamed:@"user"];
+    
+    NSData *prfileData = UIImageJPEGRepresentation(profile,0.1);
+ [NetworkingCenter singUpWithPhoneNumber:self.phoneText.text password:self.pwText.text name:self.nameText.text emailAddress:self.emailText.text image:prfileData requestHandler:^(NSString *success) {
   
      if([success isEqualToString:@"success"]){
      

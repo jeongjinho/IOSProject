@@ -212,6 +212,7 @@
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self dismissViewControllerAnimated:YES completion:nil];
+//            [DiaryModel sharedData].seletedDiaryPK
             [[DiaryModel sharedData].selectedPhotos removeAllObjects];
             
         }];

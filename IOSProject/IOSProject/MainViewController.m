@@ -49,7 +49,7 @@ static NSString *const keyFforGroupImage= @"thumbnail";
     _mainTable.delegate = self;
     _mainTable.dataSource = self;
     self.tabBarController.delegate = self;
-    
+    self.mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForTableView:)];
     
     
@@ -191,7 +191,7 @@ static NSString *const keyFforGroupImage= @"thumbnail";
 
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    cell.thumnailImageView.image = [UIImage imageNamed:@"Moonbow"];
+    
     NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
     
     cell.titleLabel.text = [groupInfo objectForKey:keyForGroupTitle];

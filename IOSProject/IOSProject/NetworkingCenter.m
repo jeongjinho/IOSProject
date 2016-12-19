@@ -67,7 +67,7 @@ static NSString *const createComment = @"content";
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
     [bodyParams setObject:name forKey:groupName];
 
-   NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.1);
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imageData
@@ -230,6 +230,10 @@ static NSString *const createComment = @"content";
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         
+        [formData appendPartWithFileData:image
+                                    name:imageString
+                                fileName:@"image.png"
+                                mimeType:@"image/png"];
     } error:nil];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -303,8 +307,8 @@ static NSString *const createComment = @"content";
                           NSLog(@"Error: %@", error);
                           handler(fail);
                       } else {
-                            
-                          NSLog(@"응답객체 :%@",responseObject);
+                          NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject];
+                          [DiaryModel sharedData].seletedDiaryPK = [[dic objectForKey:@"pk"] integerValue];
                           handler(succcess);
                       }
                   }];

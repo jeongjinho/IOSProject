@@ -307,14 +307,17 @@ static NSString *const phoneNumber = @"phoneNumber";
                 
                 [array addObject:[dic objectForKey:@"phoneNumber"]];
             }
+                     if(array.count!=0){
             
-            [NetworkingCenter invitePersonsOfGroupForPhoneNumber:array groupID:groupId handler:^(NSString *invitedPerson) {
-              
+                [NetworkingCenter invitePersonsOfGroupForPhoneNumber:array groupID:groupId handler:^(NSString *invitedPerson) {
+                    
                     if([invitedPerson isEqualToString:@"success"]){
                         
                         NSLog(@"초대성공");
-                }
-            }];
+                    }
+                }];
+            }
+            
             
         }
         [alert addAction:cancel];
