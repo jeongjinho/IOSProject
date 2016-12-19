@@ -739,7 +739,7 @@ static NSString *const createComment = @"content";
                 NSLog(@"obj:%@",responseObject);
                 
                 
-                [DiaryModel sharedData].likeInfo = responseObject;
+              //  [DiaryModel sharedData].likeInfo = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     handler(succcess);

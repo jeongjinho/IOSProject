@@ -51,6 +51,7 @@ static NSString *const phoneNumber = @"phoneNumber";
     //테이블뷰 델리게이트
     self.searchedTableView.delegate = self;
     self.searchedTableView.dataSource = self;
+     self.searchedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //스크롤뷰세팅
     self.selectedPeoplesScrollView.showsVerticalScrollIndicator=NO;
     self.selectedPeoplesScrollView.showsHorizontalScrollIndicator=YES;

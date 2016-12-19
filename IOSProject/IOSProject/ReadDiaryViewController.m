@@ -8,6 +8,8 @@
 
 #import "ReadDiaryViewController.h"
 #import "CommentTableViewCell.h"
+#import "UILabel+SeparatedBold.h"
+static NSString *const defaultCommentString = @"댓글달기..";
 @interface ReadDiaryViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *photosScrollView;
@@ -88,7 +90,10 @@
             //업로드한사람 사진 , 이름
                 [self.uploadedUserImageView sd_setImageWithURL:[diary uploadedUserImageOfDiaryInfo]];
                 self.uploadedUserNameLabel.text = [diary uloadedUserNameOfDiaryInfo];
+                [self.uploadedUserNameLabel boldSubstring:self.uploadedUserNameLabel.text];
                 
+                
+                 self.commentTextView.text = defaultCommentString;
             }
 
             
@@ -110,6 +115,7 @@
   
     self.isFoldingMode = YES;
     [self.tabBarController.tabBar setHidden:YES];
+    self.commentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.photosScrollView bringSubviewToFront:self.pageControl];
     [self.pageControl setCurrentPage:3];
     //article
@@ -123,6 +129,8 @@
     self.commentTableView.estimatedRowHeight = 100;
     
     self.commentTextView.delegate = self;
+    self.commentTextView.textColor = [UIColor grayColor];
+   
     //세그에따른 상단 버튼 히든 여부
     if([self.segueIdentifier isEqualToString:@"ReadVC"]){
         self.nextButton.hidden = YES;
@@ -189,13 +197,12 @@
     [_articleTextView resignFirstResponder];
     
     [UIView animateWithDuration:1.0f animations:^{
-        NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
         self.commentTableX.constant = self.tempCommentTableX;
         self.inputCommentViewBottom.constant = self.tempInputCommentViewBottom;
-        NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
         [self.view layoutIfNeeded];
     }];
     self.isFoldingMode = YES;
+              self.commentTextView.textColor = [UIColor grayColor];
     }
 }
 
@@ -213,28 +220,24 @@
             self.tempCommentTableX = self.commentTableX.constant;
             
             [UIView animateWithDuration:1.0f animations:^{
-                
-                //self.inputCommentViewTop.constant  = -self.keyboardHeight;
                 self.commentTableX.constant = -self.keyboardHeight;
                 self.inputCommentViewBottom.constant = self.keyboardHeight;
-                
-                NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
                 [self.view layoutIfNeeded];
             }];
+            self.commentTextView.text = @"";
+            self.commentTextView.textColor = [UIColor blackColor];
+           
         }
-        
+         
     }
 }
 - (void)viewDidLayoutSubviews{
 
     [super viewDidLayoutSubviews];
-    NSLog(@"바뀌기전 사이즈%lf",self.articleTextView.contentSize.height);
     [self.articleTextView sizeToFit];
     
    [self.commentTableView.tableHeaderView setFrame:CGRectMake(self.commentTableView.tableHeaderView.frame.origin.x,self.commentTableView.frame.origin.y, self.commentTableView.tableHeaderView.frame.size.width, 420+self.articleTextView.contentSize.height)];
 
- //   [self.commentTableView setContentSize:CGSizeMake(self.commentTableView.frame.size.width, self.commentTableView.contentSize.height+self.articleTextView.contentSize.height-57)];
-    NSLog(@"dad%lf",self.commentTableView.contentSize.height);
 }
 
 #pragma -mark tableView Delegate
@@ -249,33 +252,30 @@
     return [DiaryModel sharedData].commentsInfo.count ;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell" forIndexPath:indexPath];
     DiaryModel *diaryData = [DiaryModel sharedData];
     
     cell.commentLabel.text = [NSString stringWithFormat:@"%@  %@",[diaryData commentUserNameOfCommentsInfo:indexPath.row],[diaryData contentOfCommentsInfo:indexPath.row]];
-  //  [cell.userImageView sd_setImageWithURL:[diaryData commentUserImageOfCommentsInfo:indexPath.row]];
-    
-    
+    [cell.commentLabel boldSubstring:[diaryData commentUserNameOfCommentsInfo:indexPath.row]];
     return cell;
     
-
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 #pragma -mark scrollView Delegate
-
-
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     //    CGFloat pageWidth = self.scrollView.frame.size.width;
     //    self.pageControl.currentPage = floor((self.scrollView.contentOffset.x - pageWidth / 3) / pageWidth) + 1;
     self.pageControl.currentPage = self.photosScrollView.contentOffset.x/self.photosScrollView.frame.size.width;
 }
+
 #pragma -mark touchUpInSide methods
 - (IBAction)touchUpInSideBackButton:(id)sender {
     
@@ -287,7 +287,6 @@
             
             DiaryModel *diary = [DiaryModel sharedData];
             //만약 좋아요를 눌렀던 게시물이란면 선택된 버튼이미지를 보여준다.
-            
             self.likeButton.selected = [diary didlikeOfLikeInfo];
             self.dislikeButton.selected = [diary didDislikeOfLikeInfo];
             self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfLikeInfo]];
@@ -296,8 +295,6 @@
     }
 
 - (IBAction)touchUpInSideDisLikeButton:(id)sender {
-    
-    
     [NetworkingCenter dislikeForDiaryID: [[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *likeHandler) {
         
         DiaryModel *diary = [DiaryModel sharedData];
@@ -308,9 +305,6 @@
         self.likeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary likeCountOfLikeInfo]];
         self.dislikeCountLabel.text = [NSString stringWithFormat:@"%ld",[diary dislikeCountOfLikeInfo]];
     }];
-
-
-    
 }
 
 - (IBAction)touchUpInSideEtcButton:(id)sender {
@@ -321,10 +315,7 @@
     if([[MyInfoModel sharedData] myIdOfMyInfo] == [[DiaryModel sharedData] uploadedUserOfDiaryInfo]){
         
         [alert setModalPresentationStyle:UIModalPresentationFormSheet];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            
-        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *modifyAction = [UIAlertAction actionWithTitle:@"수정" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //댓글 뷰를 안보이게하고
             [self.commentView setHidden:YES];
@@ -342,9 +333,6 @@
             [self.nextButton setHidden:YES];
             [self.modifiedCancelButton setHidden:NO];
             [self.modifiedStoreButton setHidden:NO];
-            
-            
-            
         }];
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"삭제" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [NetworkingCenter deleteFordiaryID:[[DiaryModel sharedData] pkOfDiaryInfo] handler:^(NSString *deleteDiary) {
@@ -374,10 +362,6 @@
         }];
         [alert addAction:completeAction];
     }
-    
-    
-    
-  
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -386,8 +370,9 @@
     [_articleTextView resignFirstResponder];
     
     [NetworkingCenter createCommentsForDiaryID:[[DiaryModel sharedData] seletedDiaryPK] content:self.commentTextView.text handler:^(NSDictionary *createCommentHandler) {
-        
-        [[DiaryModel sharedData].commentsInfo addObject:createCommentHandler];
+        self.commentTextView.text = defaultCommentString;
+
+        [[DiaryModel sharedData].commentsInfo insertObject:createCommentHandler atIndex:0];
         [self.commentTableView reloadData];
     }];
     
@@ -411,9 +396,6 @@
     [self.articleTextView setEditable:NO];
     //댓글뷰다시보이게하고
      [self.commentView setHidden:NO];
-    
-    
-    
     self.isFoldingMode = YES;
  
     //임시저장한 텍스트 다시주고
@@ -428,9 +410,6 @@
     [self.commentTableView.tableHeaderView setFrame:self.tempArticleViewFrame];
 }
 - (IBAction)touchUpInSideModifiedStoreButton:(id)sender {
-    
-    
-    
     [NetworkingCenter modifyContentForDiaryID:[DiaryModel sharedData].seletedDiaryPK content:self.articleTextView.text handler:^(NSString *modifiedContent) {
         
         if(![modifiedContent isEqualToString:@"fail"]){
@@ -450,18 +429,7 @@
         }
         
     }];
-    
-    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
