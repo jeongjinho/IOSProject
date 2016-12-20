@@ -62,9 +62,9 @@ static NSString *const passwordText = @"passwordTextField.text";
     KeychainItemWrapper *keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"glue" accessGroup:nil];
     NSString *keychainToken = [keychain objectForKey:(id)kSecAttrAccount];
     
-    [NetworkingCenter loginWithEmail:self.emailTextField.text password:self.passwordTextField.text loginHandler:^(NSString *token) {
+    [NetworkingCenter loginWithEmail:self.emailTextField.text password:self.passwordTextField.text loginHandler:^(NSString *result) {
         
-        self.tokenValue = token;
+        self.tokenValue = result;
         NSLog(@"토큰 :%@ ", self.tokenValue);
          UITabBarController *mainVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
         if([self.tokenValue isEqualToString:@"fail"]){

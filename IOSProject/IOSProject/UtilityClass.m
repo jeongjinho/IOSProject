@@ -59,15 +59,15 @@
     options.synchronous = YES;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
-    
-    for (PHAsset *asset in assets) {
-        
+    NSLog(@"에셋카운트%ld",assets.count);
+    for (NSInteger i= assets.count-1; i>=0;i--) {
+        PHAsset *asset = assets[i];
         [photoManager requestImageForAsset:asset targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
             
             [loadImageDatas addObject:result];
         }];
     }
-        NSLog(@"cell count :%ld",cellCount);
+    
         
         if(loadImageDatas.count ==cellCount){
             
@@ -96,8 +96,8 @@
    // options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
     
-    [dic setObject:[assets[row] valueForKey:@"filename"] forKey:@"fileName"];
-    [photoManager requestImageForAsset:assets[row] targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+    [dic setObject:[assets[assets.count-1-row] valueForKey:@"filename"] forKey:@"fileName"];
+    [photoManager requestImageForAsset:assets[assets.count-1-row] targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         NSLog(@"결과사이즈:%lf",result.size.width);
         [dic setObject:result forKey:@"image"];
         

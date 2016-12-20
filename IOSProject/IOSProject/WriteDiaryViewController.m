@@ -197,11 +197,11 @@
 
     }
     
-    [NetworkingCenter postDiaryWithGroupId:self.groupId postText:self.textView.text selectedImages:imagesInfo postDiaryHander:^(NSString *postDiary) {
+    [NetworkingCenter postDiaryWithGroupId:self.groupId postText:self.textView.text selectedImages:imagesInfo postDiaryHander:^(NSString *result) {
         
         UIAlertController *alert = [[UIAlertController alloc]init];
         
-        if([postDiary isEqualToString:@"success"]){
+        if([result isEqualToString:@"success"]){
         
             alert = [UIAlertController alertControllerWithTitle:@"포스트 성공" message:@"정상적으로 회원님의 일기가 올라갔습니다." preferredStyle:UIAlertControllerStyleAlert];
             

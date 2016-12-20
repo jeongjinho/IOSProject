@@ -82,9 +82,9 @@ static NSString *const phoneNumber = @"phoneNumber";
         [self.selectedPersons addObject:@{name:cell.searchedNameLabel.text,phoneNumber:cell.searchedPhoneNumberLabel.text}];
     } else {
     
-        for (NSDictionary *ckeckperson in self.selectedPersons) {
+        for (NSDictionary *ckeckedperson in self.selectedPersons) {
             
-            if([[ckeckperson objectForKey:name] isEqualToString:cell.searchedNameLabel.text] &&[[ckeckperson objectForKey:phoneNumber] isEqualToString:cell.searchedPhoneNumberLabel.text]){
+            if([[ckeckedperson objectForKey:name] isEqualToString:cell.searchedNameLabel.text] &&[[ckeckedperson objectForKey:phoneNumber] isEqualToString:cell.searchedPhoneNumberLabel.text]){
                 return ;
             }
             
@@ -279,12 +279,12 @@ static NSString *const phoneNumber = @"phoneNumber";
     [indicator startAnimating]; // 애니메이션 시작
     __block UIAlertController *alert = [[UIAlertController alloc]init];
     __block UIAlertAction *cancel = [[UIAlertAction alloc]init];
-    [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage groupImageFileName:self.groupMainImageFileName handler:^(NSString *responseData) {
+    [NetworkingCenter creatNewGroupWithGroupTitle:self.groupNameField.text groupImage:self.groupMainImage groupImageFileName:self.groupMainImageFileName handler:^(NSString *result) {
         
         [indicator stopAnimating];
         
-        NSLog(@"응답객체:%@",responseData);
-        if ([responseData isKindOfClass:[NSString class]]) {
+        NSLog(@"응답객체:%@",result);
+        if ([result isKindOfClass:[NSString class]]) {
             
             alert = [UIAlertController alertControllerWithTitle:@"그룹생성 실패" message:@"그룹생성에 실패했습니다.\n다시 생성해주세요" preferredStyle:UIAlertControllerStyleAlert];
             cancel = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
@@ -297,9 +297,7 @@ static NSString *const phoneNumber = @"phoneNumber";
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
 
-            
-            
-            NSInteger groupId = [responseData integerValue];
+            NSInteger groupId = [result integerValue];
            
             NSLog(@"dkdlel %ld",groupId);
             
@@ -310,24 +308,18 @@ static NSString *const phoneNumber = @"phoneNumber";
             }
                      if(array.count!=0){
             
-                [NetworkingCenter invitePersonsOfGroupForPhoneNumber:array groupID:groupId handler:^(NSString *invitedPerson) {
+                [NetworkingCenter invitePersonsOfGroupForPhoneNumber:array groupID:groupId handler:^(NSString *result) {
                     
-                    if([invitedPerson isEqualToString:@"success"]){
+                    if([result isEqualToString:@"success"]){
                         
                         NSLog(@"초대성공");
                     }
                 }];
             }
-            
-            
         }
         [alert addAction:cancel];
         [self presentViewController:alert animated:YES completion:nil];
-
     }];
-        
-    
-     
 }
 
 - (void)didReceiveMemoryWarning {
@@ -340,14 +332,6 @@ static NSString *const phoneNumber = @"phoneNumber";
     [textField resignFirstResponder];
     return YES;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

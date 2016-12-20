@@ -24,34 +24,31 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [NetworkingCenter diaryListForGroupID:[DiaryModel sharedData].selectedGroupID handler:^(NSString *diaryList) {
+    [NetworkingCenter diaryListForGroupID:[DiaryModel sharedData].selectedGroupID handler:^(NSString *result) {
         
-        if([diaryList isEqualToString:@"success"]){
+        if([result isEqualToString:@"success"]){
             
             [_centerCollectionView reloadData];
             [_centerCollectionView setContentOffset:CGPointZero];
-            
-            
+
             DiaryModel *diaryData = [DiaryModel sharedData];
             self.diaryCountLabel.text = [NSString stringWithFormat:@"%ld",[diaryData countOfDiaryList]];
             diaryData.seletedDiaryPK = [[[[diaryData resultsOfDiaryList] firstObject] objectForKey:@"pk"] integerValue];
         }
     }];
-
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
     self.navigationController.navigationBar.hidden = YES;
     self.centerCollectionView.delegate = self;
     self.centerCollectionView.dataSource = self;
-   NSURL *url = [NSURL URLWithString:[DiaryModel sharedData].selectedGroupImageURL];
+    //선택된그룹의 이미지를 데이터센터에서 받아와 화면에 보여준다.
+    DiaryModel *diaryData = [DiaryModel sharedData];
+
+    NSURL *url = [NSURL URLWithString:diaryData.selectedGroupImageURL];
     [self.groupImageView sd_setImageWithURL:url];
-    
-        DiaryModel *diaryData = [DiaryModel sharedData];
+
     self.groupTitleLabel.text = [diaryData groupNameOfGroupListForSelectedIndex];
-   
     self.personCountLabel.text = [NSString stringWithFormat:@"%ld",[diaryData memberCountOfGroupForSelectedIndex]];
 }
 
@@ -91,32 +88,29 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    DiaryModel *diaryData  = [DiaryModel sharedData];
     DetailCollectionViewCell *collectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     NSDictionary *diary = [[DiaryModel sharedData] diaryInResultForIndexPath:indexPath.row];
-    
     //image
     NSURL *url = [NSURL URLWithString:[[[[diary objectForKey:@"photos"] lastObject] objectForKey:@"photo"] objectForKey:@"thumbnail"]];
     [collectionCell.cellImageView sd_setImageWithURL:url];
-   
     //title
     collectionCell.diaryTitleLabel.text = [diary objectForKey:@"content"];
     //likeCount
-    collectionCell.likeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] likeCountAtIndexOfDiaryList:indexPath.row]];
+    collectionCell.likeCountLabel.text =[NSString stringWithFormat:@"%ld",[diaryData likeCountAtIndexOfDiaryList:indexPath.row]];
     //dislikeCount
-    collectionCell.dislikeCountLabel.text =[NSString stringWithFormat:@"%ld",[[DiaryModel sharedData] dislikeCountAtIndexOfDiaryList:indexPath.row]];
+    collectionCell.dislikeCountLabel.text =[NSString stringWithFormat:@"%ld",[diaryData dislikeCountAtIndexOfDiaryList:indexPath.row]];
     return collectionCell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSDictionary *diary = [[DiaryModel sharedData] diaryInResultForIndexPath:indexPath.row];
-    
-    [DiaryModel sharedData].seletedDiaryPK = [[diary objectForKey:@"pk"] integerValue];
-    
-    ReadDiaryViewController *readVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReadVC"];
-    readVC.segueIdentifier = @"ReadVC";
-    [self.navigationController pushViewController:readVC animated:YES];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    DiaryModel *diaryData = [DiaryModel sharedData];
+    NSDictionary *diary = [diaryData diaryInResultForIndexPath:indexPath.row];
+    diaryData.seletedDiaryPK = [[diary objectForKey:@"pk"] integerValue];
+    //셀선택시 readVC로 이동
+//    ReadDiaryViewController *readVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReadVC"];
+  //  readVC.segueIdentifier = @"ReadVC";
+    //[self.navigationController pushViewController:readVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -132,7 +126,7 @@
     NSLog(@"넥스트:%@",[[DiaryModel sharedData] nextDiaryListURLOfDiaryList]);
     if(![[[DiaryModel sharedData] nextDiaryListURLOfDiaryList] isKindOfClass:[NSNull class]]){
     
-        [NetworkingCenter diaryListForNextURL:[[DiaryModel sharedData] nextDiaryListURLOfDiaryList] handler:^(NSString *nextPage) {
+        [NetworkingCenter diaryListForNextURL:[[DiaryModel sharedData] nextDiaryListURLOfDiaryList] handler:^(NSString *result) {
             
             [self.centerCollectionView reloadData];
         }];
