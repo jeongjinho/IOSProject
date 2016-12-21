@@ -11,6 +11,7 @@
 #import "DiaryModel.h"
 @interface WriteDiaryViewController ()<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 //UI
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *bottomScrollView;
 @property (strong,nonatomic)UICollectionView *photoCollectionView;
 @property (strong,nonatomic)UITextView *textView;
@@ -115,30 +116,36 @@
 }
 //==== 되긴하는데 카운트가 이상함
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    DiaryModel *diaryModel = [DiaryModel sharedData];
      WriteDiaryCollectionViewCell *cell = (WriteDiaryCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-       if(cell.label.hidden ==YES&&[DiaryModel sharedData].selectedPhotos.count<6){
+       if(cell.label.hidden ==YES&&diaryModel.selectedPhotos.count<6){
         cell.label.hidden = NO;
-       // NSDictionary *dic = [[NSDictionary alloc]init];
+   
         NSNumber *indexPathNumber = [NSNumber numberWithInteger:indexPath.row];
-    //    dic = @{@"indexPath":indexPathNumber,@"image":cell.imageView.image};
-        [[DiaryModel sharedData].selectedPhotos addObject:indexPathNumber];
+        [diaryModel.selectedPhotos addObject:indexPathNumber];
        
     } else{
-    
+        //선택되어진것이라면
         if (cell.label.hidden == NO){
-            
-            for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
-                NSInteger selectedNumber = [[DiaryModel sharedData].selectedPhotos[i] integerValue];
+            //기존에선택된것에서 찾는다.
+            for (NSInteger i=0;i<diaryModel.selectedPhotos.count;i++) {
+                NSInteger selectedNumber = [diaryModel.selectedPhotos[i] integerValue];
                 
-                
+                //비교해서 지우고 라벨에 체크한것도 해제한다.
                 if(indexPath.row == selectedNumber){
-                    [[DiaryModel sharedData].selectedPhotos removeObjectAtIndex:i];
+                    [diaryModel.selectedPhotos removeObjectAtIndex:i];
                     cell.label.hidden = YES;
                     ;;
                    
                 }
+                
+                
             }
+
+                    
+            
+
+            
         } else{
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"사진선택" message:@"6개까지 선택할 수 있습니다" preferredStyle:UIAlertControllerStyleAlert];
@@ -150,7 +157,13 @@
         }
 
     }
-   
+    if(diaryModel.selectedPhotos.count>0){
+        self.topImageView.image =[UtilityClass selectedImageInDevicePhotoLibray:[diaryModel.selectedPhotos[diaryModel.selectedPhotos.count-1] integerValue]];
+    } else {
+    
+        self.topImageView.image = nil;
+    }
+    
     
 }
 
@@ -189,12 +202,9 @@
     
     NSMutableArray *imagesInfo =[[NSMutableArray alloc]init];
     for (NSInteger i=0;i<[DiaryModel sharedData].selectedPhotos.count;i++) {
-        //---------------이미지사이즈줄이기
-        [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray:[[DiaryModel sharedData].selectedPhotos[i] integerValue] widthSize:500 heightSize:500]];
-        UIImage *img= [imagesInfo[i] objectForKey:@"image"];
-        [UtilityClass resizingImage:img widthSize:500 heightSize:500];
-      
-
+        DiaryModel *diary = [DiaryModel sharedData];
+        
+   [imagesInfo addObject:[UtilityClass selectedImageInDevicePhotoLibray: [diary.selectedPhotos[i] integerValue]]];
     }
     
     [NetworkingCenter postDiaryWithGroupId:self.groupId postText:self.textView.text selectedImages:imagesInfo postDiaryHander:^(NSString *result) {
@@ -212,7 +222,7 @@
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             [self dismissViewControllerAnimated:YES completion:nil];
-//            [DiaryModel sharedData].seletedDiaryPK
+
             [[DiaryModel sharedData].selectedPhotos removeAllObjects];
             
         }];

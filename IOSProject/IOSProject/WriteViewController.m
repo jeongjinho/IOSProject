@@ -43,34 +43,6 @@
   
     
 }
-- (UIImage *)selectedImageInDevicePhotoLibray:(NSInteger)row{
-
-    __block UIImage *searchedImage;
-    PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                                                                        subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
-                                                                        options:nil];
-    
-    PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
-    //
-    //    // 카메라 롤에 있는 사진을 가져온다.
-    PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.networkAccessAllowed = YES;
-    options.synchronous = YES;
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-    PHImageManager *photoManager = [PHImageManager defaultManager];
-
-    self.selectedPhotoImageName = [assets[assets.count-1-row] valueForKey:@"filename"];
-    [photoManager requestImageForAsset:assets[assets.count-1-row] targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        
-        searchedImage = result;
-        
-        
-    }];
-    
- 
-    return searchedImage;
-}
 
 #pragma -mark CollectionView delegate Method
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -116,34 +88,12 @@
 
 }
 #pragma -mark srcollView Delegate
--(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
 
-}
 
-//-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-//
-//    CGFloat offsetY = scrollView.contentOffset.y;
-//    
-//    CGFloat contentHeight = scrollView.contentSize.height;
-//    if (offsetY < contentHeight-30)
-//    {
-//        [self loadImageInDevicePhotoLibray:self.cellCount];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [UIView animateWithDuration:0 animations:^{
-//                [self.bottomCollectionView performBatchUpdates:^{
-//                    [self.bottomCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-//                } completion:nil];
-//            }];
-//        });
-//        
-//    }
-//
-//}
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
-    self.topIamgeView.image = [self selectedImageInDevicePhotoLibray:indexPath.row];
+    self.topIamgeView.image = [UtilityClass selectedImageInDevicePhotoLibray:indexPath.row];
 }
 #pragma -mark touch In Side BackButton
 - (IBAction)touchInSideBackTapVC:(id)sender {
@@ -157,7 +107,7 @@
     
         WritingConfirmPageViewController *writeConfirmVC = segue.destinationViewController;
         writeConfirmVC.groupMainImage = self.topIamgeView.image;
-        writeConfirmVC.groupMainImageFileName  = self.selectedPhotoImageName;
+        
     }
 }
 - (void)didReceiveMemoryWarning {

@@ -10,6 +10,9 @@
 #import <Photos/PHAsset.h>
 #import <Photos/PHCollection.h>
 #import <Photos/PHImageManager.h>
+#import <Contacts/CNContactStore.h>
+#import <Contacts//CNContactFetchRequest.h>
+#import <Contacts/CNContactFormatter.h>
 #import "WriteCollectionViewCell.h"
 
 @implementation UtilityClass
@@ -46,13 +49,13 @@
 + (NSMutableArray *)loadImageInDevicePhotoLibray{
     NSMutableArray *loadImageDatas = [[NSMutableArray alloc]init];
     NSInteger cellCount  = 0;
-        cellCount +=40;
+    cellCount +=40;
     PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                         subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
                                                                         options:nil];
     
     PHAssetCollection *smartFolderAssetCollection = (PHAssetCollection *)[albumList firstObject];
-  
+    
     PHFetchResult *assets = [PHAsset fetchAssetsInAssetCollection:smartFolderAssetCollection  options:nil];
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.networkAccessAllowed = YES;
@@ -68,20 +71,19 @@
         }];
     }
     
+    
+    if(loadImageDatas.count ==cellCount){
         
-        if(loadImageDatas.count ==cellCount){
-            
-            return nil ;
-        }
+        return nil ;
+    }
     return loadImageDatas;
 }
 
-+ (NSDictionary *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height {
+
+
++ (UIImage *)selectedImageInDevicePhotoLibray:(NSInteger)row{
     
-    CGSize size;
-    size.width =width;
-    size.height =height;
-    __block NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    __block UIImage *searchedImage;
     PHFetchResult *albumList = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                         subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
                                                                         options:nil];
@@ -93,22 +95,53 @@
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.networkAccessAllowed = YES;
     options.synchronous = YES;
-   // options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     PHImageManager *photoManager = [PHImageManager defaultManager];
     
-    [dic setObject:[assets[assets.count-1-row] valueForKey:@"filename"] forKey:@"fileName"];
-    [photoManager requestImageForAsset:assets[assets.count-1-row] targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        NSLog(@"결과사이즈:%lf",result.size.width);
-        [dic setObject:result forKey:@"image"];
+    
+    [photoManager requestImageForAsset:assets[assets.count-1-row] targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        
+        searchedImage = result;
         
         
     }];
     
     
-    return dic;
+    return searchedImage;
 }
-+ (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize{
 
++ (NSArray *)callPhoneNumberInfoAtDevice{
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    if( status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusRestricted)
+    {
+        NSLog(@"access denied");
+    } else {
+        NSMutableArray *searchedPhoneNumber = [[NSMutableArray alloc]init];
+        CNContactStore *phoneNumberStore = [[CNContactStore alloc]init];
+        
+        NSMutableArray *keyArray = [[NSMutableArray alloc] initWithObjects:CNContactPhoneNumbersKey,[CNContactFormatter descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName], nil];
+        
+        
+        CNContactFetchRequest *fetchRequest = [[CNContactFetchRequest alloc] initWithKeysToFetch:keyArray];
+        [phoneNumberStore enumerateContactsWithFetchRequest:fetchRequest error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
+            
+            
+            NSString *names =[contact.familyName stringByAppendingString:contact.givenName];
+            
+            //phoneNumbers 에서 전화번호 가져오기
+            [contact.phoneNumbers enumerateObjectsUsingBlock:^(CNLabeledValue<CNPhoneNumber *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *phoneNumbers = [[obj value] stringValue];
+                [searchedPhoneNumber addObject:@{@"phoneNumber":phoneNumbers, @"name":names}];
+            }];
+        }];
+        
+        return searchedPhoneNumber;
+    }
+    return nil;
+}
+
++ (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize{
+    
     UIImage *img = image;
     
     // 변경할 사이즈
@@ -131,7 +164,7 @@
 + (NSDate *)koreaTimefomattingForCurrentDate:(NSString *)currentDate{
     NSLog(@"현재시간%@",currentDate.class);
     NSDate *date = [[NSDate alloc] init];
-     NSDateFormatter *dateFormat=[[NSDateFormatter alloc]init];
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc]init];
     //[dateFormat setDateFormat:@"EEEE MMMM d, YYYY hh"];
     [dateFormat setDateFormat:@"MMM dd, yyyy, hh:mm a"];
     [dateFormat setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"ko_KR"]];

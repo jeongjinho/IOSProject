@@ -14,7 +14,7 @@ typedef void(^createCommentHandler)(NSDictionary *createCommentHandler);
 #pragma -mark GroupNetworking
 + (void)showGroupList:(requestHandler)handler;
 
-+ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(requestHandler)handler;
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image  handler:(requestHandler)handler;
 
 + (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(requestHandler)loginHandler;
 

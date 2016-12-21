@@ -194,8 +194,12 @@ static NSString *const keyFforGroupImage= @"thumbnail";
     
     NSDictionary *groupInfo = [[DiaryModel sharedData] groupInfoForIndex:indexPath.row];
     
+    NSRange rage ={0,10};
+    NSString *fomattedDate = [[groupInfo objectForKey:keyForGroupLastPostDate] substringWithRange:rage];
+    
+    cell.lastPostDateLabel.text =fomattedDate;
     cell.titleLabel.text = [groupInfo objectForKey:keyForGroupTitle];
-      cell.lastPostDateLabel.text =[groupInfo objectForKey:keyForGroupLastPostDate];
+    
    
     
     cell.groupPersonCount.text =[NSString stringWithFormat:@"%@",[groupInfo objectForKey:keyForGroupPersonCount]];

@@ -47,7 +47,10 @@ static NSString *const defaultCommentString = @"댓글달기..";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //텍스트에따른 전체 테이블뷰의 크기를 재설정하기위해서 공백으로 설정
-  //  self.articleTextView.text = @"";
+    self.articleTextView.text = @"";
+   
+    
+ 
     //새로운 다이어리가 보일때 기존에 있던 댓글들 모두 삭제
     [[DiaryModel sharedData].commentsInfo removeAllObjects];
          [self.defaultView setValue:@NO forKeyPath:@"hidden"];
@@ -103,6 +106,7 @@ static NSString *const defaultCommentString = @"댓글달기..";
         
             }
     }];
+     [self.commentTableView setContentOffset:CGPointMake(0, 0)];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -142,7 +146,6 @@ static NSString *const defaultCommentString = @"댓글달기..";
     
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressForTableView:)];
     
-    
     [self.commentTableView addGestureRecognizer:longPressGesture];
 }
 // 하단 댓글 뷰를 길게 눌렀을 때
@@ -154,7 +157,7 @@ static NSString *const defaultCommentString = @"댓글달기..";
         
         
         DiaryModel *diaryData = [DiaryModel sharedData];
-        NSLog(@"코멘트 유저아이디:%ld",[diaryData commentUserPkOfCommentsInfo:indexPath.row]);
+      
         if( [[MyInfoModel sharedData] myIdOfMyInfo]==[diaryData commentUserPkOfCommentsInfo:indexPath.row]){
         
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -182,11 +185,14 @@ static NSString *const defaultCommentString = @"댓글달기..";
 #pragma -mark keyBoard Notification methods
 - (void)showKeyBoardMode:(NSNotification *)notification{
   
+    
     if(notification.name == UIKeyboardWillShowNotification){
         self.keyboardHeight = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
         if(self.isFoldingMode==NO){
             
         } else {
+            
+            
                  [UIView animateWithDuration:1.0f animations:^{
                 self.commentTableX.constant = -self.keyboardHeight;
                 self.inputCommentViewBottom.constant = self.keyboardHeight;
@@ -205,10 +211,12 @@ static NSString *const defaultCommentString = @"댓글달기..";
     if(notification.name == UIKeyboardWillHideNotification){
         [UIView animateWithDuration:1.0f animations:^{
             self.inputCommentViewBottom.constant = 0;
+           
             [self.view layoutIfNeeded];
         }];
         self.isFoldingMode = YES;
         self.commentTextView.textColor = [UIColor grayColor];
+    
     }
 }
 
@@ -219,6 +227,7 @@ static NSString *const defaultCommentString = @"댓글달기..";
         
         [self.commentTableView.tableHeaderView setFrame:CGRectMake(0, 0, self.commentTableView.tableHeaderView.frame.size.width, self.articleTextView.contentSize.height+400)];
         [self.commentTableView setContentSize:CGSizeMake(self.commentTableView.frame.size.width, self.commentTableView.contentSize.height+self.articleTextView.contentSize.height)];
+        NSLog(@"%lf",self.commentTableView.contentSize.height);
     }
 }
 
@@ -230,7 +239,6 @@ static NSString *const defaultCommentString = @"댓글달기..";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    NSLog(@"DIarycomment%ld",[DiaryModel sharedData].commentsInfo.count);
     return [DiaryModel sharedData].commentsInfo.count ;
 }
 
@@ -349,8 +357,8 @@ static NSString *const defaultCommentString = @"댓글달기..";
 
 //댓글을 쓸고 올리기버튼을 눌렀을때
 - (IBAction)touchInSidePostButton:(id)sender {
-    [_articleTextView becomeFirstResponder];
-    [_articleTextView resignFirstResponder];
+   
+    [self.commentTextView resignFirstResponder];
     
     [NetworkingCenter createCommentsForDiaryID:[[DiaryModel sharedData] seletedDiaryPK] content:self.commentTextView.text handler:^(NSDictionary *createCommentHandler) {
         self.commentTextView.text = defaultCommentString;
@@ -415,6 +423,17 @@ static NSString *const defaultCommentString = @"댓글달기..";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+
 }
 
 @end

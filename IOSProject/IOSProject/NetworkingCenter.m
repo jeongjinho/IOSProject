@@ -62,7 +62,7 @@ static NSString *const createComment = @"content";
     
 }
 #pragma -mark create Group method
-+ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(requestHandler)handler{
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image  handler:(requestHandler)handler{
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
     [bodyParams setObject:name forKey:groupName];
@@ -72,7 +72,7 @@ static NSString *const createComment = @"content";
         
         [formData appendPartWithFileData:imageData
                                     name:groupImage
-                                fileName:fileName
+                                fileName:@"image.png"
                                 mimeType:@"image/png"];
     } error:nil];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
@@ -270,18 +270,18 @@ static NSString *const createComment = @"content";
     [bodyParams setObject:postText forKey:content];
     
     NSString *groupURL = [postDiaryURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupId]];
-    NSLog(@"그룹 유알엘 :%@",groupURL);
+   
    
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         
         for ( NSInteger i=0;i<imageInfos.count;i++) {
             
-            NSData *imageData = UIImageJPEGRepresentation([imageInfos[i] objectForKey:@"image"],0.1);
-            NSString *fileName = [imageInfos[i] objectForKey:@"fileName"];
+            NSData *imageData = UIImageJPEGRepresentation(imageInfos[i],0.1);
+            
             [formData appendPartWithFileData:imageData
                                         name:photos
-                                    fileName:fileName
+                                    fileName:@"image.png"
                                     mimeType:@"image/png"];
         }
         

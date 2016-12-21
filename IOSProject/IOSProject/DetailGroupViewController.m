@@ -81,7 +81,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    //You may want to create a divider to scale the size by the way..
     return CGSizeMake(self.centerCollectionView.frame.size.width/2-15,self.centerCollectionView.frame.size.height/5*4.5);
 }
 
@@ -108,9 +107,9 @@
     NSDictionary *diary = [diaryData diaryInResultForIndexPath:indexPath.row];
     diaryData.seletedDiaryPK = [[diary objectForKey:@"pk"] integerValue];
     //셀선택시 readVC로 이동
-//    ReadDiaryViewController *readVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReadVC"];
-  //  readVC.segueIdentifier = @"ReadVC";
-    //[self.navigationController pushViewController:readVC animated:YES];
+    ReadDiaryViewController *readVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReadVC"];
+    readVC.segueIdentifier = @"ReadVC";
+    [self.navigationController pushViewController:readVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -132,14 +131,7 @@
         }];
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

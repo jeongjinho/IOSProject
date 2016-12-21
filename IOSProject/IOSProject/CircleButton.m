@@ -12,18 +12,33 @@
 
 
 
-- (void)drawRect:(CGRect)rect {
-   
-    self.layer.cornerRadius = self.frame.size.width/2;
-    self.backgroundColor =mainPurpleColor;
-     self.titleLabel.textColor = mainPurpleColor;
-    self.layer.borderColor = mainPurpleColor.CGColor;
-     self.clipsToBounds = YES;
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        [self butttonIntialize];
+    }
+    return self;
 }
--(void)awakeFromNib{
+-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+    
+    [super drawLayer:layer inContext:ctx];
+    
+    
+}
 
-    [super awakeFromNib];
-
+- (void)butttonIntialize{
+    self.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.layer.cornerRadius = self.frame.size.width/2;
+    self.titleLabel.textColor = [UIColor whiteColor];
+   self.layer.borderColor = mainPurpleColor.CGColor;
+    self.clipsToBounds = YES;
+    self.layer.cornerRadius = self.bounds.size.width/2;
+    self.layer.borderColor = mainPurpleColor.CGColor;
+    self.layer.borderWidth = 2.0f;
+    self.backgroundColor = mainPurpleColor;
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 @end
