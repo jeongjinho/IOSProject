@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B08F8F31E0860D700233F66 /* UILabel+SeparatedBold.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B08F8F21E0860D700233F66 /* UILabel+SeparatedBold.m */; };
+		7B08F8F61E08622600233F66 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B08F8F51E08622600233F66 /* CircleImageView.m */; };
+		7B08F8F91E087C6500233F66 /* TopBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B08F8F81E087C6500233F66 /* TopBorderView.m */; };
+		7B08F9051E0AA92D00233F66 /* CustomIndicateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B08F9041E0AA92D00233F66 /* CustomIndicateView.m */; };
 		7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2215911E070949009B59E9 /* MyInfoModel.m */; };
 		7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B257A061DF160680039624C /* KeychainItemWrapper.m */; };
 		7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B304E951E028C2500275674 /* CommentTableViewCell.m */; };
@@ -52,6 +56,14 @@
 /* Begin PBXFileReference section */
 		1C39EB9C6ABD31511D5C670D /* Pods-IOSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		766630537B85BE0AE116F902 /* Pods-IOSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-IOSProject/Pods-IOSProject.release.xcconfig"; sourceTree = "<group>"; };
+		7B08F8F11E0860D700233F66 /* UILabel+SeparatedBold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+SeparatedBold.h"; sourceTree = "<group>"; };
+		7B08F8F21E0860D700233F66 /* UILabel+SeparatedBold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+SeparatedBold.m"; sourceTree = "<group>"; };
+		7B08F8F41E08622600233F66 /* CircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageView.h; sourceTree = "<group>"; };
+		7B08F8F51E08622600233F66 /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
+		7B08F8F71E087C6500233F66 /* TopBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopBorderView.h; sourceTree = "<group>"; };
+		7B08F8F81E087C6500233F66 /* TopBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopBorderView.m; sourceTree = "<group>"; };
+		7B08F9031E0AA92D00233F66 /* CustomIndicateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIndicateView.h; sourceTree = "<group>"; };
+		7B08F9041E0AA92D00233F66 /* CustomIndicateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIndicateView.m; sourceTree = "<group>"; };
 		7B2215901E070949009B59E9 /* MyInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoModel.h; sourceTree = "<group>"; };
 		7B2215911E070949009B59E9 /* MyInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoModel.m; sourceTree = "<group>"; };
 		7B257A061DF160680039624C /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -205,6 +217,7 @@
 				7B4FB88D1DEBFD3100DDAA93 /* AppDelegate.m */,
 				7B257A061DF160680039624C /* KeychainItemWrapper.m */,
 				7B257A071DF160680039624C /* KeychainItemWrapper.h */,
+				7BB49A9E1E0AE6910060BB6A /* customComponent */,
 				7B2215941E070E79009B59E9 /* ReadingPage */,
 				7B2215931E070E68009B59E9 /* MyInfoModel */,
 				7BCC4C571DFFCB8000CBE37F /* DiaryModel */,
@@ -276,8 +289,6 @@
 				7BCA8BE51DED97530049F62A /* DetailGroupViewController.m */,
 				7BCA8BEA1DEDAD440049F62A /* DetailCollectionViewCell.h */,
 				7BCA8BEB1DEDAD440049F62A /* DetailCollectionViewCell.m */,
-				7BCA8BE71DED9C330049F62A /* CustomViewBorder.h */,
-				7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */,
 			);
 			name = DetailPage;
 			sourceTree = "<group>";
@@ -318,12 +329,29 @@
 				7B5104C41DF3FE7600A00EFF /* WritingConfirmPageViewController.m */,
 				7BA02C361DF59785008213B9 /* SearchPhoneNumberTableViewCell.h */,
 				7BA02C371DF59785008213B9 /* SearchPhoneNumberTableViewCell.m */,
+			);
+			name = WritinConfirmPage;
+			sourceTree = "<group>";
+		};
+		7BB49A9E1E0AE6910060BB6A /* customComponent */ = {
+			isa = PBXGroup;
+			children = (
+				7B08F9031E0AA92D00233F66 /* CustomIndicateView.h */,
+				7B08F9041E0AA92D00233F66 /* CustomIndicateView.m */,
 				7B5104C71DF402C400A00EFF /* MainColorTextField.h */,
 				7B5104C81DF402C400A00EFF /* MainColorTextField.m */,
 				7BA02C391DF5AE9E008213B9 /* CircleButton.h */,
 				7BA02C3A1DF5AE9E008213B9 /* CircleButton.m */,
+				7B08F8F11E0860D700233F66 /* UILabel+SeparatedBold.h */,
+				7B08F8F21E0860D700233F66 /* UILabel+SeparatedBold.m */,
+				7B08F8F41E08622600233F66 /* CircleImageView.h */,
+				7B08F8F51E08622600233F66 /* CircleImageView.m */,
+				7B08F8F71E087C6500233F66 /* TopBorderView.h */,
+				7B08F8F81E087C6500233F66 /* TopBorderView.m */,
+				7BCA8BE71DED9C330049F62A /* CustomViewBorder.h */,
+				7BCA8BE81DED9C330049F62A /* CustomViewBorder.m */,
 			);
-			name = WritinConfirmPage;
+			name = customComponent;
 			sourceTree = "<group>";
 		};
 		7BCC4C571DFFCB8000CBE37F /* DiaryModel */ = {
@@ -539,6 +567,7 @@
 				7C63A05B1DF10ABD005FD2E4 /* ViewUpBorder.m in Sources */,
 				7CE362461DEC09630048A634 /* SignUpViewController.m in Sources */,
 				7BCC4C561DFEEBBC00CBE37F /* DiaryModel.m in Sources */,
+				7B08F8F91E087C6500233F66 /* TopBorderView.m in Sources */,
 				7BBC15051DF53CAC0084933C /* UtilityClass.m in Sources */,
 				7B304E961E028C2500275674 /* CommentTableViewCell.m in Sources */,
 				7B2215921E070949009B59E9 /* MyInfoModel.m in Sources */,
@@ -552,10 +581,12 @@
 				7BCA8BE91DED9C330049F62A /* CustomViewBorder.m in Sources */,
 				7B4FB8AD1DEC1F8C00DDAA93 /* SearchViewController.m in Sources */,
 				7CE362621DEC1FC80048A634 /* ReadViewController.m in Sources */,
+				7B08F9051E0AA92D00233F66 /* CustomIndicateView.m in Sources */,
 				7C63A05E1DF10DAE005FD2E4 /* CommentBorder.m in Sources */,
 				7B4FB8BE1DEC3D8F00DDAA93 /* NetworkingCenter.m in Sources */,
 				7BF803BE1DFC539F003A9DC9 /* WriteDiaryViewController.m in Sources */,
 				7BA02C381DF59785008213B9 /* SearchPhoneNumberTableViewCell.m in Sources */,
+				7B08F8F61E08622600233F66 /* CircleImageView.m in Sources */,
 				7BA02C3B1DF5AE9E008213B9 /* CircleButton.m in Sources */,
 				7BBB81101DF2A4180039219A /* WriteCollectionViewCell.m in Sources */,
 				7B4FB8A61DEBFF0100DDAA93 /* LoginViewController.m in Sources */,
@@ -564,6 +595,7 @@
 				7B257A081DF160680039624C /* KeychainItemWrapper.m in Sources */,
 				7BCA8BEC1DEDAD450049F62A /* DetailCollectionViewCell.m in Sources */,
 				7C63A0671DF294BF005FD2E4 /* Setting.m in Sources */,
+				7B08F8F31E0860D700233F66 /* UILabel+SeparatedBold.m in Sources */,
 				7B5104C51DF3FE7600A00EFF /* WritingConfirmPageViewController.m in Sources */,
 				7BF0CA861DEF256A000227D4 /* WriteViewController.m in Sources */,
 			);

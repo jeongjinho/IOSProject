@@ -10,5 +10,5 @@
 
 @interface WritingConfirmPageViewController : UIViewController
 @property (strong,nonatomic) UIImage *groupMainImage;
-@property (strong,nonatomic)NSString *groupMainImageFileName;
+
 @end

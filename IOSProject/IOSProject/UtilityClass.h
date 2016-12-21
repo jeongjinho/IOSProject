@@ -14,8 +14,13 @@
 + (NSString *)GetUTF8String:(NSString *)str;
 + (NSString *)tokenForHeader;
 + (NSMutableArray *)loadImageInDevicePhotoLibray;
-+ (NSDictionary *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height;
+//+ (UIImage *)selectedImageInDevicePhotoLibray:(NSInteger)row widthSize:(CGFloat)width heightSize:(CGFloat)height;
++ (UIImage *)selectedImageInDevicePhotoLibray:(NSInteger)row;
+
 + (UIImage *)resizingImage:(UIImage *)image widthSize:(CGFloat)widthSize heightSize:(CGFloat)heightSize;
 
 + (NSString *)fomatPhoneNumberString:(NSArray*)phoneNumbers;
+
++ (NSString *)koreaTimefomattingForCurrentDate:(NSDate *)currentDate;
++ (NSArray *)callPhoneNumberInfoAtDevice;
 @end

@@ -62,22 +62,21 @@ static NSString *const createComment = @"content";
     
 }
 #pragma -mark create Group method
-+ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image groupImageFileName:(NSString *)fileName handler:(createNewGroupHandler)handler{
++ (void)creatNewGroupWithGroupTitle:(NSString *)name groupImage:(UIImage *)image  handler:(requestHandler)handler{
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
     [bodyParams setObject:name forKey:groupName];
 
-   NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImageJPEGRepresentation(image,0.1);
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileData:imageData
                                     name:groupImage
-                                fileName:fileName
+                                fileName:@"image.png"
                                 mimeType:@"image/png"];
     } error:nil];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
-    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+       AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 
     NSURLSessionUploadTask *uploadTask;
     
@@ -103,7 +102,7 @@ static NSString *const createComment = @"content";
 }
 
 #pragma -mark groupList method
-+ (void)showGroupList:(groupListHandler)handler{
++ (void)showGroupList:(requestHandler)handler{
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
     [request setURL:[NSURL URLWithString:groupURLString]];
@@ -134,7 +133,7 @@ static NSString *const createComment = @"content";
    [dataTask resume];
 }
 
-+ (void)deleteGroupForGroupID:(NSInteger)groupID handler:(deleteGroupHandler)handler{
++ (void)deleteGroupForGroupID:(NSInteger)groupID handler:(requestHandler)handler{
     
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
@@ -172,7 +171,7 @@ static NSString *const createComment = @"content";
 
 
 #pragma -mark login method
-+ (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(loginHandler)loginHandler{
++ (void)loginWithEmail:(NSString *)emailAddress password:(NSString *)password loginHandler:(requestHandler)loginHandler{
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     
@@ -230,6 +229,10 @@ static NSString *const createComment = @"content";
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:signUpURLString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         
+        [formData appendPartWithFileData:image
+                                    name:imageString
+                                fileName:@"image.png"
+                                mimeType:@"image/png"];
     } error:nil];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -259,7 +262,7 @@ static NSString *const createComment = @"content";
     
 }
 
-+ (void)postDiaryWithGroupId:(NSInteger)groupId postText:(NSString *)postText selectedImages:(NSArray *)imageInfos postDiaryHander:(postDiaryHandler)handler{
++ (void)postDiaryWithGroupId:(NSInteger)groupId postText:(NSString *)postText selectedImages:(NSArray *)imageInfos postDiaryHander:(requestHandler)handler{
     
     NSString *groupIdString = [NSString stringWithFormat:@"%ld",groupId];
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
@@ -267,21 +270,18 @@ static NSString *const createComment = @"content";
     [bodyParams setObject:postText forKey:content];
     
     NSString *groupURL = [postDiaryURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupId]];
-    NSLog(@"그룹 유알엘 :%@",groupURL);
+   
    
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:groupURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         
         for ( NSInteger i=0;i<imageInfos.count;i++) {
             
-            NSData *imageData = UIImageJPEGRepresentation([imageInfos[i] objectForKey:@"image"],0.1);
-            NSString *fileName = [imageInfos[i] objectForKey:@"fileName"];
-         //   NSLog(@"imageData :%@",imageData);
-            NSLog(@"파일내임 :%@",fileName);
+            NSData *imageData = UIImageJPEGRepresentation(imageInfos[i],0.1);
             
             [formData appendPartWithFileData:imageData
                                         name:photos
-                                    fileName:fileName
+                                    fileName:@"image.png"
                                     mimeType:@"image/png"];
         }
         
@@ -303,8 +303,8 @@ static NSString *const createComment = @"content";
                           NSLog(@"Error: %@", error);
                           handler(fail);
                       } else {
-                            
-                          NSLog(@"응답객체 :%@",responseObject);
+                          NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject];
+                          [DiaryModel sharedData].seletedDiaryPK = [[dic objectForKey:@"pk"] integerValue];
                           handler(succcess);
                       }
                   }];
@@ -312,15 +312,16 @@ static NSString *const createComment = @"content";
     [uploadTask resume];
 }
 
-+ (void)diaryListForGroupID:(NSInteger)groupID handler:(diaryListHandler)handler{
++ (void)diaryListForGroupID:(NSInteger)groupID handler:(requestHandler)handler{
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
     
     NSString *diaryURL = [diaryListURLString stringByAppendingString:[NSString stringWithFormat:@"%ld/",groupID]];
-    NSLog(@"다이어리리스트 :%@",diaryURL);
+   
     [request setURL:[NSURL URLWithString:diaryURL]];
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
+    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
@@ -353,7 +354,7 @@ static NSString *const createComment = @"content";
 }
 
 
-+ (void)diaryListForNextURL:(NSString *)nextURL handler:(nextPageHandler)handler{
++ (void)diaryListForNextURL:(NSString *)nextURL handler:(requestHandler)handler{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
@@ -374,13 +375,12 @@ static NSString *const createComment = @"content";
                 NSLog(@"success");
                 NSMutableDictionary *dic = responseObject;
                 if([[dic objectForKey:@"next"] isKindOfClass:[NSNull class]]){
-                    NSLog(@" next:%@",[dic objectForKey:@"next"]);
+                 
                     [[DiaryModel sharedData].diaryList removeObjectForKey:@"next"];
                     
                 } else{
                    
                     [[DiaryModel sharedData].diaryList setValue:[dic objectForKey:@"next"] forKey:@"next"];
-                
                 
                 }
                 NSArray *addArray =[dic objectForKey:@"results"];
@@ -406,27 +406,34 @@ static NSString *const createComment = @"content";
     [dataTask resume];
 }
 
-+ (void)invitePersonsOfGroupForPhoneNumber:(NSArray *)selectedPersons groupID:(NSInteger)groupID handler:(invitePersonsHandler)handler{
++ (void)invitePersonsOfGroupForPhoneNumber:(NSArray *)selectedPersons groupID:(NSInteger)groupID handler:(requestHandler)handler{
     //그룹아이디 url주소에 붙이기
     NSString *groupIdString = [NSString stringWithFormat:@"%ld/",groupID];
     NSString *groupPk = [NSString stringWithFormat:@"%ld",groupID];
     NSString *urlString = [inviteGroupPersonsURLString stringByAppendingString:groupIdString];
     
-    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
+    NSDictionary *bodyParams = [[NSDictionary alloc]init];
     
-    [bodyParams setObject:groupPk forKey:@"group_pk"];
-    [bodyParams setObject:selectedPersons[1] forKey:phoneNumberString];
+//    [bodyParams setObject:groupPk forKey:@"group_pk"];
+//    [bodyParams setObject:selectedPersons forKey:@"phone_number"];
     
-    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
-        
-    } error:nil];
+    bodyParams =@{
+                  @"group_pk":groupPk,
+                  @"phone_number":selectedPersons
+                      };
+    NSLog(@"바디파람%@",bodyParams);
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlString parameters:bodyParams error:
+                                    nil];
+                                    
+                                
+    
     [request setValue:[UtilityClass tokenForHeader] forHTTPHeaderField:authorization];
-    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
+      [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
+    NSLog(@"requestHeader :%@",request.allHTTPHeaderFields);
+
     NSURLSessionUploadTask *uploadTask;
-    
     uploadTask = [manager
                   uploadTaskWithStreamedRequest:request
                   progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -437,10 +444,13 @@ static NSString *const createComment = @"content";
                           
                           NSLog(@"Error: %@", error);
                           handler(fail);
+
                       } else {
                           
-                          NSLog(@"응답객체 :%@",responseObject);
-                          handler(succcess);
+                          NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
+                          NSString *strDic = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                          NSLog(@">>>>>> %s - %@", __func__, strDic);
+                            handler(succcess);
                       }
                   }];
     
@@ -449,7 +459,7 @@ static NSString *const createComment = @"content";
 }
 
 
-+ (void)diaryForPostID:(NSInteger)diaryID handler:(diayInfoHandler)handler{
++ (void)diaryForPostID:(NSInteger)diaryID handler:(requestHandler)handler{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
@@ -490,7 +500,7 @@ static NSString *const createComment = @"content";
     
 }
 
-+ (void)myInfoAtApp:(myInfoHandler)handler{
++ (void)myInfoAtApp:(requestHandler)handler{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"GET";
@@ -523,7 +533,7 @@ static NSString *const createComment = @"content";
     [dataTask resume];
 }
 
-+ (void)deleteFordiaryID:(NSInteger)diaryID handler:(deleteHandler)handler{
++ (void)deleteFordiaryID:(NSInteger)diaryID handler:(requestHandler)handler{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     request.HTTPMethod = @"DELETE";
@@ -561,7 +571,7 @@ static NSString *const createComment = @"content";
     
 }
 
-+ (void)likeForDiaryID:(NSInteger)diaryID handler:(likeHandler)handler{
++ (void)likeForDiaryID:(NSInteger)diaryID handler:(requestHandler)handler{
 
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
@@ -595,7 +605,7 @@ static NSString *const createComment = @"content";
     }];
     [dataTask resume];
 }
-+ (void)dislikeForDiaryID:(NSInteger)diaryID handler:(dislikeHandler)handler{
++ (void)dislikeForDiaryID:(NSInteger)diaryID handler:(requestHandler)handler{
     
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
@@ -631,7 +641,7 @@ static NSString *const createComment = @"content";
     [dataTask resume];
 }
 #pragma -mark modifyContent
-+ (void)modifyContentForDiaryID:(NSInteger)diaryID content:(NSString *)content handler:(diayInfoHandler)handler{
++ (void)modifyContentForDiaryID:(NSInteger)diaryID content:(NSString *)content handler:(requestHandler)handler{
     NSLog(@"content%@",content);
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc]init];
@@ -711,7 +721,7 @@ static NSString *const createComment = @"content";
     [dataTask resume];
 }
 
-+ (void)deleteCommentsForCommentID:(NSInteger)commentID handler:(deleteCommentHandler)handler{
++ (void)deleteCommentsForCommentID:(NSInteger)commentID handler:(requestHandler)handler{
     
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
@@ -735,7 +745,7 @@ static NSString *const createComment = @"content";
                 NSLog(@"obj:%@",responseObject);
                 
                 
-                [DiaryModel sharedData].likeInfo = responseObject;
+              //  [DiaryModel sharedData].likeInfo = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     handler(succcess);
